@@ -1,0 +1,22 @@
+@startuml OOPomanContext
+left to right direction
+
+actor Student
+actor "Course owner\n(Roman)" as Owner
+rectangle "OOPoman local site\n(runs in the student's browser)" as Site {
+  component "Welcome, lessons,\ninteractive checks, points" as CourseUI
+  component "Week availability\n(Week 1 initially open)" as Availability
+}
+folder "OOP-course/\n(owner-provided course files)" as Materials
+
+Student --> CourseUI : learns and completes activities
+CourseUI --> Materials : reads course content
+Owner --> Availability : authorizes opening Weeks 2 and 3
+
+note bottom of Site
+  Local use only. No project-owned server,
+  database, registration, or authentication.
+  Score persistence and code execution design
+  remain open decisions.
+end note
+@enduml
