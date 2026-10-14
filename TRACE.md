@@ -54,3 +54,10 @@ This file records material owner instructions and accepted decisions for continu
 - Roman is preparing to add the course files to `OOP-course/`. Keep the open Challenge question about checking `file://` and Chrome extension compatibility pending; do not proceed with that check until Roman gives the go-ahead.
 
 **Disposition:** Researcher is to hold at the current checkpoint and wait for Roman's explicit go-ahead.
+
+## 2026-10-14 — INIT course-file inspection authorization
+
+- Roman authorized the Researcher to inspect the newly added `OOP-course/` files for INIT and reiterated that the current phase is initialization only.
+- Limit this inspection to understanding the supplied files and their local-use compatibility. Do not create or modify the site, transform or author course content, or make owner-reserved product decisions.
+
+**Disposition:** Resume the bounded Researcher Challenge with the course files available as evidence; keep implementation out of scope.
