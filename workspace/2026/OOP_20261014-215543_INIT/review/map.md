@@ -41,7 +41,7 @@ No TS exists for INIT. RF explicitly uses the owner-approved initialization crit
 ## Checkpoint
 
 **Self-check:**
-- [x] Read RF §§1–5 and governing HL purpose/principles and acceptance boundaries; TS is N/A, and there is no ONB. RF-referenced RES and changed-file predecessors remain in the Verify selection.
+- [x] Read RF §§1–5 and governing HL purpose/principles and acceptance boundaries; TS is N/A, and there is no ONB. The two RF-referenced RES predecessors were selected here and opened at Verify V3 before judgment; this sequencing deviation is recorded as O3.
 - [x] Mapped every material accepted claim and the mandatory safety/security, authority and result-identity boundaries.
 - [x] Bound each claim to affected behavior/dependencies, environment, oracle/authority and exact evidence identity.
 - [x] Recorded a replayable verification selection and known gaps or limits.
