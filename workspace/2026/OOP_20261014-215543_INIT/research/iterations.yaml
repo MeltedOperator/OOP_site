@@ -7,5 +7,10 @@ iterations:
   - number: 1
     focus: "Проверить проектные рамки OOPoman, учебный поток и технические ограничения, выделив решения, которые действительно меняют последующий план."
     hypotheses: [H1, H2, H3, H4, H5]
-    status: pending
+    status: complete
     res_file: research/iter1/RES.md
+  - number: 2
+    focus: "Уточнить по первичным источникам Chrome и выборочной проверке оставшихся материалов: доступ к отдельной папке OOP-course при file:// и Chrome extension, ограничения полностью локального Python runner и необходимые локальные требования учебных материалов. Не выбирать стек, модель безопасности, политику прогресса или переработку курса."
+    hypotheses: [H1, H2, H5]
+    status: pending
+    res_file: research/iter2/RES.md
