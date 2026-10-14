@@ -29,3 +29,10 @@ This file records material owner instructions and accepted decisions for continu
 - Roman directed the Coordinator to prepare the research iteration entry and pass the task to Researcher.
 
 **Disposition:** Iteration control prepared under the INIT task. Researcher activation remains subject to the task's valid TFW routing and activation record.
+
+## 2026-10-14 — Master-HL direction
+
+- Roman directed the Coordinator to prepare and freeze a master-HL with research hypotheses and a task-context link.
+- Roman's earlier authorization for a bounded Researcher role chat applies to the INIT research only; role work must follow the frozen mandate, use the shared checkout, and create no branch or worktree.
+
+**Disposition:** Prepare the HL as a reviewable draft, then apply the TFW freeze gate to its exact content before routing Researcher.
