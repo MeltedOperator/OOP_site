@@ -48,3 +48,9 @@ This file records material owner instructions and accepted decisions for continu
 - Roman requires the course to work fully without an Internet connection after local launch in Google Chrome.
 
 **Disposition:** Passed to the authorized Researcher as a binding compatibility requirement for INIT research. This does not select the application stack or persistence policy.
+
+## 2026-10-14 — Hold Challenge pending course files
+
+- Roman is preparing to add the course files to `OOP-course/`. Keep the open Challenge question about checking `file://` and Chrome extension compatibility pending; do not proceed with that check until Roman gives the go-ahead.
+
+**Disposition:** Researcher is to hold at the current checkpoint and wait for Roman's explicit go-ahead.
