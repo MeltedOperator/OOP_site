@@ -61,3 +61,10 @@ This file records material owner instructions and accepted decisions for continu
 - Limit this inspection to understanding the supplied files and their local-use compatibility. Do not create or modify the site, transform or author course content, or make owner-reserved product decisions.
 
 **Disposition:** Resume the bounded Researcher Challenge with the course files available as evidence; keep implementation out of scope.
+
+## 2026-10-14 — INIT launch-mode check scope
+
+- Roman clarified that the Researcher should check both local launch options for INIT: `file://` and Chrome extension, using the supplied `OOP-course/` files as relevant evidence.
+- This remains initialization research only. Do not build an extension, implement the site, or alter/transform course files.
+
+**Disposition:** Researcher may compare both modes for documented local/offline compatibility and report limitations to the Coordinator.
