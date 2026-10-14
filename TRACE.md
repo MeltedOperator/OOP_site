@@ -68,3 +68,11 @@ This file records material owner instructions and accepted decisions for continu
 - This remains initialization research only. Do not build an extension, implement the site, or alter/transform course files.
 
 **Disposition:** Researcher may compare both modes for documented local/offline compatibility and report limitations to the Coordinator.
+
+## 2026-10-14 — External links and OOPoman accounts
+
+- Roman allows external links in course materials to require an Internet connection.
+- OOPoman itself must have no learner accounts, registration, or authentication.
+- This decision addresses the website boundary; it does not decide whether an external service such as GitHub may require its own account.
+
+**Disposition:** Researcher should distinguish external network/account requirements from OOPoman's own offline and no-account guarantees; preserve the external-account question as open unless Roman resolves it.
