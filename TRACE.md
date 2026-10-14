@@ -76,3 +76,9 @@ This file records material owner instructions and accepted decisions for continu
 - This decision addresses the website boundary; it does not decide whether an external service such as GitHub may require its own account.
 
 **Disposition:** Researcher should distinguish external network/account requirements from OOPoman's own offline and no-account guarantees; preserve the external-account question as open unless Roman resolves it.
+
+## 2026-10-14 — Third-party account requirements are out of scope
+
+- Roman clarified that a third-party account requirement such as GitHub is outside OOPoman's website boundary and is not a requirement of this web project.
+
+**Disposition:** Do not treat external account requirements as an OOPoman feature or unresolved product decision. Keep the website itself account-free; external links may still require Internet as previously authorized.
