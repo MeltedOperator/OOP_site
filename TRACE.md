@@ -82,3 +82,9 @@ This file records material owner instructions and accepted decisions for continu
 - Roman clarified that a third-party account requirement such as GitHub is outside OOPoman's website boundary and is not a requirement of this web project.
 
 **Disposition:** Do not treat external account requirements as an OOPoman feature or unresolved product decision. Keep the website itself account-free; external links may still require Internet as previously authorized.
+
+## 2026-10-14 — Course files supplied
+
+- Roman added course materials to the root `OOP-course/` directory. The files remain source material and must not be modified during INIT.
+
+**Disposition:** 38 PDFs were observed under `OOP-course/`; the North Star and README now describe the supplied directory.

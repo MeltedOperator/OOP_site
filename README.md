@@ -9,4 +9,4 @@ OOPoman is a local-first three-week OOP course for second-year students. The app
 - [TFW release workflow](.tfw/workflows/release.md) — no project release procedure is defined; no deployment is planned.
 - [Selected trace: INIT](workspace/2026/OOP_20261014-215543_INIT/status.md)
 
-Course materials will be placed in the root `OOP-course/` directory when Roman provides them. UML architecture and structure diagrams belong in `architecture/`.
+Course materials are in the root `OOP-course/` directory. UML architecture and structure diagrams belong in `architecture/`.

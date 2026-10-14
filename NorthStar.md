@@ -21,7 +21,7 @@ The course awards 500 points in total. Code contributes 100 points through sever
 
 - Run locally in a browser; do not deploy the site.
 - Do not add a project-owned server, database, registration, or authentication.
-- Roman will provide the course source files later in a root-level `OOP-course/` directory. Keep course content there, separate from application code; do not invent or populate that directory before the source material is provided.
+- Course source files are provided in the root-level `OOP-course/` directory. Keep course content there, separate from application code; preserve the supplied files.
 - Keep the interface simple, intuitive, and visually clear, with well-designed controls.
 - Keep the project easy to navigate. Store UML architecture and structure diagrams under `architecture/`.
 - This is a learning project for Roman to practice the TFW Full workflow as well as to build the course site.

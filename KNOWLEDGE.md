@@ -24,7 +24,9 @@ records under `knowledge/records/`; preserve future legacy identities and meanin
 
 ## 2. Key Artifacts
 
-No project artifact has been selected yet. Add only useful source routes, not a list of every task.
+Project purpose and scope: [NorthStar.md](NorthStar.md). Owner instructions: [TRACE.md](TRACE.md).
+Current initialization trace: [INIT status](workspace/2026/OOP_20261014-215543_INIT/status.md).
+Course source PDFs: root `OOP-course/`. Add only useful source routes, not a list of every task.
 
 ## 3. Legacy & Deprecation
 

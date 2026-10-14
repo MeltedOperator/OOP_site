@@ -127,9 +127,6 @@ tfw:
       emoji: "❌"
       description: "Closed unsuccessfully, terminal, trace retained"
 
-build:                                # ← PROJECT: set during init
-  lint: npm run lint
-  test: npm test
-# Set lint and test to real commands during init. A placeholder means the executor's
-# build gate in handoff.md verifies nothing.
+# No application runtime or build system has been selected. Configure real lint/test
+# commands with the first implementation task; do not treat framework setup as app validation.
 
