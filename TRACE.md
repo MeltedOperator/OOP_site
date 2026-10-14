@@ -17,3 +17,9 @@ This file records material owner instructions and accepted decisions for continu
 - INIT acceptance: set up TFW Full `v3.9.2`, create `NorthStar.md` and this `TRACE.md`, route the project README to TFW and the selected trace, and preserve product requirements and open scoring questions for later work. Do not build the site or create course materials during INIT.
 
 **Disposition:** Recorded as the project North Star, initial task scope, and deferred design questions. INIT proceeds through research, setup, and independent review.
+
+## 2026-10-14 — Role workspace boundary
+
+- Roman authorizes separate role chats for TFW Full and explicitly forbids creating a Git branch or worktree for them. Role chats must use the existing project checkout.
+
+**Disposition:** Keep role artifacts task-local and avoid overlapping edits; record this workspace constraint in INIT verification.

@@ -10,13 +10,13 @@ rectangle "OOPoman local site\n(runs in the student's browser)" as Site {
 folder "OOP-course/\n(owner-provided course files)" as Materials
 
 Student --> CourseUI : learns and completes activities
-CourseUI --> Materials : reads course content
+CourseUI --> Materials : consumes local course material
 Owner --> Availability : authorizes opening Weeks 2 and 3
 
 note bottom of Site
   Local use only. No project-owned server,
   database, registration, or authentication.
-  Score persistence and code execution design
-  remain open decisions.
+  Content delivery, score persistence, and code
+  execution design remain open decisions.
 end note
 @enduml
