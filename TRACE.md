@@ -23,3 +23,9 @@ This file records material owner instructions and accepted decisions for continu
 - Roman authorizes separate role chats for TFW Full and explicitly forbids creating a Git branch or worktree for them. Role chats must use the existing project checkout.
 
 **Disposition:** Keep role artifacts task-local and avoid overlapping edits; record this workspace constraint in INIT verification.
+
+## 2026-10-14 — Research iteration preparation
+
+- Roman directed the Coordinator to prepare the research iteration entry and pass the task to Researcher.
+
+**Disposition:** Iteration control prepared under the INIT task. Researcher activation remains subject to the task's valid TFW routing and activation record.
