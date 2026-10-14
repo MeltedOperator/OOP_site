@@ -88,3 +88,9 @@ This file records material owner instructions and accepted decisions for continu
 - Roman added course materials to the root `OOP-course/` directory. The files remain source material and must not be modified during INIT.
 
 **Disposition:** 38 PDFs were observed under `OOP-course/`; the North Star and README now describe the supplied directory.
+
+## 2026-10-14 — Limited independent review for INIT
+
+- Roman approved one limited independent Reviewer for INIT: review the fixed RF/evidence and TFW setup; do not modify product/config/RF/evidence/status/HL; do not create a branch or worktree; use the existing checkout serially.
+
+**Disposition:** Recorded as owner-initiated amendment A1 to the frozen INIT master-HL. This authority applies only to the current INIT review.
