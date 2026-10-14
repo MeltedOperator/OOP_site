@@ -42,3 +42,9 @@ This file records material owner instructions and accepted decisions for continu
 - Roman specified Google Chrome as the target browser environment for INIT research. Researcher should use this as a compatibility constraint and report documented limits; this does not authorize selecting the application stack or other owner-reserved product decisions.
 
 **Disposition:** Passed to the authorized Researcher for the current INIT iteration.
+
+## 2026-10-14 — INIT offline requirement
+
+- Roman requires the course to work fully without an Internet connection after local launch in Google Chrome.
+
+**Disposition:** Passed to the authorized Researcher as a binding compatibility requirement for INIT research. This does not select the application stack or persistence policy.
