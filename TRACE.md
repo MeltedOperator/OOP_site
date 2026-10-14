@@ -36,3 +36,9 @@ This file records material owner instructions and accepted decisions for continu
 - Roman's earlier authorization for a bounded Researcher role chat applies to the INIT research only; role work must follow the frozen mandate, use the shared checkout, and create no branch or worktree.
 
 **Disposition:** Prepare the HL as a reviewable draft, then apply the TFW freeze gate to its exact content before routing Researcher.
+
+## 2026-10-14 — INIT research environment
+
+- Roman specified Google Chrome as the target browser environment for INIT research. Researcher should use this as a compatibility constraint and report documented limits; this does not authorize selecting the application stack or other owner-reserved product decisions.
+
+**Disposition:** Passed to the authorized Researcher for the current INIT iteration.
