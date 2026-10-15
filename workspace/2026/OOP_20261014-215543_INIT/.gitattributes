@@ -1,0 +1,3 @@
+# Preserve exact bytes for economics hashes across Windows checkouts.
+economics.md -text
+economics/** -text

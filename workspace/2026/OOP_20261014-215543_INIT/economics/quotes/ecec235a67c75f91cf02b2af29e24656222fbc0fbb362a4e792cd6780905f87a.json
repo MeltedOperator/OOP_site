@@ -1,0 +1,41 @@
+{
+  "kind": "task_price_basis",
+  "observations": [
+    {
+      "checked_at": "2026-10-15T09:35:11Z",
+      "conditions": {
+        "context": "short context",
+        "processing": "API Standard",
+        "valuation": "current_revaluation"
+      },
+      "currency": "USD",
+      "effective_from": null,
+      "model": "gpt-6-luna",
+      "notes": [
+        "Current API Standard equivalent only, not Codex subscription or account billing.",
+        "Long-context threshold pricing follows the source page; actual request-size distribution is unavailable.",
+        "Current price revaluation; historical effective date is not established."
+      ],
+      "provider": "openai",
+      "published_on": null,
+      "quote_id": "d4c27a8166bf13963780d10b201be5126c50bccda68be36604c2eac27605dd32",
+      "rates": {
+        "cache_write_1h": "0.125",
+        "cache_write_5m": "0.125",
+        "cached": "0.01",
+        "fresh": "0.10",
+        "output": "0.50"
+      },
+      "schema_version": 1,
+      "source_evidence": {
+        "https://developers.openai.com/api/docs/models/gpt-6-luna": "879661a1628ac7888b7a3867b6dc818a9e44ea7f674541b6a88611e0f788244c"
+      },
+      "source_urls": [
+        "https://developers.openai.com/api/docs/models/gpt-6-luna"
+      ],
+      "unit": "per_1M_text_tokens"
+    }
+  ],
+  "schema_version": 1,
+  "valuation_kind": "current_revaluation"
+}
