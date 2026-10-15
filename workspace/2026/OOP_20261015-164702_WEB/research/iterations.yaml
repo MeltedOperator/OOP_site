@@ -1,0 +1,10 @@
+task_id: OOP_20261015-164702_WEB
+title: "Проверка офлайн-запуска и локального хранения прогресса в профиле Chrome"
+min_iterations: 2
+max_iterations: 3
+iterations:
+  - number: 1
+    focus: "Сравнить локальные режимы запуска OOPoman в Google Chrome и проверить, как каждый поддерживает офлайн-работу и хранение/сброс прогресса в профиле браузера без аккаунта или сервера."
+    hypotheses: [H1, H2]
+    status: pending
+    res_file: research/iter1/RES.md
