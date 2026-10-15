@@ -94,3 +94,19 @@ This file records material owner instructions and accepted decisions for continu
 - Roman approved one limited independent Reviewer for INIT: review the fixed RF/evidence and TFW setup; do not modify product/config/RF/evidence/status/HL; do not create a branch or worktree; use the existing checkout serially.
 
 **Disposition:** Recorded as owner-initiated amendment A1 to the frozen INIT master-HL. This authority applies only to the current INIT review.
+## 2026-10-15 — Команда для второй задачи после INIT
+
+- Roman запросил короткую команду для запуска именно второй задачи в другом чате OOPoman после завершённого INIT.
+- Создан пользовательский скилл `oop-start`: он передаёт запрос на каркас сайта существующему TFW Plan, сохраняет требования проекта и предполагает согласование плана перед реализацией.
+
+**Результат:** запуск в новом чате проекта командой `/oop-start` или явным вызовом `$oop-start`. Создание скилла не запускает разработку и не открывает повторно INIT.
+
+## 2026-10-15 — Повторное открытие INIT для экономиксов Reviewer
+
+- Roman распорядился: «открой на некоторое время INIT, передай инструкции повторно ревьюверу и после получи экономику».
+- Разрешено ограниченное продолжение закрытого INIT: Coordinator временно возвращает задачу в KNW, повторно активирует того же Reviewer для сбора только его собственного расхода, принимает числовой возврат и обновляет экономический отчёт.
+- Reviewer может проверить указанный точный кандидат собственного rollout по `session_meta.id`, читать разрешённые числовые поля, записать собственные JSONL и дополнить существующий REVIEW сведениями о покрытии. Отсутствующий первоначальный capture не объявляется существовавшим ранее: восстановление выполняется сейчас. Дополнительные обращения учитываются отдельно от исходного Review.
+- Прежнее APPROVE и принятый результат INIT сохраняются. Разработка сайта, новые роли, ветки/worktree и чтение чужих native sessions не входят в это продолжение.
+
+**Результат, который требуется:** проверенный возврат Reviewer и обновлённый economics.md; затем Coordinator возвращает INIT в DONE. Если измерение объективно недоступно, фиксирует конкретное препятствие и сообщает Roman.
+
