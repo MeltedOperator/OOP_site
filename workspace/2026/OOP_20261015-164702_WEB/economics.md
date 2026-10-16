@@ -47,8 +47,10 @@ reopened work needs a separate range.
 
 The user's request to measure tokens prompted one more check of the current Coordinator's own
 Codex task readback on 2026-10-16. It exposes turn timing and item types but no token/usage fields;
-the exact rollout `session_meta.id`, source path, version and range start remain unavailable. This
-is the same Coordinator unit, not a sixth contributor. No estimate or reconstructed token total is
+the exact rollout `session_meta.id`, source path, version and range start remain unavailable. A
+separate current-turn metadata check returns the same task thread ID and turn metadata, with no
+usage counters; the task thread ID is not substituted for the required rollout source ID. This is
+the same Coordinator unit, not a sixth contributor. No estimate or reconstructed token total is
 substituted.
 
 ## Supported conclusion
