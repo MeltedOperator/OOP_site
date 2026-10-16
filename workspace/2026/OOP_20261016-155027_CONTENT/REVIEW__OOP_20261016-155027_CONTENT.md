@@ -136,7 +136,7 @@ Producer: same Reviewer task `codex:thread:local:01a14512-e044-7713-a656-c2399df
 
 #### Follow-up return route
 
-The lifecycle remains `RF`; no status transition or journal event is required. After the follow-up is committed, send one `REVIEW_READY` to the same recorded Coordinator, pointing at the immutable current REVIEW and this bounded judgment. The Coordinator rules the still-open F1 route; the Reviewer does not capture browser evidence, dispatch the Executor, or change the implementation.
+The lifecycle remains `RF`; no status transition or journal event is required. Sent one `REVIEW_READY` to the recorded Coordinator at `2026-10-16T20:08:30+05:00`, referencing this REVIEW at `45d491fdebf84e874998bc12366ac3cc77da0044`. The Coordinator rules the still-open F1 route; the Reviewer does not capture browser evidence, dispatch the Executor, or change the implementation.
 
 #### Material handover at this return
 
