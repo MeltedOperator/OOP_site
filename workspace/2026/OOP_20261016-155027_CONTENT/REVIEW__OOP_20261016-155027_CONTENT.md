@@ -83,3 +83,9 @@ The exact `REVIEW_READY` delivery outcome is recorded above. This Reviewer invoc
 ---
 
 *REVIEW — OOP_20261016-155027_CONTENT | 2026-10-16*
+
+### Coordinator ruling R1 — 2026-10-16
+
+Roman approved the exact TS rev1 and unchanged denominator of 10 VALUE files / 2,400 LOC at approval commit `756075154fcd0b98e581ae7bbd5541a33e7d7160`. The owner further restricted this return: change only quiz/test content in Labs 1–3 (questions, options and answer keys needed for the 4+1 distribution). Do not change lectures, lab instructions, checklists, scoring rules, presentation, storage, navigation, PDFs or other course behavior. The exact quiz requirement is five questions per lab: four focused on OOP concepts and one on applying them to a domain example; emphasize encapsulation/invariants, `Decimal`/composition, and polymorphism/abstractions in the respective labs.
+
+F1 remains an ASSURANCE finding. The same Executor may record real Chrome evidence only through an already authorized browser route; the prior rejected `file:` URL does not authorize creating an alternate access route. If no permitted route is available, preserve the checks as BLOCKED and report that limitation; do not claim evidence. Candidate changes are limited to quiz content. This ruling resolves the round's next act: lifecycle is `TS_DRAFT`; the same Executor accepts the approved TS rev1, implements only the quiz changes, and returns RF for the existing Reviewer to reassess. F1 is not dismissed by the content correction.
