@@ -74,11 +74,11 @@ Producer: Reviewer task `codex:thread:local:01a14512-e044-7713-a656-c2399dfa72c7
 
 ### Immutable reference / delivery state
 
-The verdict and stage files are immutable at `93cb3c69c10a2f5dbc04bc398c34669695688b04`; the current REVIEW delivery-preflight update is also committed. `REVIEW_READY` delivery to the recorded Coordinator is pending; no lifecycle/status transition is required for REVISE.
+The verdict and stage files are immutable at `93cb3c69c10a2f5dbc04bc398c34669695688b04`; the current REVIEW delivery-preflight update was committed before signalling. `REVIEW_READY workspace/2026/OOP_20261016-155027_CONTENT/REVIEW__OOP_20261016-155027_CONTENT.md@f7ecd631ebe55c59cc1e324799ac3fd5db750d7b` was accepted by `send_message_to_thread` for the recorded Coordinator at `2026-10-16T19:33:48+05:00`. This signal covers the review round; no second signal or lifecycle/status transition is required for REVISE.
 
 ## 7. Stop
 
-The exact `REVIEW_READY` delivery outcome is recorded after the send. This Reviewer invocation ends at this durable proposed verdict. The Reviewer does not capture Chrome evidence, rule F1, move lifecycle to KNW/DONE, or repair implementation.
+The exact `REVIEW_READY` delivery outcome is recorded above. This Reviewer invocation ends at this durable proposed verdict. The Reviewer does not capture Chrome evidence, rule F1, move lifecycle to KNW/DONE, or repair implementation.
 
 ---
 
