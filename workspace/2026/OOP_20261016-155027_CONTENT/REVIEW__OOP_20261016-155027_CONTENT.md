@@ -84,6 +84,64 @@ The exact `REVIEW_READY` delivery outcome is recorded above. This Reviewer invoc
 
 *REVIEW — OOP_20261016-155027_CONTENT | 2026-10-16*
 
+---
+
+### Bounded follow-up — rev1 quiz changes
+
+**Continuation source:** owner-direct `/tfw-review CONTENT workspace/2026/OOP_20261016-155027_CONTENT/RF__OOP_20261016-155027_CONTENT.md@9987503d2c69eae7a247c443a90d0f7461152d44`. The current status still resolves to this task, owner-only activation, baseline selection, `native-gates`, and the same Coordinator route. The current immutable RF records the rev1 return and its linked EV. The authority is the Coordinator's R1 ruling in this live REVIEW and the owner-approved TS rev1 at `756075154fcd0b98e581ae7bbd5541a33e7d7160`.
+
+#### Scope and identity
+
+This follow-up checks only the authorized quiz revision. The exact diff from prior Candidate `bcef1322ab7dfac7180a4a087aec70004f881c5f` to revised Candidate `fdc8cf82e04e55a3840a0ad27a6a2d55c3cd5c47` is one VALUE file: `course/data.js`, 10 additions and 8 deletions (18 touched LOC), all question/option/key/explanation entries. No other course path changed. The revised Candidate is an ancestor of the RF commit; `fdc8cf8…` to RF `9987503…` has no `course/**` diff. The approved TS restricts this return to quiz/test content and explicitly forbids presentation, scoring, storage, navigation, PDFs and other course behavior; the observed diff stays within that boundary.
+
+Independent NUL-safe replay under the approved `course/**` selector gives:
+
+| Comparison | Membership | Adds | Deletes | Touched LOC | Result |
+|---|---|---:|---:|---:|---|
+| Prior Candidate → revised Candidate | `course/data.js` MODIFY | 10 | 8 | 18 | Authorized quiz-only VALUE change |
+| Frozen Baseline `c78b440318310761569df8a2feaffdc3b1ae8ed0` → revised Candidate | 4 MODIFY + 6 CREATE; 10 logical files | 832 | 135 | 967 | Below frozen 20-file / 4,800-LOC multiplier and 50-file / 5,000-LOC prompt triggers; no binary files |
+
+Reproduction uses the TS rev1 NUL-safe method:
+
+```text
+git diff --name-status --find-renames=50% -z bcef1322ab7dfac7180a4a087aec70004f881c5f fdc8cf82e04e55a3840a0ad27a6a2d55c3cd5c47 -- 'course/**'
+git diff --numstat --find-renames=50% -z bcef1322ab7dfac7180a4a087aec70004f881c5f fdc8cf82e04e55a3840a0ad27a6a2d55c3cd5c47 -- 'course/**'
+git diff --name-status --find-renames=50% -z c78b440318310761569df8a2feaffdc3b1ae8ed0 fdc8cf82e04e55a3840a0ad27a6a2d55c3cd5c47 -- 'course/**'
+git diff --numstat --find-renames=50% -z c78b440318310761569df8a2feaffdc3b1ae8ed0 fdc8cf82e04e55a3840a0ad27a6a2d55c3cd5c47 -- 'course/**'
+```
+
+TS rev1 approval at `756075154fcd0b98e581ae7bbd5541a33e7d7160` predates Candidate `fdc8cf82e04e55a3840a0ad27a6a2d55c3cd5c47`; RF/EV commit `9987503d2c69eae7a247c443a90d0f7461152d44` follows it.
+
+#### Changed quiz claims and evidence
+
+| Lab | Four OOP-concept questions | One domain-application question | Key/source check |
+|---|---|---|---|
+| 1 | q1 encapsulation; q2 invariants; q3 validating before state mutation; q4 safe single-use state transition | q5 bus passenger capacity | Keys 1, 1, 1, 1, 0 match the explanations. Lecture 1 describes encapsulation and invariant protection; Lab 1 specifies bus capacity/current-passenger bounds and a one-use `SingleTripTicket`. |
+| 2 | q1 composition versus combination subclasses; q2 composition; q3 constructor injection; q4 extending through a policy contract | q5 student/suburban `Decimal` example | Keys 1, 0, 1, 1, 1 match the stated options. Lab 2 specifies student discount 50%, suburban factor 1.30, `Decimal`, and on p. 3 explicitly gives the 100.00 student/suburban result as 65.00. The owner’s prior 1.30 gate remains the controlling disposition of the lecture PDF discrepancy. |
+| 3 | q1 frozen event data; q2 `Protocol.handle(event)`; q3 polymorphism/substitution; q5 extending through a handler contract | q4 same-card/same-bus repeat under 120 seconds | Keys 1, 0, 0, 1, 1 agree with Lab 3’s `EventHandler(Protocol)` contract and its `Double Tap Fraud` condition. |
+
+I independently inspected the three changed lab PDFs and the first lecture PDF for the relevant claims. I also loaded the actual Candidate data module and checked its quiz arrays: every lab has exactly five questions; each question has four options and an in-range integer key. All three reported `keys-valid=true`. These checks establish the revised structure and the cited key facts, not real-browser presentation.
+
+EV R1-E6 records corresponding structural, topic, source-example and key checks. R1-E7 evaluates the existing production scoring/completion functions against the revised data; `app.js` and the score function are unchanged in this Candidate delta. This supports scoring compatibility for the new quiz length, but remains synthetic function-level evidence.
+
+#### Bounded judgment
+
+The authorized rev1 quiz changes satisfy the newly approved 4+1 distribution, the lab-specific topic emphasis and the supported answer keys. No new VALUE, ASSURANCE or TRACE finding arises from this diff. Candidate identity moves from `bcef1322ab7dfac7180a4a087aec70004f881c5f` to the approved revised Candidate `fdc8cf82e04e55a3840a0ad27a6a2d55c3cd5c47` because the approved quiz edit changes user-facing VALUE.
+
+The prior material ASSURANCE item F1 remains open and now applies to the revised Candidate: real Chrome route/content/score/keyboard/profile evidence is still recorded BLOCKED in EV. The quiz evidence does not resolve that browser gap. The existing aggregate verdict therefore remains 🔄 REVISE; unchanged claims and prior stages were not reopened.
+
+#### Resumed Reviewer economics binding disposition
+
+Producer: same Reviewer task `codex:thread:local:01a14512-e044-7713-a656-c2399dfa72c7`; task `OOP_20261016-155027_CONTENT`; owner `roman`; role `Reviewer`; observed continuation epoch `2026-10-16T20:06:23+05:00`; surface: local Codex task rollout. Exact current `session_meta.id`, source file locator/size and range start remain unavailable from exposed tools. Extraction was not attempted; this follow-up has no numeric JSONL, measured zero, failed extraction or last-good receipt. This is an attributable pre-extraction binding gap for the resumed return, not a usage measurement.
+
+#### Follow-up return route
+
+The lifecycle remains `RF`; no status transition or journal event is required. After the follow-up is committed, send one `REVIEW_READY` to the same recorded Coordinator, pointing at the immutable current REVIEW and this bounded judgment. The Coordinator rules the still-open F1 route; the Reviewer does not capture browser evidence, dispatch the Executor, or change the implementation.
+
+#### Material handover at this return
+
+Producer/unit: independent Reviewer `codex:thread:local:01a14512-e044-7713-a656-c2399dfa72c7`; source/epoch: owner continuation `/tfw-review CONTENT` at RF commit `9987503d2c69eae7a247c443a90d0f7461152d44`, with approved TS rev1 and R1 ruling; inspected scope: only the authorized lab quiz changes in `course/data.js`, their source excerpts, E6/E7 and revised-Candidate accounting. Material: the 4+1 quiz structure and revised keys hold; F1 remains open for real Chrome acceptance of the revised Candidate. Uncertainty: browser evidence remains blocked; current Reviewer rollout ID/path/range unavailable and no economics extraction attempted. Continuation: existing Coordinator resolves F1's authorized proof route; no new owner decision or broader content review is proposed. No human-sourced fact candidate was added.
+
 ### Coordinator ruling R1 — 2026-10-16
 
 Roman approved the exact TS rev1 and unchanged denominator of 10 VALUE files / 2,400 LOC at approval commit `756075154fcd0b98e581ae7bbd5541a33e7d7160`. The owner further restricted this return: change only quiz/test content in Labs 1–3 (questions, options and answer keys needed for the 4+1 distribution). Do not change lectures, lab instructions, checklists, scoring rules, presentation, storage, navigation, PDFs or other course behavior. The exact quiz requirement is five questions per lab: four focused on OOP concepts and one on applying them to a domain example; emphasize encapsulation/invariants, `Decimal`/composition, and polymorphism/abstractions in the respective labs.
