@@ -71,5 +71,10 @@ actual start and return boundaries.
 - After the independent review and durable recording of the proof hashes/results, the temporary
   `ac5-r1` manifests, PlantUML runtime/archive and render were removed from the OS temp directory.
   Their reviewed outcomes remain in RF, EV and REVIEW; no course PDF or product source was removed.
+- The Executor's managed worktree remains at
+  `C:\Users\tata2\.codex\worktrees\oop-web-handoff\weboop`, owned by the Executor task. The app
+  refused this Coordinator's attach attempt because another task owns it, so it was not modified
+  or removed. It is retained as the producer's recoverable snapshot; the accepted Candidate and
+  durable returns are already reachable from the project `main` history.
 
 This report is a task-close summary, not an invoice, subscription allocation or usage-zero assertion.
