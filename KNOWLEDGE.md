@@ -14,8 +14,18 @@ missing authorized decision. No generated index, original chat or task-archive s
 
 ## 1. Architecture Map
 
-No project components have been recorded yet. Add actual component relationships and source links
-through `/tfw-docs` when warranted; do not copy upstream project memory.
+### OOPoman local course shell
+
+- The browser course shell contains the three-module route, week availability, empty theory/practice
+  pages, and progress/reset interface. The route uses profile-scoped Chrome `localStorage` at
+  `oopoman.progress.v1`; reset removes only that key after confirmation.
+- Source PDFs under `OOP-course/` are read-only materials grouped by module. The local shell does not
+  introduce a project server, login, grading, or code execution.
+- Sources: [Candidate context UML](architecture/context.puml) at Candidate `63d1783617095ffea8e5b4c4b2846b90137b5c65`;
+  [RF](workspace/2026/OOP_20261015-164702_WEB/RF__OOP_20261015-164702_WEB.md) at
+  `46a4277128d6bccdfda65443511851ac1c737eb7`; independent [REVIEW rev2](workspace/2026/OOP_20261015-164702_WEB/REVIEW__OOP_20261015-164702_WEB__rev2.md)
+  at `80de405e5324f7f7779169487be2155d5b001ef8` (APPROVE; UML parser/render and visual comparison
+  verified). Owner-attested AC-1–4 observations remain at their stated evidence level.
 
 ### Architecture Decisions
 
