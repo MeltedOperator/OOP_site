@@ -3,7 +3,7 @@
 > **Current filename**: `REVIEW__OOP_20261016-155027_CONTENT.md`
 > **Date**: 2026-10-16
 > **Author**: Independent Reviewer
-> **Verdict**: 🔄 REVISE
+> **Verdict**: 🔄 REVISE (initial Candidate); latest bounded rev2 judgment: ✅ APPROVE
 > **RF**: [RF](RF__OOP_20261016-155027_CONTENT.md)
 > **TS**: [TS](TS__OOP_20261016-155027_CONTENT.md)
 > **Stage files**: `review/map.md`, `review/verify.md`, `review/judge.md`
@@ -47,9 +47,9 @@ CONTENT adds the six week-one learning routes, source-based lesson/lab content, 
 
 ## 4. Verdict
 
-**🔄 REVISE**
+**Initial round: 🔄 REVISE**
 
-F1 is a material, correctable ASSURANCE gap. The approved TS requires real Chrome checks of route/access boundaries, instructional presentation, score interaction, accessibility and local profile behavior. The EV records those checks as blocked, so acceptance is not yet supported. No product defect is inferred from missing evidence; the fixed Candidate and its accounting remain unchanged.
+F1 was a material, correctable ASSURANCE gap for Candidate `bcef1322ab7dfac7180a4a087aec70004f881c5f`: the then-approved TS required real Chrome checks, and EV recorded them as blocked. This is the accurate verdict for that review round and its governing acceptance basis.
 
 ### If REVISE — proposals to Coordinator
 
@@ -59,10 +59,10 @@ F1 is a material, correctable ASSURANCE gap. The approved TS requires real Chrom
 
 | ID | Class | Subject / affected claim or authority | Observed fact + oracle | Concrete harm and material consequence | Owner + observable completion | Route / rung | Candidate effect | Disposition |
 |---|---|---|---|---|---|---|---|---|
-| F1 | ASSURANCE | Chrome acceptance for Candidate; TS AC-1–AC-5 | TS requires real Chrome route/content/score/profile/keyboard checks; EV E1–E3 are BLOCKED because browser access rejected the local `file:` URL. | Learners may encounter broken or misleading flows; required material claims remain unestablished. | Coordinator selects an authorized evidence route; EV records observed offline Chrome checks on the exact Candidate and RF records actual results; Reviewer independently assesses the result. | Coordinator ruling; missing-proof route under `/tfw-handoff` then `/tfw-review`; no specification rung. | unchanged unless browser evidence finds a VALUE defect | pending — coordinator |
+| F1 | ASSURANCE | Chrome acceptance for Candidate; then-current TS AC-1–AC-5 | The original Candidate's real Chrome checks were blocked in EV E1–E3. R4 and approved TS rev2 later explicitly replace that evidence gate for the authorized logo return with the owner's functionality attestation. | Under the original basis, learners could encounter broken or misleading flows; for the current Candidate, the owner selected the acceptance basis and the exact logo delta is independently inspected. | Resolved for current Candidate `ef0b81eda5bf7e7bde8c7f9fcc096ef6a1583e6c` by owner-direct R4/TS rev2 acceptance; the record continues to distinguish that authority from browser evidence. | R4 and TS rev2 at `72a8246f3cf417b1a08c5c7119a5880ed093af1f`; Coordinator's close route. | Candidate advances to `ef0b81eda5bf7e7bde8c7f9fcc096ef6a1583e6c` on the authorized VALUE change | resolved for current Candidate; historical block retained |
 | O1 | TRACE observation | `course/README.md` stale description recorded in RF §6 | RF states that the README still calls week-one pages empty; it is outside fixed `course/**` value membership and was not changed. | No current acceptance or next-action consequence established; main app route does not depend on this description. | Coordinator may retain as a finite record-only observation; no correction is required for this review verdict. | Current carrier / not material | unchanged | not material — no established acceptance or authorized-action consequence |
 
-One material proposal is open. The Reviewer does not rule it or dispatch an Executor.
+F1 was the material proposal in the original round. Its historical blocked observation remains intact; the current bounded follow-up below applies R4/TS rev2 to the new Candidate.
 
 ## 6. Traces Updated and Completion Signal
 
@@ -167,3 +167,46 @@ Roman, the project owner, directly instructed the Coordinator to correct the bro
 The same Executor may modify only `course/index.html`, replacing the header's external logo image with an equivalent inline SVG. Preserve all other course files and the existing favicon reference. Keep the change within 100 text LOC; if the root cause requires another product path or exceeds this bound, stop and return for a new decision. The original baseline and immutable accounting denominator remain 10 VALUE files / 2,400 LOC; the projected 11 files / at most 1,067 LOC remain below the 20 / 4,800 multiplier ceiling and the 50 / 5,000 prompt thresholds.
 
 The owner waives separate browser, preview, keyboard and isolated-profile evidence for AC-1–AC-5 and attests product functionality. The Executor must accurately record owner acceptance in EV/RF without claiming browser observation. No browser or local server is authorized or required. The same independent Reviewer reassesses the returned RF against approved TS rev2 and this ruling; no review result is presumed. The task returns `RF` → `TS_DRAFT` → same Executor, then to the same Reviewer. Candidate remains `fdc8cf82e04e55a3840a0ad27a6a2d55c3cd5c47` until the authorized logo fix changes VALUE.
+
+---
+
+### Bounded follow-up — rev2 inline-logo return
+
+**Continuation source:** Coordinator task sent `/tfw-review CONTENT workspace/2026/OOP_20261016-155027_CONTENT/RF__OOP_20261016-155027_CONTENT.md@dcc690b1092de2513f9bf3c449d64801ae76c409`. The current owner-only task spine remains `RF`, `reporting:native-gates`, `selection_ref:baseline`, and routes to the same Coordinator. This is the same independent Reviewer unit. The RF at the cited commit points to `TS__OOP_20261016-155027_CONTENT__rev2.md` and R4 at approval commit `72a8246f3cf417b1a08c5c7119a5880ed093af1f`.
+
+#### Bounded scope and identity
+
+This follow-up checks only the approved inline-logo return and its effect on F1. Candidate is `ef0b81eda5bf7e7bde8c7f9fcc096ef6a1583e6c`, descended from the prior Candidate `fdc8cf82e04e55a3840a0ad27a6a2d55c3cd5c47`. The exact Candidate-to-Candidate diff under the frozen `course/**` selector is one MODIFY: `course/index.html`, 6 additions and 1 deletion (7 touched LOC). `ef0b81e…` is an ancestor of the cited RF; no later `course/**` change exists through RF commit `dcc690b1092de2513f9bf3c449d64801ae76c409`.
+
+Independent NUL-safe replay against the frozen Baseline `c78b440318310761569df8a2feaffdc3b1ae8ed0` confirms 5 MODIFY + 6 CREATE (11 logical VALUE files), 838 additions + 136 deletions = 974 touched LOC, no binary/non-text files. The current 11/974 is below the immutable 20-file/4,800-LOC multiplier ceiling and 50-file/5,000-LOC prompt thresholds. R4 and TS rev2 were approved before implementation; the exact extra-file change was authorized in advance. The accounting delta from `fdc8cf…` is only 7 LOC in the approved file.
+
+Reproduction under the TS rev2 literal selector:
+
+```text
+git diff --name-status --find-renames=50% -z c78b440318310761569df8a2feaffdc3b1ae8ed0 ef0b81eda5bf7e7bde8c7f9fcc096ef6a1583e6c -- 'course/**'
+git diff --numstat --find-renames=50% -z c78b440318310761569df8a2feaffdc3b1ae8ed0 ef0b81eda5bf7e7bde8c7f9fcc096ef6a1583e6c -- 'course/**'
+git diff --name-status --find-renames=50% -z fdc8cf82e04e55a3840a0ad27a6a2d55c3cd5c47 ef0b81eda5bf7e7bde8c7f9fcc096ef6a1583e6c -- 'course/**'
+git diff --numstat --find-renames=50% -z fdc8cf82e04e55a3840a0ad27a6a2d55c3cd5c47 ef0b81eda5bf7e7bde8c7f9fcc096ef6a1583e6c -- 'course/**'
+```
+
+#### Changed claim and bounded verification
+
+R4 authorizes only replacing the broken header image in `course/index.html` with the existing SVG geometry inline, preserving the favicon, header link and responsive sizes; it waives separate browser/preview/keyboard/profile proof for AC-1–AC-5 and records the owner's functionality attestation as the acceptance basis. I independently compared the exact Candidate diff to the source `course/assets/mark.svg` and relevant CSS. The `viewBox`, rectangle/path/circle geometry and fills match; the header image reference is gone; the favicon remains `assets/mark.svg`; desktop 38px and mobile 32px sizes are retained. The diff is confined to the pre-authorized file and below the 100-LOC bound. `git diff --check` is clean. No browser observation is claimed.
+
+The earlier `bcef132… → fdc8cf…` quiz change remains covered by the immediately preceding bounded review. The remainder of the product and its evidence inputs are unchanged. The prior F1 is therefore resolved for the current Candidate by the new, owner-approved acceptance authority—not by treating missing Chrome evidence as passed. R3's broken-logo observation remains historically accurate for its older Candidate. O1 remains a non-material stale README observation.
+
+#### Bounded judgment
+
+The authorized logo change meets its narrow source-level requirement and the current Candidate remains within approved identity, scope and accounting. R4/TS rev2 explicitly replaces the separate browser acceptance gate with owner acceptance for this return; EV correctly records that acceptance and does not claim independent browser testing. No material VALUE, ASSURANCE or TRACE finding remains open for Candidate `ef0b81eda5bf7e7bde8c7f9fcc096ef6a1583e6c`. The latest bounded judgment is **✅ APPROVE for this Candidate under TS rev2/R4**. The initial REVISE verdict remains the historical verdict for its earlier Candidate and acceptance basis.
+
+#### Resumed Reviewer economics binding disposition
+
+Producer: same independent Reviewer task `codex:thread:local:01a14512-e044-7713-a656-c2399dfa72c7`; task `OOP_20261016-155027_CONTENT`; owner `roman`; role `Reviewer`; observed continuation epoch `2026-10-16T21:23:05+05:00`; surface: local Codex task rollout. Exact current `session_meta.id`, source locator/size and range start are unavailable from exposed tools. Extraction was not attempted; no numeric JSONL, measured zero, failure receipt or last-good receipt is claimed. This is an attributable pre-extraction binding gap, not a usage measurement.
+
+#### Return route
+
+The lifecycle remains `RF`; this Reviewer does not change status or write a transition. Send `REVIEW_READY` to the recorded Coordinator with this durable REVIEW reference. The Coordinator owns the canonical close route and any status/journal effect. No implementation change, browser capture or additional review of unchanged claims is proposed.
+
+#### Material handover at this return
+
+Producer/unit: independent Reviewer `codex:thread:local:01a14512-e044-7713-a656-c2399dfa72c7`; source/epoch: Coordinator continuation at RF commit `dcc690b1092de2513f9bf3c449d64801ae76c409`, with R4/TS rev2 authority and Candidate `ef0b81eda5bf7e7bde8c7f9fcc096ef6a1583e6c`; inspected scope: authorized `course/index.html` delta, source SVG/CSS, Candidate identity/accounting and effect on F1. Material: logo delta conforms; F1 is resolved for the current Candidate under the owner's new acceptance basis; latest bounded judgment is APPROVE. Uncertainty: no browser evidence is claimed; current Reviewer rollout source/range binding was unavailable and no economics extraction was attempted. Continuation: Coordinator receives `REVIEW_READY` and rules lifecycle/close route. No new human-sourced fact candidate was added.
