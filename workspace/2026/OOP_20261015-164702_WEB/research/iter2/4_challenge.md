@@ -1,74 +1,70 @@
-# Challenge — «Где протокол ошибочно обещает pass или fail?»
-> **Mindset:** Критик. Атакуем проверки и требуем доказательства для каждого вывода.
+# Challenge — «Выдерживает ли протокол попытку опровергнуть его?»
+> **Mindset:** Критик. Проверяем достаточность и безопасную границу протокола по каждому H1/H2.
 > Parent: [HL-OOP_20261015-164702_WEB](../../HL-OOP_20261015-164702_WEB.md)
 > Goal: Подготовить понятный локальный каркас OOPoman, в котором студент видит маршрут курса и сохраняемый прогресс в профиле Chrome без регистрации и входа.
 > Producer unit: `codex:thread:local:01a142ca-1834-7a52-bc0b-1208112a9d1a`
 > Parent Coordinator: `codex:thread:local:01a142c4-8754-7c41-89cc-52429a51ac3b`
-> Activation / selection: owner-direct `/tfw-research OOP_20261015-164702_WEB`; `reporting: native-gates`, `dialogue: tfw-gates-only`; Challenge разрешён Coordinator gate после Extract.
+> Activation / selection: owner-direct `/tfw-research OOP_20261015-164702_WEB`; `reporting: native-gates`, `dialogue: tfw-gates-only`; Challenge разрешён Coordinator gate после revised Extract.
 > Coordination authority: `../../../TRACE.md @ eafde5305449618cf081dda08d26992ce9cbea9c`
 > Iteration 2; focused; один проход.
-> Source protocol: [3_extract.md](3_extract.md) @ `2aea8989ac169f6b5f5e92370cc601f6eef1e67d`.
+> Extract under challenge: [3_extract.md](3_extract.md) @ `e63a6b39d30f08affab7bf8caea6ef6de166f26c`; the Coordinator authorized its one focused revision after the first Challenge checkpoint.
 
 ## Consistency Check
 
-### Challenge of protocol claims
+### Adversarial protocol checks
 
-| Extract claim/check | Adversarial case | Challenge result / required boundary |
+| Protocol claim | Counterexample | Result after revised Extract |
 |---|---|---|
-| A clean profile + Disable cache + Offline / OS network off demonstrates H1. | DevTools records only while open and only requests since recording began; an empty HAR cannot show a local file inventory. A DevTools Offline setting emulates page network conditions, while cache/service-worker behavior may still need inspection. | Composite is sufficient as a protocol only if every candidate has a pre-run source/package inventory and runtime traces from the entry and required route, plus cold launch and full Chrome restart with OS networking off. HAR is supplementary. Do not award H1 PASS from a quiet log alone. If an extension service worker initiates required requests, inspect its own context as well as the UI page. |
-| Restart with the same profile demonstrates persistence. | An operator can accidentally launch a second Chrome profile or extension identity after restart; an app can show cached in-memory UI before a storage read. | The protocol’s separate profile per candidate is sound if the exact same profile/config is used before and after full process exit. Require a fresh UI read after relaunch, not a tab left open or restored bfcache state; retain a privacy-safe same-profile confirmation and extension ID. Wait for saved value to be read back before closing. |
-| Cancel and Confirm prove safe reset using unrelated sentinels. | A test may only check screen appearance; a generic `clear()` may delete an unrelated key; a single JSON key may contain both progress and non-progress fields. | Test externally observable values after each action. Cancel preserves progress and sentinel. Confirm clears only progress values and preserves unrelated state; it need not use a particular API or remove a whole key if that key also stores unrelated fields. IndexedDB whole-database deletion is allowed only for a database exclusively owned by OOPoman progress. Keep key/value snapshots before and after. |
-| C4/C6 require the file-URL grant; no grant means candidate failure. | Chrome documents the manual grant when an extension needs to run on `file://`. The Tabs API says creating tabs and navigating to URLs generally do not require permission, but does not settle navigation to a PDF `file://` URL from this extension page. A user click that simply opens a PDF in Chrome may differ from extension code reading/injecting on that file page. | **Focused protocol adjustment needed:** split C4/C6 PDF path into (a) user-initiated open/navigation with grant initially off, then (b) any extension access that operates on or reads the file with the grant enabled. Record the actual UI path, grant state, manifest match patterns and outcome. Do not fail navigation-only C4/C6 solely because the toggle was off; fail only if the intended PDF experience fails with the minimum documented configuration and required user grant. Documentation does not establish which path OOPoman needs. |
-| Enabling file-URL access makes access to `OOP-course/` predictable. | The settings control is an extension-level permission, not a demonstrated directory picker or path sandbox; a match pattern may limit which URLs a content script runs on, but that does not prove filesystem discovery or PDF UX. | Report grant separately from path/content access. Inspect the manifest’s host/content-script patterns and disclose the user-facing permission. Do not claim the grant is restricted to the course folder unless an actual permission/path design establishes that. |
-| C1–C6 all get a pass/fail from one profile run. | One candidate may be blocked by an unrelated profile policy, an unobservable storage API, or a failed PDF viewer action with no diagnostic. | Keep `INCONCLUSIVE` as a real outcome. Record Chrome version/channel and managed-policy status. When the storage read or navigation cannot be observed, classify that criterion as inconclusive, not failed or passed. This research has no target Chrome or prototype to run. |
+| Cold launch and restart offline demonstrate H1. | Warm cache, an already-open tab, or an empty DevTools log could hide a dependency. Logs start only while DevTools is recording and do not inventory local files. | The protocol now combines an empty profile, cache-disabled trace, actual source/package inventory, OS network-off launch and full Chrome restart. It says DevTools logs are supplementary, not proof alone; extension service-worker requests need their own context captured. Adequate protocol for the planned bounded prototype, although no result was run. |
+| Same-profile restart demonstrates H2 persistence. | A second profile, changed extension identity, unflushed write or in-memory tab restoration could mimic persistence. | The same dedicated profile, stable paths/extension ID, completed UI readback before full process exit, and fresh UI/storage read after restart address those confounds. Actual behavior remains unknown until executed. |
+| Cancel and Confirm establish the requested reset boundary. | Checking only the page appearance misses a handler that leaves storage unchanged or deletes unrelated fields. A single storage key may contain progress and non-progress fields. | Revised criterion checks state: Cancel leaves progress and unrelated sentinel unchanged; Confirm resets progress while unrelated state remains. It permits deleting selected records, updating a shared value, or clearing an exclusively progress-owned store. No particular API call is required. This matches the frozen in-app progress reset requirement. |
+| File URL grant is required for C4/C6 PDF navigation. | Chrome docs require a manual grant when the extension needs to run on file URLs; Tabs API docs say most tab creation/navigation features do not require permission, and do not explicitly resolve navigation from an extension page to a local PDF. | Revised protocol tries user-directed PDF navigation with the grant off first. It enables the minimum grant and repeats only if the intended UI needs extension execution/read access on the file page. Grant-off alone is not failure. This removes the earlier false-fail condition while correctly leaving actual PDF behavior open. |
+| The grant confines extension access to `OOP-course/`. | A user-facing file URL toggle is not documented as a directory picker; match patterns and actual file operation are distinct. | Revised protocol records the grant, manifest match patterns and exact PDF path separately, and makes no folder-sandbox claim. Any actual scope/privacy consequence remains for Coordinator/product review if the candidate is later pursued. |
+| Each C1–C6 result can be called pass or fail. | Profile policies, inaccessible inspector, denied permission, or unexplained viewer behavior may prevent a decisive observation. | `INCONCLUSIVE` is retained and the protocol asks for Chrome version/channel, managed-policy status and evidence by criterion. This is safer than inferring results. |
 
 ### Surviving configurations
 
-| Config | Challenge disposition | Outstanding falsification condition |
+| Config | Challenge disposition | Remaining falsification condition |
 |---|---|---|
-| C1 — file page + localStorage + relative PDFs | Survives as test candidate. | Chrome file-origin access/persistence, offline route and PDF path may fail in the actual profile. |
-| C2 — file page + IndexedDB + relative PDFs | Survives as test candidate. | Same path-specific file-origin uncertainty; selective reset must avoid deleting non-progress records. |
-| C3 — unpacked extension + `chrome.storage.local` + package PDF copies | Survives as test candidate. | First setup/offline route and actual save/reset integration remain untested; required extension scripts/objects must be packaged. |
-| C4 — unpacked extension + `chrome.storage.local` + PDFs in `OOP-course/` | Survives conditionally; Extract currently overstates when the grant is required. | Distinguish simple user navigation from extension execution/read access on `file://`; test the exact intended UX with and without grant. |
-| C5 — extension + Web Storage/IndexedDB + package PDF copies | Survives as separate LS and IDB subtests. | API context must be recorded; extension service workers cannot use localStorage. Actual persistence and reset remain untested; Chrome docs conflict only about clearing browsing data. |
-| C6 — extension + Web Storage/IndexedDB + PDFs in `OOP-course/` | Survives conditionally; Extract currently overstates when the grant is required. | Separate LS/IDB and PDF user-navigation/access paths; perform actual PDF test with the least necessary grant. |
+| C1 — file page + localStorage + relative PDFs | Survives as a prototype candidate. | Target Chrome may deny or fail file-origin storage; offline resources and PDF path are untested. |
+| C2 — file page + IndexedDB + relative PDFs | Survives as a prototype candidate. | Target Chrome file-origin persistence is untested; reset must preserve unrelated records, including when progress DB is dedicated. |
+| C3 — unpacked extension + `chrome.storage.local` + package PDF copies | Survives as a prototype candidate. | Actual offline launch, storage integration, reset and packaged PDF UI remain untested. |
+| C4 — unpacked extension + `chrome.storage.local` + PDFs in `OOP-course/` | Survives conditionally as a prototype candidate. | User-directed navigation and extension operation on the PDF are separate scenarios; the needed file URL grant and PDF viewer outcome are unknown. |
+| C5 — extension + Web Storage/IndexedDB + package PDF copies | Survives as separate LS and IDB test subcases. | Context accessibility, persistence and reset are untested; current Chrome docs differ only on behavior after browsing-data clearing, outside the required restart case. |
+| C6 — extension + Web Storage/IndexedDB + PDFs in `OOP-course/` | Survives conditionally as separate LS and IDB subcases. | Same storage checks as C5 plus the two distinct PDF navigation/access scenarios; grant requirements remain unknown. |
 
-No candidate is eliminated by documentation alone. A manifest that requires a remote critical script would conflict with extension-page CSP; an offline test that needs a remote critical resource would fail H1. These are conditional implementation findings, not observed defects in OOPoman.
+No candidate is ruled out by the sources. Conditional implementation failure criteria remain: a required resource is network-only; persistence is absent after a complete offline restart; Cancel mutates progress; Confirm leaves progress or changes unrelated state; or the intended PDF experience fails with the setup it actually requires. No such behavior has been observed in OOPoman.
 
 ## Findings
 
-### F1 — cache/network evidence is credible only as a bundle
+### F1 — H1 evidence is sufficiently guarded for a future prototype run
 
-The protocol protects against a warm HTTP cache by requiring an empty profile and DevTools cache disable, and against hidden network dependency by requiring offline cold start and restart. Chrome documents that Disable cache applies while DevTools is open, Offline is a Network throttling mode, logs are captured while DevTools is open, and only after recording starts. The inventory must therefore be checked against the actual prototype source/package as well as its runtime requests. A HAR cannot prove that local PDFs, fonts, or scripts exist at the expected paths; a source inventory cannot prove the app traversed those paths. For extension builds with network-capable service workers, include that context's own activity. These limits are already mostly addressed in Extract; make “empty/partial log = insufficient evidence” explicit.
+The revised protocol prevents the strongest false positive: a successful warm/cached page cannot alone pass. It requires both an actual package/source inventory and a cold offline route plus full restart. DevTools Network has useful cache/offline/log features, but its capture window makes a blank HAR insufficient. A local-file list, runtime log and visible route outcome must be read together. This defines a bounded, auditable observation without treating documentation as execution.
 
-### F2 — reset should be judged by state scope, not an API call
+### F2 — H2 reset is now judged by the user-visible contract
 
-The Extract matrix protects progress and unrelated sentinels but sometimes says Confirm must call/remove only selected keys. That is too implementation-specific: progress may share an object with other state. The frozen requirement is an in-app reset of locally stored progress after confirmation. The pass criterion should be: after Confirm, all progress is reset and unrelated sentinels/state are unchanged; any key, object field, record or dedicated progress database may implement this. Cancel preserves both. Never use DevTools Delete/Clear to produce the reset result; inspect read-only after the UI action.
+The revised protocol tests saved progress after a full browser restart in the same profile, then checks Cancel and Confirm against the state before each action. It does not force a storage API implementation. A sentinel outside progress shows the reset stays within its contract; an isolated progress-only database may be cleared, while mixed state must preserve non-progress values. This is a meaningful and feasible test boundary for localStorage, IndexedDB and `chrome.storage.local`.
 
-### F3 — file URL grant is not a folder-scoped test prerequisite
+### F3 — C4/C6 permission is conditional, not presumed
 
-Chrome's permissions guide says users must grant file URL access if the extension needs to run on `file://`; match-pattern docs show `file:///` and require manual grant. Tabs API documentation separately notes that tab creation and URL navigation generally do not need permissions but does not explicitly resolve extension-page navigation to a local PDF. Thus the current C4/C6 table risks a false failure for simple navigation and a false claim about access scope. Extract should add the two-path test in the table and require recording the grant and manifest pattern only as applicable. Whether the grant is required for opening the actual PDF remains unknown until prototype execution.
+Official Chrome sources establish a manual file URL grant when an extension must run on local file pages. The tabs API documentation does not conclusively answer if a user-directed navigation to a PDF requires this setting. The revised two-path protocol captures that uncertainty and avoids both over-requesting permission and incorrectly rejecting the candidate. Documentation also does not prove file discovery or the PDF viewing experience.
 
-### F4 — offline and persistence results remain empirical
+### F4 — protocol sufficiency is not product proof
 
-Neither an official API reference nor the test protocol can prove that OOPoman works. Cold start requires no preloaded app cache; persistence requires the same profile and a new app-level read after every full browser exit; reset requires before/after storage values. C5/C6 remain two API subcases each. A Chrome profile policy, disabled permission, wrong extension ID, missing file, failed storage read or inaccessible PDF may make one observation inconclusive until the setup cause is isolated. No `PASS`/`FAIL` is recorded by this research.
+The pending iteration’s goal is to prepare a bounded protocol and check current platform restrictions, not to build or execute the app. The revised Extract meets that goal across all six configurations with repeatable preconditions, observable outcomes and evidence fields. H1 and H2 remain empirically untested; that should become implementation acceptance/proof work in the next authorized phase, not a reason to claim either PASS here.
 
-## Protocol adjustment requested
+## OODA — focused pass 1/1, post-adjustment review
 
-**Request one focused adjustment before synthesis:** revise C4/C6 to distinguish (1) user-directed navigation/opening of a PDF in Chrome and (2) extension execution/read access to a `file://` page. Test the intended path with permission off first, then with the file URL grant if extension access is required; a missing grant alone is not a candidate failure. Also phrase the Confirm criterion as clearing progress state while preserving an unrelated sentinel, without requiring a specific key-level API call where progress shares a stored value. These changes make the protocol align with the actual frozen requirement and prevent false fail classifications.
-
-## OODA — focused pass 1/1
-
-- **Observe:** reviewed Extract adversarially against current official Chrome DevTools Network, extension permission/match-pattern and Tabs API documentation, plus the prior official storage, CSP and IndexedDB sources.
-- **Orient:** cache evidence and same-profile persistence checks are adequate when treated as combined observations; reset must be outcome-based. Chrome documentation does not establish whether navigation-only PDF opening requires the file access toggle.
-- **Decide:** preserve all six configs and all H1/H2 empirical gaps. Request a narrow Extract adjustment on C4/C6 grant semantics and implementation-neutral reset state. No winner or technical behavior is asserted.
-- **Act:** return this Challenge checkpoint and wait for Coordinator decision. No code, prototype or Chrome test was run.
+- **Observe:** re-read the Coordinator-authorized revised Extract @ `e63a6b39d30f08affab7bf8caea6ef6de166f26c`; compared its corrected reset and PDF criteria with the official Chrome DevTools, extension permission/Tabs and storage sources cited below.
+- **Orient:** the two identified false classifications are removed. Network/profile evidence is composite; reset is outcome-based; PDF grant is conditional on extension access, not assumed for navigation.
+- **Decide:** retain C1–C6 and the distinct C5/C6 storage subcases. Recommend synthesis: iteration 2 has answered its assigned research question by producing a challenge-tested protocol. Actual H1/H2 outcomes still await a prototype.
+- **Act:** return the final Challenge checkpoint. No code, prototype or Chrome test was run.
 
 ## Checkpoint
 
 | Found | Remaining |
 |-------|-----------|
-| The protocol tests offline route, same-profile restart, data persistence, Cancel/Confirm and PDF opening across C1–C6; cache and profile confounds are addressed if evidence is captured as a bundle. No candidate can be eliminated from the documents alone. | C4/C6 may be falsely rejected unless opening a PDF is separated from extension access on a file URL; reset wording should specify state outcome rather than an API call. All actual outcomes remain unobserved until a prototype is run. |
+| Revised protocol is sufficiently specific and safe for a later bounded prototype test: cache/network, same-profile restart, progress persistence, Cancel/Confirm and PDF path each have distinct conditions. No config is eliminated by documentation alone. | Target Windows/Chrome build, actual package/resource inventory and every runtime result remain unknown until the prototype test. C4/C6's required grant depends on whether the UI only navigates or operates on the file page. |
 
 **Sufficiency:**
 - [x] External source used?
@@ -76,7 +72,7 @@ Neither an official API reference nor the test protocol can prove that OOPoman w
 - [x] Pairwise protocol challenge completed? Surviving configurations listed?
 
 Stage complete: YES
-→ Coordinator decision: authorize one focused Extract adjustment for C4/C6 and reset criteria, or proceed to synthesis with this limitation.
+→ Coordinator decision: proceed to synthesis for iteration 2, or request one focused challenge adjustment.
 
 ## Sources
 
@@ -86,6 +82,6 @@ Stage complete: YES
 - [Chrome: Tabs API](https://developer.chrome.com/docs/extensions/reference/api/tabs) — checked 2026-10-16; most tab creation/navigation features do not need permissions; file URL navigation-specific result remains undocumented here.
 - [Chrome DevTools: View and edit extension storage](https://developer.chrome.com/docs/devtools/storage/extensionstorage) — checked 2026-10-16; extension storage inspector available from Chrome 132; selected values can be inspected/deleted, so use read-only for verification.
 - [Chrome: Debug extensions](https://developer.chrome.com/docs/extensions/get-started/tutorial/debug) — checked 2026-10-16; service-worker context is separately inspected and open DevTools can keep a worker active.
-- [Chrome: `chrome.storage` API](https://developer.chrome.com/docs/extensions/reference/api/storage) — checked 2026-10-16; selected `remove()` versus broad `clear()`.
+- [Chrome: `chrome.storage` API](https://developer.chrome.com/docs/extensions/reference/api/storage) — checked 2026-10-16; machine-local storage, selected `remove()` versus broad `clear()`.
 - [W3C Indexed Database API 3.0](https://w3c.github.io/IndexedDB/) — checked 2026-10-16; selected-record deletion versus database deletion.
 - [Chrome: Extension pages CSP](https://developer.chrome.com/docs/extensions/reference/manifest/content-security-policy) — checked 2026-10-16; minimum extension-page code/resource constraints.
