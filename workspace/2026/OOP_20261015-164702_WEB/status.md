@@ -14,7 +14,7 @@ coordination_authority: "../../../TRACE.md @ eafde5305449618cf081dda08d26992ce9c
 reporting: native-gates
 selection_ref: baseline
 created: 20261015-164702
-updated: 20261016-110042
+updated: 20261016-120008
 ---
 
 **Task state.** This file is the only authority for that task's live state.
