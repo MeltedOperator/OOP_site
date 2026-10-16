@@ -56,3 +56,22 @@ No product-scope deviation is claimed in RF. AC-5's required UML parse/render ev
 - [x] Avoided classifying by filename, discrepancy count or artifact volume.
 
 Stage complete: YES
+
+## Bounded Round 2 Map — Rung 1 AC-5 return
+
+The same Candidate `63d1783617095ffea8e5b4c4b2846b90137b5c65` is returned in RF at `46a4277128d6bccdfda65443511851ac1c737eb7`; no product, TS, or Candidate change is claimed. Reuse C1–C4 and the authority/identity boundaries above. Reopen C5 only: AC-5 requires unchanged source PDFs and an accurate, parsed/rendered context UML. New evidence identities are RF §12 and EV E7/E9, produced for the Coordinator-ratified Rung 1 proof epoch; the old pre-work manifest remains absent.
+
+| Claim | Updated selection | Why | Limit |
+|---|---|---|---|
+| C5 / AC-5 | Compare retained before/after manifests against each other and current source; bind the UML input blob to Candidate; inspect the retained render and verify the official tool identity/hash. | This directly addresses both proof obligations that caused F1, without expanding scope or repeating unaffected ACs. | Current comparison is for the authorized Rung 1 epoch; it does not recreate historical pre-work evidence. |
+
+No TS deviation or Candidate movement. The exact AC-5 oracle remains approved TS AC-5 and its read-only PDF/UML boundaries. Mandatory safety, human authority, and Candidate identity checks remain inherited from this same review's unchanged result.
+
+**Round 2 self-check:**
+- [x] Re-read returned RF §§1–5 and bounded §12, approved TS AC-5, Coordinator ruling, EV and predecessor REVIEW.
+- [x] Mapped the changed evidence claim and rechecked mandatory authority/result identity.
+- [x] Bound checks to fixed Candidate, source files and authorized proof epoch.
+- [x] Recorded the historical-manifest and owner-attestation limits.
+- [x] Selected verification by AC-5 risk and evidence gap, not artifact count.
+
+Stage complete: YES

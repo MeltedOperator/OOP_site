@@ -150,3 +150,41 @@ Scan result: P0–P4 fully; relevant P5–P7 have no source files or records. Pr
 - [x] Verified RF AC claims, evidence references, citations and immutable accounting against actual artifacts.
 
 Stage complete: YES
+
+## Bounded Round 2 Verification — AC-5
+
+**Selection:** Only C5 changed materially. The returned RF is exact commit `46a4277128d6bccdfda65443511851ac1c737eb7`; Candidate remains `63d1783617095ffea8e5b4c4b2846b90137b5c65`; the approved TS and dependency boundary are unchanged. C1–C4, accounting, source inspection and authority checks are reused from the prior review because their subject and dependencies did not change.
+
+### V-R2: AC-5 source integrity at the fixed Candidate
+- **Accepted claim / authority:** TS AC-5/P3; all 38 `OOP-course/**/*.pdf` paths and bytes remain unchanged for the authorized Rung 1 proof epoch.
+- **Subject tuple:** The owner-provided 38-PDF source tree, fixed Candidate `63d1783`, comparison epoch recorded in RF §12/EV E7, TS AC-5 as oracle.
+- **Action or evidence:** Read both retained CSV manifests; confirmed 38 entries each and identical path/bytes/SHA-256 rows. Independently hashed and sized all current source files: 38/38 paths are present and match the returned after-manifest; no current mismatch or manifest omission. Both manifests have SHA-256 `4c065443b4f1bcd3ee6cf20d49e1cb5d9afaf6b2efedf44e406734d1ef92ebe9`.
+- **Observed:** The fresh comparison is replayable and the current tree matches it. The earlier pre-work manifest remains absent and is not claimed as recovered.
+- **Limit:** This establishes the authorized fresh proof epoch and current source agreement, not a reconstructed historical comparison.
+- **Result:** HOLDS.
+
+### V-R2: AC-5 UML parse/render at the fixed Candidate
+- **Accepted claim / authority:** TS AC-5; context diagram parses, renders, and accurately describes the delivered Candidate without claims of unimplemented behavior.
+- **Subject tuple:** Candidate UML blob `4ca437a8262c16ccac8b0d304abced2cbc1a4aee`; `architecture/context.puml`; PlantUML 1.2026.8 native Windows tool; approved TS and owner-ratified Rung 1 ruling.
+- **Action or evidence:** Confirmed the working tree UML blob equals the Candidate blob. Verified the retained native archive hash against the official PlantUML release entry. RF/EV record `-checkonly` and PNG render both exit 0; retained render is 1244×602, SHA-256 `583377e73cb0925c09bdd290ef639890470d84335f76658310a8ea0090664b9f`. Opened the image and compared its route, locked weeks, empty pages, progress/reset store, read-only PDFs and no-network boundary with the source/TS.
+- **Observed:** The render parses and represents the fixed Candidate without material mismatch. Official release tag `v1.2026.8` names commit `149874a`; its Windows x64 asset hash matches the recorded archive. [Official PlantUML release](https://github.com/plantuml/plantuml/releases/tag/v1.2026.8).
+- **Limit:** This does not reconstruct the historical PDF manifest. The direct browser observations for AC-1–4 remain owner attestations as previously recorded.
+- **Result:** HOLDS.
+
+### Updated claim and finding disposition
+
+| ID | Class | Subject / affected claim | Fact + oracle | Harm / consequence | Owner / completion | Route | Candidate | Status |
+|---|---|---|---|---|---|---|---|---|
+| F1 | ASSURANCE | Candidate AC-5 / EV E5–E9 | Rung 1 now supplies a matching full 38-file fresh comparison, current-tree replay, and parsed/rendered UML for the exact Candidate; approved TS AC-5 is the oracle. | Prior risk was that changed source or misleading UML escaped acceptance review; the current acceptance claim is established at the authorized evidence level. | Coordinator owns close; independent proof condition satisfied by RF §12 and EV E7/E9. | Rung 1 completed; return to Coordinator for KNW/close handling. | unchanged | complete |
+
+No Candidate source comments/docstrings or VALUE diff were added in this round; no tests were run or required by the AC-5 proof. UML CLI results are reported from RF/EV; Reviewer independently checked the output, source identity, archive hash and PDF manifest replay.
+
+**Round 2 self-check:**
+- [x] Replayed the affected Map selection and preserved authority, safety and Candidate identity floors.
+- [x] Verified the complete current PDF set against the retained after-manifest and the before-manifest.
+- [x] Inspected the render and verified exact Candidate UML blob and official tool asset identity.
+- [x] Kept the absent historical manifest and owner-attested AC-1–4 limits explicit.
+- [x] Recorded F1 completion with unchanged Candidate and exact route.
+- [x] Reused unrelated proof only where subject and dependencies remain unchanged.
+
+Stage complete: YES

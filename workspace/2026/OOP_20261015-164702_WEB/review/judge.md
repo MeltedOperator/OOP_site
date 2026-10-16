@@ -70,3 +70,26 @@ No applicable contradictions. `KNOWLEDGE.md` §1 has no approved architecture de
 - [x] Derived one verdict from material acceptance and assurance, not from checklists or artifact counts.
 
 Stage complete: YES
+
+## Bounded Round 2 Judgment
+
+| Layer | Subject | Status | Evidence / finding IDs |
+|---|---|---|---|
+| VALUE | Approved purpose, domain behavior and boundaries | ✅ | Unchanged Candidate; prior review's source and owner-attested AC-1–4 checks remain applicable. AC-5 source/UML claim has no observed product mismatch. |
+| ASSURANCE | Evidence existence, applicability and sufficiency | ✅ | F1 is complete: full fresh PDF manifest comparison and current replay; Candidate-bound UML parse/render and visual inspection; exact Candidate and approved Rung 1 ruling. Historical pre-work manifest remains unavailable and is not represented as recovered. |
+| TRACE | Authority, identity, reproducibility and continuation | ✅ | Same independent Reviewer, Coordinator route, approved TS and Candidate; RF return `46a4277`; status remains RF for the Coordinator's next effect. |
+
+**Finding disposition:** Prior F1 was a complete, correctable ASSURANCE proposal. The Coordinator accepted one Rung 1 return in live REVIEW; the same Executor returned the fixed Candidate with AC-5 proof. The observable completion conditions are now met, so F1 is `paid — RF §12 and EV E7/E9` with no Candidate movement. O1 remains a non-material current-carrier observation; it does not change acceptance or the authorized next act.
+
+**Purpose check:** The master HL Contract Baseline and Project North Star continue to call for a clear local first-week route with preserved progress. The result stays within that purpose: the reviewed UML depicts the approved shell and local storage, and asserts no server, grading, or course content. The concrete learner harms from confusion and progress loss remain addressed; no excess, contract contradiction, or material purpose failure is observed.
+
+**Aggregate result:** ✅ APPROVE. No open material VALUE, ASSURANCE, safety, authority, identity, or next-act item remains. The prior historical-manifest limit does not change the bounded AC-5 contract after the owner-authorized fresh proof epoch. Return this independent approval to the exact Coordinator for the RF → KNW state/journal effect and `Closing and record recovery`; Reviewer performs neither effect.
+
+**Round 2 self-check:**
+- [x] Judged VALUE, ASSURANCE and TRACE in order, including mandatory floors.
+- [x] Used only actual checks and explicitly preserved remaining limits.
+- [x] Marked F1 paid with its class, route and unchanged Candidate effect.
+- [x] Named the Coordinator's next act; no Reviewer lifecycle or close write is claimed.
+- [x] Derived one aggregate APPROVE verdict.
+
+Stage complete: YES
