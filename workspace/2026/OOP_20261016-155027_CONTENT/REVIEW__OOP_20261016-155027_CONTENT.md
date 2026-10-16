@@ -205,7 +205,7 @@ Producer: same independent Reviewer task `codex:thread:local:01a14512-e044-7713-
 
 #### Return route
 
-The lifecycle remains `RF`; this Reviewer does not change status or write a transition. Send `REVIEW_READY` to the recorded Coordinator with this durable REVIEW reference. The Coordinator owns the canonical close route and any status/journal effect. No implementation change, browser capture or additional review of unchanged claims is proposed.
+The lifecycle remains `RF`; this Reviewer does not change status or write a transition. Sent `REVIEW_READY` to the recorded Coordinator at `2026-10-16T21:25:47+05:00`, referencing this REVIEW at `cebfb92abcba5a4ce4e1e95d0d98f6b5084d896c`. The Coordinator owns the canonical close route and any status/journal effect. No implementation change, browser capture or additional review of unchanged claims is proposed.
 
 #### Material handover at this return
 
