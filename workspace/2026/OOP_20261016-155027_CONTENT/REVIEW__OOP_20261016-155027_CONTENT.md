@@ -66,7 +66,7 @@ One material proposal is open. The Reviewer does not rule it or dispatch an Exec
 
 ## 6. Traces Updated and Completion Signal
 
-This review records one REVISE proposal and its next act/addressee: the existing task Coordinator at `codex:thread:local:01a143a1-8242-7fd3-943b-8293c09bf58a` rules F1 and selects the authorized proof route. The lifecycle remains `RF`; REVISE alone does not change it, so no status transition or journal event is asserted. The review artifacts are committed at `93cb3c69c10a2f5dbc04bc398c34669695688b04`; the current REVIEW path and exact Coordinator route are preflighted for the completion signal.
+This review records one REVISE proposal and its next act/addressee: the existing task Coordinator at `codex:thread:local:01a143a1-8242-7fd3-943b-8293c09bf58a` rules F1 and selects the authorized proof route. The lifecycle remains `RF`; REVISE alone does not change it, so no status transition or journal event is asserted. The verdict and stage files were first committed at `93cb3c69c10a2f5dbc04bc398c34669695688b04`; a later exact-path commit records delivery preflight. The current REVIEW snapshot and exact Coordinator route are preflighted for the completion signal.
 
 ### Reviewer economics binding disposition
 
@@ -74,7 +74,7 @@ Producer: Reviewer task `codex:thread:local:01a14512-e044-7713-a656-c2399dfa72c7
 
 ### Immutable reference / delivery state
 
-The REVIEW content and stage files have an immutable commit at `93cb3c69c10a2f5dbc04bc398c34669695688b04`. This exact commit is the review body being returned. `REVIEW_READY` delivery to the recorded Coordinator is pending; no lifecycle/status transition is required for REVISE.
+The verdict and stage files are immutable at `93cb3c69c10a2f5dbc04bc398c34669695688b04`; the current REVIEW delivery-preflight update is also committed. `REVIEW_READY` delivery to the recorded Coordinator is pending; no lifecycle/status transition is required for REVISE.
 
 ## 7. Stop
 
