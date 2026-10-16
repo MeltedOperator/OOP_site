@@ -45,6 +45,12 @@ With no measured token categories, an API-equivalent valuation is not computable
 selected. The short final-delivery/cleanup tail is outside this report's work bound; any substantive
 reopened work needs a separate range.
 
+The user's request to measure tokens prompted one more check of the current Coordinator's own
+Codex task readback on 2026-10-16. It exposes turn timing and item types but no token/usage fields;
+the exact rollout `session_meta.id`, source path, version and range start remain unavailable. This
+is the same Coordinator unit, not a sixth contributor. No estimate or reconstructed token total is
+substituted.
+
 ## Supported conclusion
 
 The project obtained an independently approved local shell and checked UML. Delivery size and
@@ -62,5 +68,8 @@ actual start and return boundaries.
   predecessor REVIEW §7. Original usage source bytes are unavailable; none were reconstructed.
 - No public rate card or task-owned quote was used, since there are no measured numeric usages to
   value.
+- After the independent review and durable recording of the proof hashes/results, the temporary
+  `ac5-r1` manifests, PlantUML runtime/archive and render were removed from the OS temp directory.
+  Their reviewed outcomes remain in RF, EV and REVIEW; no course PDF or product source was removed.
 
 This report is a task-close summary, not an invoice, subscription allocation or usage-zero assertion.
