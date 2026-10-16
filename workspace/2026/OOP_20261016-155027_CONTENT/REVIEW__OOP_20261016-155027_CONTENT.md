@@ -66,7 +66,7 @@ One material proposal is open. The Reviewer does not rule it or dispatch an Exec
 
 ## 6. Traces Updated and Completion Signal
 
-This review records one REVISE proposal and its next act/addressee: the existing task Coordinator at `codex:thread:local:01a143a1-8242-7fd3-943b-8293c09bf58a` rules F1 and selects the authorized proof route. The lifecycle remains `RF`; REVISE alone does not change it, so no status transition or journal event is asserted. REVIEW_READY is to be sent only after an immutable REVIEW reference is available.
+This review records one REVISE proposal and its next act/addressee: the existing task Coordinator at `codex:thread:local:01a143a1-8242-7fd3-943b-8293c09bf58a` rules F1 and selects the authorized proof route. The lifecycle remains `RF`; REVISE alone does not change it, so no status transition or journal event is asserted. The review artifacts are committed at `93cb3c69c10a2f5dbc04bc398c34669695688b04`; the current REVIEW path and exact Coordinator route are preflighted for the completion signal.
 
 ### Reviewer economics binding disposition
 
@@ -74,11 +74,11 @@ Producer: Reviewer task `codex:thread:local:01a14512-e044-7713-a656-c2399dfa72c7
 
 ### Immutable reference / delivery state
 
-The review artifacts are present in the shared project tree. Git commit is blocked because `.git` is read-only in this task's filesystem permissions; no immutable commit reference exists yet, and no `REVIEW_READY` signal has been sent. The Coordinator route and delivery remain pending until a resolvable immutable REVIEW reference can be produced.
+The REVIEW content and stage files have an immutable commit at `93cb3c69c10a2f5dbc04bc398c34669695688b04`. This exact commit is the review body being returned. `REVIEW_READY` delivery to the recorded Coordinator is pending; no lifecycle/status transition is required for REVISE.
 
 ## 7. Stop
 
-This Reviewer invocation ends at this durable proposed verdict. The Reviewer does not capture Chrome evidence, rule F1, move lifecycle to KNW/DONE, or repair implementation.
+The exact `REVIEW_READY` delivery outcome is recorded after the send. This Reviewer invocation ends at this durable proposed verdict. The Reviewer does not capture Chrome evidence, rule F1, move lifecycle to KNW/DONE, or repair implementation.
 
 ---
 
