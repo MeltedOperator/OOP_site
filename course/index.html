@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f2eb">
+    <meta name="description" content="Локальный маршрут курса ООП OOPoman для студентов второго курса.">
+    <title>OOPoman — маршрут курса</title>
+    <link rel="icon" type="image/svg+xml" href="assets/mark.svg">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="data.js"></script>
+    <script defer src="storage.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">К содержанию</a>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="OOPoman — на главную">
+        <img src="assets/mark.svg" width="38" height="38" alt="">
+        <span>OOP<span class="brand-accent">oman</span></span>
+      </a>
+      <nav class="top-nav" aria-label="Основная навигация">
+        <a href="index.html" data-nav="home">Главная</a>
+        <a href="?view=progress" data-nav="progress">Мой прогресс</a>
+      </nav>
+    </header>
+
+    <main id="main" class="page-shell" tabindex="-1">
+      <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+      <div id="app" aria-live="polite"></div>
+    </main>
+
+    <footer class="site-footer">
+      <span>Локальный курс OOPoman</span>
+      <span>Прогресс хранится в этом профиле Chrome</span>
+    </footer>
+
+    <dialog id="reset-dialog" class="reset-dialog" aria-labelledby="reset-title" aria-describedby="reset-copy">
+      <div class="dialog-mark" aria-hidden="true">↺</div>
+      <h2 id="reset-title">Сбросить прогресс?</h2>
+      <p id="reset-copy">Будут удалены только отметки OOPoman в этом профиле. Это действие нельзя отменить.</p>
+      <form class="dialog-actions" method="dialog">
+        <button class="button button-quiet" value="cancel">Отмена</button>
+        <button class="button button-danger" value="confirm">Сбросить прогресс</button>
+      </form>
+    </dialog>
+  </body>
+</html>

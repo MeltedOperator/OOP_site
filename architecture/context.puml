@@ -3,20 +3,31 @@ left to right direction
 
 actor Student
 actor "Course owner\n(Roman)" as Owner
-rectangle "OOPoman local site\n(runs in the student's browser)" as Site {
-  component "Welcome, lessons,\ninteractive checks, points" as CourseUI
-  component "Week availability\n(Week 1 initially open)" as Availability
+rectangle "OOPoman course shell\n(opened locally in Chrome)" as Site {
+  component "Course route\n(three modules)" as CourseUI
+  component "Week availability\n(Week 1 open; 2–3 locked)" as Availability
+  component "Empty theory and\npractice pages" as EmptyPages
+  component "Progress page\nand confirmed reset" as ProgressUI
 }
-folder "OOP-course/\n(owner-provided course files)" as Materials
+database "Chrome profile\nlocalStorage: oopoman.progress.v1" as Progress
+folder "OOP-course/\n(read-only source PDFs)" as Materials
 
-Student --> CourseUI : learns and completes activities
-CourseUI --> Materials : consumes local course material
+Student --> CourseUI : follows the route
+CourseUI --> Availability : shows open and locked weeks
+CourseUI --> EmptyPages : presents unfilled page shells
+Student --> ProgressUI : reads or resets progress
+ProgressUI --> Progress : reads; removes only OOPoman key
+CourseUI --> Progress : records a viewed lab as started
 Owner --> Availability : authorizes opening Weeks 2 and 3
 
 note bottom of Site
-  Local use only. No project-owned server,
-  database, registration, or authentication.
-  Content delivery, score persistence, and code
-  execution design remain open decisions.
+  Local file opened directly in Chrome.
+  No network service, login, activities,
+  grading, points, or code execution.
+end note
+
+note bottom of Materials
+  Numbered names identify module grouping.
+  PDF content is not copied or modified.
 end note
 @enduml

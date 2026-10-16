@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-labelledby="title">
+  <title id="title">OOPoman mark</title>
+  <rect x="1" y="1" width="46" height="46" rx="15" fill="#174b3b"/>
+  <path d="M15 16h18v5H21v5h10v5H21v7h-6V16Z" fill="#f5f2eb"/>
+  <circle cx="34" cy="34" r="5" fill="#c8e58b"/>
+</svg>
