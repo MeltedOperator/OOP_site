@@ -14,7 +14,7 @@ coordination_authority: "HL-OOP_20261018-204154_WEEK2.md @ a1f3bda5684456a2db489
 reporting: native-gates
 selection_ref: baseline
 created: 20261018-205055
-updated: 20261018-205055
+updated: 20261018-205614
 ---
 
 **Task state.** This file is the only authority for this task's live state. Any downstream projection is disposable and never outranks it.
