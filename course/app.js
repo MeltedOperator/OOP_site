@@ -141,7 +141,7 @@
       </section>
       <section class="section-heading"><div><p class="eyebrow">ВАШ ПЛАН</p><h2>Три недели курса</h2></div><a class="text-link" href="?view=progress">Мой прогресс <span aria-hidden="true">→</span></a></section>
       <section class="module-grid" aria-label="Модули курса">${modules.map((module) => moduleCard(module, progress)).join("")}</section>
-      <section class="empty-note"><span class="empty-note-icon" aria-hidden="true">✦</span><div><strong>Учитесь в своём темпе</strong><p>Код запускается на вашем компьютере. Сайт хранит только ваши ответы, отметки, баллы и завершённость в этом профиле Chrome.</p></div></section>`;
+      <section class="empty-note"><span class="empty-note-icon" aria-hidden="true">✦</span><div><strong>Учитесь в своём темпе</strong><p>Код запускается на вашем компьютере. Сайт хранит только ваши ответы, отметки, баллы и завершённость в этом профиле браузера.</p></div></section>`;
   }
 
   function renderProgress(progress) {
@@ -160,8 +160,8 @@
     }).join("");
     return `
       <section class="page-intro"><a class="back-link" href="index.html">← К маршруту</a><p class="eyebrow">ЛИЧНЫЕ ОТМЕТКИ</p><h1>Ваш прогресс</h1><p>Баллы и завершённость показываются отдельно для каждой доступной лабораторной.</p></section>
-      <section class="progress-summary"><div><span class="eyebrow">МОДУЛИ ЗАВЕРШЕНЫ</span><strong>${doneModules} <small>/ ${modules.length}</small></strong></div><div><span class="eyebrow">ЛАБОРАТОРНЫХ С ПРОГРЕССОМ</span><strong>${visited} <small>/ 9</small></strong></div><div class="summary-note">Прогресс хранится локально в ключе OOPoman этого профиля Chrome. Код сайта не запускает и peer-проверку не подтверждает.</div></section>
-      <div class="reset-row"><div><strong>Передать профиль другому студенту?</strong><p>Сброс удалит только отметки OOPoman в этом профиле Chrome.</p></div><button class="button button-danger-outline" type="button" data-action="open-reset" aria-haspopup="dialog" aria-controls="reset-dialog">Сбросить прогресс</button></div>
+      <section class="progress-summary"><div><span class="eyebrow">МОДУЛИ ЗАВЕРШЕНЫ</span><strong>${doneModules} <small>/ ${modules.length}</small></strong></div><div><span class="eyebrow">ЛАБОРАТОРНЫХ С ПРОГРЕССОМ</span><strong>${visited} <small>/ 9</small></strong></div><div class="summary-note">Прогресс хранится локально в ключе OOPoman этого профиля браузера. Код сайта не запускает и peer-проверку не подтверждает.</div></section>
+      <div class="reset-row"><div><strong>Передать профиль другому студенту?</strong><p>Сброс удалит только отметки OOPoman в этом профиле браузера.</p></div><button class="button button-danger-outline" type="button" data-action="open-reset" aria-haspopup="dialog" aria-controls="reset-dialog">Сбросить прогресс</button></div>
       <section class="progress-modules" aria-label="Прогресс по модулям">${moduleRows}</section>`;
   }
 
@@ -398,7 +398,7 @@
     if (!lab) return;
     const result = updateLabState(lab);
     refreshLabFeedback(lab, result.answers, stateFor(progressSnapshot().value, lab.id).status === "completed");
-    if (!result.saved) currentNotice("Не удалось сохранить ответы в этом профиле Chrome.", "warning");
+    if (!result.saved) currentNotice("Не удалось сохранить ответы в этом профиле браузера.", "warning");
     else currentNotice("Ответы и отметки сохранены в локальном прогрессе.", "success");
   });
 

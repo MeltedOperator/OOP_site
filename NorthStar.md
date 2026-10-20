@@ -19,7 +19,7 @@ Each correct quiz answer and each checked ordinary checklist item awards 20 poin
 
 ## Product boundaries
 
-- Run locally in a browser; do not deploy the site.
+- Run as a static site in a browser. The owner may publish a public hosted copy for classmates; learners need Internet access to load that copy, while their progress remains local to their browser profile.
 - Do not add a project-owned server, database, registration, or authentication.
 - Source PDFs are provided in the root-level `OOP-course/` directory and remain unchanged. The browser course presents its authored lesson and lab content from the existing `course/data.js` model.
 - Keep the interface simple, intuitive, and visually clear, with well-designed controls.
