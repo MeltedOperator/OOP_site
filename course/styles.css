@@ -315,3 +315,54 @@ h3 { font-size: 22px; line-height: 1.18; }
   .content-link-action { grid-column: 2; text-align: left; }
   .content-pagination { flex-direction: column; }
 }
+
+/* Module 2 workbook: a distinct paper-like study surface for the expanded lessons. */
+.content-page[data-module-id="2"] .page-intro,
+.content-page[data-module-id="2"] .lesson-section,
+.content-page[data-module-id="2"] .takeaway,
+.content-page[data-module-id="2"] .optional-section,
+.content-page[data-module-id="2"] .lab-overview,
+.content-page[data-module-id="2"] .step-card,
+.content-page[data-module-id="2"] .assessment-card {
+  border-color: #c9d7ce;
+  background: #f8fbf7;
+}
+.content-page[data-module-id="2"] .page-intro { border-top: 5px solid #3c765f; }
+.content-page[data-module-id="2"] .lesson-outcome {
+  margin: 22px 0 8px; padding: 17px 19px; border-left: 4px solid #3c765f;
+  background: #e7f1e9; color: #244d3d;
+}
+.content-page[data-module-id="2"] .lesson-outcome p:last-child { margin: 6px 0 0; line-height: 1.6; }
+.content-page[data-module-id="2"] .code-example {
+  margin: 20px 0; padding: 20px; border: 1px solid #b8cbbd; border-radius: 12px;
+  background: #fff; box-shadow: 0 8px 22px #203a2a0d;
+}
+.content-page[data-module-id="2"] .code-example-heading h3 { margin: 4px 0 8px; }
+.content-page[data-module-id="2"] .code-example pre { overflow-x: auto; padding: 16px; border-radius: 8px; background: #1f3029; color: #e9f3eb; }
+.content-page[data-module-id="2"] .example-breakdown {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 14px 0 0;
+}
+.content-page[data-module-id="2"] .example-breakdown > div { padding: 12px; background: #eef4ef; border-radius: 8px; }
+.content-page[data-module-id="2"] .example-breakdown dt { margin-bottom: 6px; color: #315c47; font-weight: 700; }
+.content-page[data-module-id="2"] .example-breakdown dd { margin: 0; line-height: 1.55; }
+.content-page[data-module-id="2"] .oop-diagram {
+  margin: 22px 0; padding: 20px; border: 1px solid #b8cbbd; border-radius: 12px;
+  background: #eef4ef;
+}
+.content-page[data-module-id="2"] .oop-diagram figcaption { display: grid; gap: 5px; margin-bottom: 14px; }
+.content-page[data-module-id="2"] .oop-diagram-compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: stretch; }
+.content-page[data-module-id="2"] .oop-diagram-panel { padding: 14px; border-radius: 8px; background: #fff; }
+.content-page[data-module-id="2"] .oop-diagram-panel h3 { margin: 0 0 8px; font-size: 15px; }
+.content-page[data-module-id="2"] .oop-diagram-panel ol { margin: 0; padding-left: 21px; line-height: 1.65; }
+.content-page[data-module-id="2"] .oop-diagram-arrow { align-self: center; color: #3c765f; font-size: 24px; font-weight: 700; }
+.content-page[data-module-id="2"] .oop-diagram-caption { margin: 12px 0 0; line-height: 1.55; }
+.content-page[data-module-id="2"] .self-check { margin: 18px 0; padding: 18px; border: 1px solid #d4c18d; border-radius: 10px; background: #fff8e7; }
+.content-page[data-module-id="2"] .self-check h3 { margin: 5px 0; }
+.content-page[data-module-id="2"] .self-check-criterion { margin-bottom: 0; }
+.content-page[data-module-id="2"] .lab-page .step-card { border-left: 3px solid #3c765f; }
+.content-page[data-module-id="2"] .lab-page .assessment-card { border-top: 3px solid #3c765f; }
+@media (max-width: 760px) {
+  .content-page[data-module-id="2"] .example-breakdown { grid-template-columns: 1fr; }
+  .content-page[data-module-id="2"] .oop-diagram-compare { grid-template-columns: 1fr; }
+  .content-page[data-module-id="2"] .oop-diagram-arrow { justify-self: center; transform: rotate(90deg); }
+}

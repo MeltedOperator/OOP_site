@@ -188,25 +188,38 @@
       if (block.type === "list") return `<ul>${block.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
       if (block.type === "code") return `<pre><code>${escapeHtml(block.text)}</code></pre>`;
       if (block.type === "callout") return `<aside class="content-callout">${escapeHtml(block.text)}</aside>`;
+      if (block.type === "example") {
+        return `<article class="code-example" aria-label="${escapeHtml(block.title)}">
+          <header class="code-example-heading"><p class="eyebrow">РАЗОБРАННЫЙ ПРИМЕР</p><h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.goal)}</p></header>
+          <pre><code>${escapeHtml(block.code)}</code></pre>
+          <dl class="example-breakdown"><div><dt>Ожидаемое поведение</dt><dd>${escapeHtml(block.expected)}</dd></div><div><dt>Решение в коде</dt><dd>${escapeHtml(block.decision)}</dd></div><div><dt>Связь с ООП</dt><dd>${escapeHtml(block.oop)}</dd></div></dl>
+        </article>`;
+      }
+      if (block.type === "diagram") {
+        const renderSide = (side) => `<section class="oop-diagram-panel"><h3>${escapeHtml(side.label)}</h3><ol>${side.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol></section>`;
+        return `<figure class="oop-diagram" aria-label="${escapeHtml(block.title)}"><figcaption><span class="eyebrow">СХЕМА ОТНОШЕНИЙ</span><strong>${escapeHtml(block.title)}</strong></figcaption><div class="oop-diagram-compare">${renderSide(block.before)}<span class="oop-diagram-arrow" aria-hidden="true">→</span>${renderSide(block.after)}</div><p class="oop-diagram-caption">${escapeHtml(block.caption)}</p></figure>`;
+      }
+      if (block.type === "exercise") {
+        return `<aside class="self-check"><p class="eyebrow">САМОПРОВЕРКА</p><h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.prompt)}</p><p class="self-check-criterion"><strong>Критерий проверки:</strong> ${escapeHtml(block.criterion)}</p></aside>`;
+      }
       return `<p>${escapeHtml(block.text)}</p>`;
     }).join("");
   }
-
   function renderExtension(extension) {
     if (!extension) return "";
     return `<aside class="optional-section"><p class="eyebrow">НЕОБЯЗАТЕЛЬНОЕ УГЛУБЛЕНИЕ</p><h2>${escapeHtml(extension.title)}</h2><p>${escapeHtml(extension.detail)}</p></aside>`;
   }
 
   function sourceHref(file) {
-    return `../${encodeURI(file)}`;
+    const encodedPath = file.split("/").map((part) => encodeURIComponent(part)).join("/");
+    return `../OOP-course/${encodedPath}`;
   }
-
   function renderLesson(lesson) {
     const pairedLab = labs.find((lab) => lab.id === lesson.labId);
     const module = moduleForContent(lesson.id);
     return `
-      <article class="content-page">
-        <section class="page-intro"><a class="back-link" href="index.html?week=${module.id}&amp;view=module">← К модулю ${module.id}</a><p class="eyebrow">ТЕОРИЯ · МОДУЛЬ ${String(module.id).padStart(2, "0")} · ${String(lesson.id).padStart(2, "0")}</p><h1>${escapeHtml(lesson.title)}</h1><p>${escapeHtml(lesson.subtitle)}</p><div class="content-meta"><span>${lesson.minutes} минут</span><a class="text-link" href="${escapeHtml(sourceHref(lesson.file))}" target="_blank" rel="noopener">Открыть исходный PDF ↗</a></div></section>
+      <article class="content-page" data-module-id="${module.id}">
+        <section class="page-intro"><a class="back-link" href="index.html?week=${module.id}&amp;view=module">← К модулю ${module.id}</a><p class="eyebrow">ТЕОРИЯ · МОДУЛЬ ${String(module.id).padStart(2, "0")} · ${String(lesson.id).padStart(2, "0")}</p><h1>${escapeHtml(lesson.title)}</h1><p>${escapeHtml(lesson.subtitle)}</p>${lesson.outcome ? `<aside class="lesson-outcome"><p class="eyebrow">К КОНЦУ УРОКА ВЫ СМОЖЕТЕ</p><p>${escapeHtml(lesson.outcome)}</p></aside>` : ""}<div class="content-meta"><span>${lesson.minutes} минут</span><a class="text-link" href="${escapeHtml(sourceHref(lesson.file))}" target="_blank" rel="noopener">Открыть исходный PDF ↗</a></div></section>
         <div class="lesson-sections">${lesson.sections.map((section, index) => `<section class="lesson-section"><div class="lesson-section-heading"><span class="lesson-section-number">${String(index + 1).padStart(2, "0")}</span><div><h2>${escapeHtml(section.title)}</h2><span class="section-time">${escapeHtml(section.time)}</span></div></div><p class="section-intro">${escapeHtml(section.intro)}</p><div class="rich-content">${renderBlocks(section.blocks)}</div></section>`).join("")}</div>
         <section class="takeaway"><p class="eyebrow">ГЛАВНОЕ</p><ul>${lesson.takeaway.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>
         ${renderExtension(lesson.extension)}
@@ -239,7 +252,7 @@
     const checklist = lab.checklist.map((item, index) => `<label class="checklist-item"><input type="checkbox" data-checklist="c${index + 1}" ${state.checklist?.[`c${index + 1}`] === true ? "checked" : ""}><span>${escapeHtml(item)}</span><strong>20 баллов</strong></label>`).join("");
     const savedStatus = state.status === "completed" ? "Завершена" : "Не завершена";
     return `
-      <article class="content-page lab-page" data-lab-id="${lab.id}">
+      <article class="content-page lab-page" data-module-id="${module.id}" data-lab-id="${lab.id}">
         <section class="page-intro"><a class="back-link" href="index.html?week=${module.id}&amp;view=module">← К модулю ${module.id}</a><p class="eyebrow">ПРАКТИКА · МОДУЛЬ ${String(module.id).padStart(2, "0")} · ЛАБОРАТОРНАЯ ${String(lab.id).padStart(2, "0")}</p><h1>${escapeHtml(lab.title)}</h1><p>${escapeHtml(lab.subtitle)}</p><div class="content-meta"><span>${lab.minutes} минут</span><a class="text-link" href="${escapeHtml(sourceHref(lab.file))}" target="_blank" rel="noopener">Открыть исходный PDF ↗</a></div></section>
         <section class="lab-overview"><div><p class="eyebrow">ЦЕЛЬ</p><p>${escapeHtml(lab.goal)}</p></div><div><p class="eyebrow">КОНТЕКСТ</p><p>${escapeHtml(lab.context)}</p></div></section>
         <div class="lab-columns"><section class="detail-card"><div class="detail-heading"><span class="detail-icon" aria-hidden="true">01</span><div><p class="eyebrow">РЕЗУЛЬТАТ</p><h2>Что подготовить</h2></div></div><ul class="deliverable-list">${lab.deliverables.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section><section class="detail-card"><div class="detail-heading"><span class="detail-icon detail-icon-lime" aria-hidden="true">02</span><div><p class="eyebrow">КРИТЕРИИ</p><h2>Что проверить</h2></div></div><ul class="deliverable-list">${lab.criteria.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section></div>
