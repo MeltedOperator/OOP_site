@@ -366,3 +366,8 @@ h3 { font-size: 22px; line-height: 1.18; }
   .content-page[data-module-id="2"] .oop-diagram-compare { grid-template-columns: 1fr; }
   .content-page[data-module-id="2"] .oop-diagram-arrow { justify-self: center; transform: rotate(90deg); }
 }
+.content-page[data-module-id="2"] .lesson-sections { grid-template-columns: minmax(0, 1fr); }
+.content-page[data-module-id="2"] .lesson-section,
+.content-page[data-module-id="2"] .lesson-section-heading > div,
+.content-page[data-module-id="2"] .rich-content { min-width: 0; }
+.content-page[data-module-id="2"] .rich-content { grid-template-columns: minmax(0, 1fr); }
