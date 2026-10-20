@@ -16,9 +16,18 @@ missing authorized decision. No generated index, original chat or task-archive s
 
 ### OOPoman local course shell
 
-- The browser course shell contains the three-module route, week availability, empty theory/practice
-  pages, and progress/reset interface. The route uses profile-scoped Chrome `localStorage` at
-  `oopoman.progress.v1`; reset removes only that key after confirmation.
+- The browser course shell contains three module routes, availability rules, lesson/lab pages, and a
+  progress/reset interface. Module 2 is available with lessons and labs 4–6; module 3 remains locked.
+  Its week-two lessons provide a 60-minute required core, optional depth, worked OOP examples and
+  recap diagrams. The route uses profile-scoped Chrome `localStorage` at `oopoman.progress.v1`; reset
+  removes only that key after confirmation.
+- Lab scoring is dynamic: 20 points for each correct quiz answer and each checked checklist item;
+  the maximum follows the actual item count. Completion requires every quiz answer and peer-check
+  confirmation, with progress retained locally. The six lesson/lab PDF links open their preserved
+  source PDFs. These behaviors were independently reviewed at Candidate
+  `b4115b6f042f9d3fe65b6aa061fd558cb3bd2802` and bounded review commit
+  `a9703e4f925957d7162f42e693a1fd1c24e72312`; Coordinator acceptance is recorded at
+  `3d37d8cbf0d2f43806ac596750fc46fabe26e79a`.
 - Source PDFs under `OOP-course/` are read-only materials grouped by module. The local shell does not
   introduce a project server, login, grading, or code execution.
 - Sources: [Candidate context UML](architecture/context.puml) at Candidate `63d1783617095ffea8e5b4c4b2846b90137b5c65`;
