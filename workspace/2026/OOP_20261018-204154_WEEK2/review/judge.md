@@ -172,3 +172,29 @@ Current status remains RF; Candidate, approved TS rev1, owner authority and Coor
 **Contrast follow-up self-check:** classification precedes aggregate verdict; F5 has accepted claim, fact/oracle, harm, material consequence, owner, observable completion, route/rung and Candidate effect; no repair or authority ruling was performed.
 
 Stage complete: YES
+
+## F5 corrected Candidate judgment — b4115b6
+
+### VALUE
+
+| Subject | Status | Evidence / finding IDs |
+|---|---|---|
+| Approved AC-7 recap readability / F5 | ✅ | V20 independently confirms all three callouts render dark body text at 8.24:1 and dark labels at 6.60:1 on `#e7f1e9`, at both 390×844 and 1280×800. All three list items and the following optional section remain visible without clipping. |
+
+### ASSURANCE
+
+EV E18 is Candidate-specific and sufficient for the bounded correction, and the independent current-main browser check reproduces its deciding colors, ratios, dimensions, lesson coverage and viewports. Main's 12 approved VALUE paths are byte-identical to Candidate `b4115b6f042f9d3fe65b6aa061fd558cb3bd2802`; the F5 change remains only in `course/styles.css`. The full fixed-selector accounting is reproduced below the immutable owner denominator. No other accepted claim was reopened.
+
+### TRACE and purpose
+
+The accepted F5 Rung 1 ruling, approved TS rev1, exact Candidate, RF/EV, owner-gated accounting and current `RF` status all resolve to the selected single-phase route. F5's recorded completion condition now holds. The original course purpose remains served; the corrected recap restores readable review of the lecture concepts. Reviewer does not write a status transition, promote knowledge, or declare task completion.
+
+**Bounded review verdict: ✅ APPROVE.** F5 is verified paid at corrected Candidate `b4115b6f042f9d3fe65b6aa061fd558cb3bd2802`; propose the terminal disposition `paid — Candidate b4115b6f042f9d3fe65b6aa061fd558cb3bd2802, V20/E18`. No further product work is indicated by this finding. Coordinator is next to apply the existing APPROVE route and the `RF → KNW` transition with its journal event, and to retain T1 (`KNOWLEDGE.md` §1 update or justified N/A) for the KNW close route. No lifecycle or knowledge transition was performed by Reviewer; current status remains RF. Owner-reserved final acceptance and close authority remain intact.
+
+### Reviewer economics v1 outcome for this continuation
+
+This is an attributable pre-extraction binding gap, not a measured zero or a failed extraction. Surface: Codex local task; source namespace: Codex rollout; task `OOP_20261018-204154_WEEK2`, phase A, owner `roman`, role Reviewer; unit `codex:thread:local:01a159a3-f467-7923-92bf-1ba81013008c`, parent Coordinator `codex:thread:local:01a1595c-bfae-72a2-bb37-17b2dc73a9e8`. The exact rollout `session_meta.id`, native JSONL path/hash and finite range are not exposed. No extraction was attempted; no failure receipt or numeric JSONL is claimed; `last_good` remains `null`. Without those binding fields a numeric contribution cannot be validated. Observed at `2026-10-20T22:27:30+05:00` (`Asia/Qyzylorda`).
+
+**F5 follow-up self-check:** VALUE → ASSURANCE → TRACE order applied; the paid proposal cites V20 and the complete resolution condition; no other finding or lifecycle effect was changed.
+
+Stage complete: YES

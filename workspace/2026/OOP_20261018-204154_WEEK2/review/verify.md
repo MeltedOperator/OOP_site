@@ -258,3 +258,21 @@ Stage complete: YES
 **Follow-up self-check:** current Candidate and return evidence resolve; every finding has class, accepted claim, fact/oracle, harm, consequence, owner, completion condition, route and Candidate effect; no scope request is treated as an approved implementation order.
 
 Stage complete: YES
+
+## F5 corrected Candidate verification — V20
+
+### V20: C20 — all “Главное” recaps at Candidate b4115b6
+
+- **Accepted claim / authority:** The Coordinator accepted F5 as a Rung 1 breach of approved TS rev1 AC-7 in REVIEW §16. AC-7 requires retained readability on mobile and a calm workbook surface. This continuation is bound to Coordinator dispatch `journal/20261020-222000__dispatch__A46D.md` and Candidate `b4115b6f042f9d3fe65b6aa061fd558cb3bd2802`.
+- **Subject tuple:** Candidate `b4115b6f042f9d3fe65b6aa061fd558cb3bd2802`; current main local preview at port 8768; lessons 4, 5 and 6; `.takeaway` sections and their list/eyebrow text; CSS viewport 390×844 and 1280×800; approved TS rev1 AC-7 and accepted F5 bound.
+- **Action:** Opened `http://127.0.0.1:8768/course/index.html?page=lesson-04` and each corresponding lesson-05/06 route in the local browser. At each requested viewport, independently read computed foreground/background, block dimensions, list count, following section and document width. Captured and inspected full-page screenshots for each lesson at both viewport sizes. Recalculated contrast from the observed hex colors. Checked that all 12 approved VALUE paths at current main are byte-identical to the returned Candidate and replayed the exact NUL-safe accounting selector from immutable Baseline to Candidate.
+- **Observed:** At both viewport sizes and on all three pages, callout background is `#e7f1e9` (`rgb(231, 241, 233)`), body/list text is `#244d3d` (`rgb(36, 77, 61)`), and label text is `#315c47` (`rgb(49, 92, 71)`). Independently calculated contrast is 8.24:1 for the body/list and 6.60:1 for the label. Actual renders show all text clearly readable. Each block retains three list items and is immediately followed by `.optional-section`; no clipping or overflow appears. At 390×844, recap width is approximately 343 px, document width 375 px, and block heights are 255/214/255 px. At 1280×800, recap width is 980 px, document width 1,265 px, and each block height is 151 px. Content height equals each block's scroll height.
+- **Independent accounting and identity:** The fixed 12-path selector from Baseline `ee410b2cc851825803cd3728991864482efbc944` to Candidate gives six page CREATEs and six MODIFYs (the approved source/content/rendering/storage/docs paths), all text: 638 additions + 30 deletions = 668 touched LOC, no binary. This is below the owner-approved 12-file/1,600-LOC denominator and the 24-file/3,200-LOC escalation boundary. `git diff --quiet b4115b6f042f9d3fe65b6aa061fd558cb3bd2802 HEAD -- $valuePaths` exits 0. The only VALUE-path difference between the prior F5 Candidate and this Candidate is `course/styles.css`.
+- **Evidence applicability:** EV E18 is correctly bound to this Candidate and reports the same colors, ratios, viewport sizes and retained content. This independent browser observation on main reproduces those deciding values and confirms E18. The Executor’s response in RF says the original pale colors belonged to the former dark surface; the source does not establish a deliberate pale-on-light design reason. That historical intent question has no unresolved bearing on the corrected F5 outcome.
+- **Result:** HOLDS — F5's material AC-7 contrast defect is corrected on all three lecture pages and both required viewport sizes. No new finding or implementation scope is identified.
+
+**Commands / checks performed:** exact `git diff --name-status --find-renames=50% -z` and `git diff --numstat --find-renames=50% -z` against the fixed 12 approved paths; `git diff --quiet` for Candidate-to-current-HEAD equality. No test suite was run or added.
+
+**F5 follow-up self-check:** the returned subject and exact approved boundary resolve; actual rendering, computed colors and recalculated contrast agree with E18; every requested lesson and viewport was observed; the former defect's completion condition holds.
+
+Stage complete: YES

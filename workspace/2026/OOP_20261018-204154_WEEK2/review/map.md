@@ -101,3 +101,15 @@ Stage complete: YES
 Candidate, approved TS rev1, current RF and Coordinator-authorized bounded follow-up scope remain fixed. No product mutation or lifecycle transition is authorized by this review continuation.
 
 Stage complete: YES
+
+## F5 corrected Candidate — bounded map
+
+| Claim | Check | Result / limit |
+|---|---|---|
+| C20 — accepted F5 / TS rev1 AC-7 | Independently inspect Candidate `b4115b6f042f9d3fe65b6aa061fd558cb3bd2802` in the local main preview, all three lesson recap callouts, computed colors, content and clipping at 390×844 and 1280×800 CSS px. Reconcile EV E18 and the approved F5 ruling. | All three recap blocks now render readable dark text on a pale green surface. The original contrast defect is corrected; the candidate remains inside the fixed approved 12-path selector. |
+
+Identity and authority: task status is `RF`; current selection is owner-only, `tfw-gates-only`, one phase, `native-gates`; `selection_ref` is `journal/20261020-175833__coordination_selected__223c.md @ 89905b95fdcdc2b597a7b8ce85e89748290f6dbe`; approved TS rev1 is `e1b23b30e8f77dbc2e567d1128fc901e0ec6030f`; the Coordinator accepted the F5 Rung 1 ruling in live REVIEW §16. Exact activation dispatch is `journal/20261020-222000__dispatch__A46D.md`; it names the same independent Reviewer and limits this check to F5. Candidate is `b4115b6f042f9d3fe65b6aa061fd558cb3bd2802`, reachable from current main.
+
+Unaffected claims and current knowledge context reuse the prior independent review. The F5 correction changes only the existing `course/styles.css` VALUE path; the exact P0–P4 scan and relevant P5–P7 disposition in the prior Verify remain current because it changed no cited purpose, knowledge, or contract source. No scope beyond F5 was opened.
+
+Stage complete: YES
