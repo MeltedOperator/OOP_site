@@ -75,6 +75,13 @@
     }, 0);
   }
 
+  function moduleForContent(id) {
+    return modules.find((module) =>
+      module.lessons.some((lesson) => lesson.id === id) ||
+      module.labs.some((lab) => lab.id === id)
+    );
+  }
+
   function moduleStatus(module, progress) {
     if (!module.available) return "Закрыта";
     const done = completedCount(progress, module);
@@ -100,7 +107,7 @@
     const contentLinks = locked
       ? `<div><span class="source-label">Лекции</span>${sourceList(module.lessons.map((item) => item.file), `Лекции модуля ${module.id}`)}</div><div><span class="source-label">Лабораторные</span>${sourceList(module.labs.map((item) => item.file), `Лабораторные модуля ${module.id}`)}</div>`
       : `<div><span class="source-label">Теория</span><ol class="module-page-list">${module.lessons.map((item) => `<li><a href="${escapeHtml(item.page)}">${String(item.id).padStart(2, "0")} · ${escapeHtml(item.content.title)}</a></li>`).join("")}</ol></div><div><span class="source-label">Практика</span><ol class="module-page-list">${module.labs.map((item) => `<li><a href="${escapeHtml(item.page)}">${String(item.id).padStart(2, "0")} · ${escapeHtml(item.content.title)} <span>${escapeHtml(labStatus(module, item, progress))}</span></a></li>`).join("")}</ol></div>`;
-    const points = locked ? "Баллы появятся после открытия недели." : `Баллы недели 1: ${moduleScore(progress, module)}/${moduleMaximum(module)}`;
+    const points = locked ? "Баллы появятся после открытия недели." : `Баллы недели ${module.id}: ${moduleScore(progress, module)}/${moduleMaximum(module)}`;
     return `
       <article class="module-card ${locked ? "module-locked" : ""}">
         <div class="module-card-top"><span class="eyebrow">МОДУЛЬ 0${module.id}</span><span class="availability ${locked ? "availability-locked" : "availability-open"}">${locked ? "Закрыта" : "Доступна"}</span></div>
@@ -121,7 +128,7 @@
         <div class="hero-copy">
           <p class="eyebrow">КУРС · ОБЪЕКТНО-ОРИЕНТИРОВАННОЕ ПРОГРАММИРОВАНИЕ</p>
           <h1>Понятный маршрут<br><span>в мир ООП.</span></h1>
-          <p class="hero-text">Изучайте теорию, выполняйте лабораторные у себя и проходите взаимную проверку. Первая неделя доступна, следующие откроются по решению владельца.</p>
+          <p class="hero-text">Изучайте теорию, выполняйте лабораторные у себя и проходите взаимную проверку. Недели 1 и 2 открыты; неделя 3 пока закрыта.</p>
           <a class="button button-primary" href="?week=1&amp;view=module">Начать первую неделю <span aria-hidden="true">↗</span></a>
         </div>
         <div class="hero-card" aria-label="Общий прогресс по модулям">
@@ -169,7 +176,7 @@
         <article class="detail-card"><div class="detail-heading"><span class="detail-icon" aria-hidden="true">01</span><div><p class="eyebrow">ТЕОРИЯ · 60 МИНУТ</p><h2>Лекции</h2></div></div><ol class="content-link-list">${lessonLinks}</ol></article>
         <article class="detail-card"><div class="detail-heading"><span class="detail-icon detail-icon-lime" aria-hidden="true">02</span><div><p class="eyebrow">ПРАКТИКА · 60 МИНУТ</p><h2>Лабораторные</h2></div></div><p class="detail-copy">Выполняйте код локально. Сайт показывает инструкции, квиз и критерии взаимопроверки.</p><ol class="content-link-list">${labLinks}</ol></article>
       </section>
-      <section class="module-progress-note"><span class="availability availability-open">Неделя доступна</span><span>Выполнено лабораторных: ${completedCount(progress, module)}/3 · Баллы: ${moduleScore(progress, module)}/${moduleMaximum(module)}</span></section>`;
+      <section class="module-progress-note"><span class="availability availability-open">Неделя доступна</span><span>Выполнено лабораторных: ${completedCount(progress, module)}/${module.labs.length} · Баллы: ${moduleScore(progress, module)}/${moduleMaximum(module)}</span></section>`;
   }
 
   function renderLocked(module) {
@@ -185,17 +192,24 @@
     }).join("");
   }
 
+  function renderExtension(extension) {
+    if (!extension) return "";
+    return `<aside class="optional-section"><p class="eyebrow">НЕОБЯЗАТЕЛЬНОЕ УГЛУБЛЕНИЕ</p><h2>${escapeHtml(extension.title)}</h2><p>${escapeHtml(extension.detail)}</p></aside>`;
+  }
+
   function sourceHref(file) {
     return `../${encodeURI(file)}`;
   }
 
   function renderLesson(lesson) {
     const pairedLab = labs.find((lab) => lab.id === lesson.labId);
+    const module = moduleForContent(lesson.id);
     return `
       <article class="content-page">
-        <section class="page-intro"><a class="back-link" href="index.html?week=1&amp;view=module">← К модулю 1</a><p class="eyebrow">ТЕОРИЯ · МОДУЛЬ 01 · ${String(lesson.id).padStart(2, "0")}</p><h1>${escapeHtml(lesson.title)}</h1><p>${escapeHtml(lesson.subtitle)}</p><div class="content-meta"><span>${lesson.minutes} минут</span><a class="text-link" href="${escapeHtml(sourceHref(lesson.file))}" target="_blank" rel="noopener">Открыть исходный PDF ↗</a></div></section>
+        <section class="page-intro"><a class="back-link" href="index.html?week=${module.id}&amp;view=module">← К модулю ${module.id}</a><p class="eyebrow">ТЕОРИЯ · МОДУЛЬ ${String(module.id).padStart(2, "0")} · ${String(lesson.id).padStart(2, "0")}</p><h1>${escapeHtml(lesson.title)}</h1><p>${escapeHtml(lesson.subtitle)}</p><div class="content-meta"><span>${lesson.minutes} минут</span><a class="text-link" href="${escapeHtml(sourceHref(lesson.file))}" target="_blank" rel="noopener">Открыть исходный PDF ↗</a></div></section>
         <div class="lesson-sections">${lesson.sections.map((section, index) => `<section class="lesson-section"><div class="lesson-section-heading"><span class="lesson-section-number">${String(index + 1).padStart(2, "0")}</span><div><h2>${escapeHtml(section.title)}</h2><span class="section-time">${escapeHtml(section.time)}</span></div></div><p class="section-intro">${escapeHtml(section.intro)}</p><div class="rich-content">${renderBlocks(section.blocks)}</div></section>`).join("")}</div>
         <section class="takeaway"><p class="eyebrow">ГЛАВНОЕ</p><ul>${lesson.takeaway.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>
+        ${renderExtension(lesson.extension)}
         ${pairedLab ? `<a class="paired-lab-card" href="${escapeHtml(`lab-${String(pairedLab.id).padStart(2, "0")}.html`)}"><span><small>СЛЕДУЮЩИЙ ШАГ</small><strong>${escapeHtml(pairedLab.title)}</strong></span><span aria-hidden="true">→</span></a>` : ""}
       </article>`;
   }
@@ -211,6 +225,7 @@
   }
 
   function renderLab(lab, state) {
+    const module = moduleForContent(lab.id);
     const score = scoreFor(lab, state);
     const answered = allQuestionsAnswered(lab, state.answers || {});
     const completeAllowed = answered && state.peerConfirmed === true;
@@ -225,10 +240,11 @@
     const savedStatus = state.status === "completed" ? "Завершена" : "Не завершена";
     return `
       <article class="content-page lab-page" data-lab-id="${lab.id}">
-        <section class="page-intro"><a class="back-link" href="index.html?week=1&amp;view=module">← К модулю 1</a><p class="eyebrow">ПРАКТИКА · МОДУЛЬ 01 · ЛАБОРАТОРНАЯ ${String(lab.id).padStart(2, "0")}</p><h1>${escapeHtml(lab.title)}</h1><p>${escapeHtml(lab.subtitle)}</p><div class="content-meta"><span>${lab.minutes} минут</span><a class="text-link" href="${escapeHtml(sourceHref(lab.file))}" target="_blank" rel="noopener">Открыть исходный PDF ↗</a></div></section>
+        <section class="page-intro"><a class="back-link" href="index.html?week=${module.id}&amp;view=module">← К модулю ${module.id}</a><p class="eyebrow">ПРАКТИКА · МОДУЛЬ ${String(module.id).padStart(2, "0")} · ЛАБОРАТОРНАЯ ${String(lab.id).padStart(2, "0")}</p><h1>${escapeHtml(lab.title)}</h1><p>${escapeHtml(lab.subtitle)}</p><div class="content-meta"><span>${lab.minutes} минут</span><a class="text-link" href="${escapeHtml(sourceHref(lab.file))}" target="_blank" rel="noopener">Открыть исходный PDF ↗</a></div></section>
         <section class="lab-overview"><div><p class="eyebrow">ЦЕЛЬ</p><p>${escapeHtml(lab.goal)}</p></div><div><p class="eyebrow">КОНТЕКСТ</p><p>${escapeHtml(lab.context)}</p></div></section>
         <div class="lab-columns"><section class="detail-card"><div class="detail-heading"><span class="detail-icon" aria-hidden="true">01</span><div><p class="eyebrow">РЕЗУЛЬТАТ</p><h2>Что подготовить</h2></div></div><ul class="deliverable-list">${lab.deliverables.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section><section class="detail-card"><div class="detail-heading"><span class="detail-icon detail-icon-lime" aria-hidden="true">02</span><div><p class="eyebrow">КРИТЕРИИ</p><h2>Что проверить</h2></div></div><ul class="deliverable-list">${lab.criteria.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section></div>
         <section class="steps-section"><div class="section-heading"><div><p class="eyebrow">МАРШРУТ · 60 МИНУТ</p><h2>Пошаговая работа</h2></div><span class="section-time">${lab.minutes} минут</span></div><ol class="step-list">${lab.steps.map((step, index) => `<li class="step-card"><div class="step-marker">${String(index + 1).padStart(2, "0")}</div><div><div class="step-title-row"><h3>${escapeHtml(step.title)}</h3><span class="section-time">${escapeHtml(step.time)}</span></div><p>${escapeHtml(step.detail)}</p><p class="step-deliverable"><strong>Результат шага:</strong> ${escapeHtml(step.deliverable)}</p></div></li>`).join("")}</ol></section>
+        ${renderExtension(lab.extension)}
         <section class="assessment-grid"><div class="assessment-card"><div class="section-heading"><div><p class="eyebrow">САМОПРОВЕРКА</p><h2>Квиз</h2></div><span class="assessment-rule">20 баллов за правильный ответ</span></div><p class="assessment-intro">Ответьте на все вопросы. Правильный ответ даёт 20 баллов; неправильный — 0.</p>${questions}</div>
           <div class="assessment-card"><div class="section-heading"><div><p class="eyebrow">ВЗАИМОПРОВЕРКА</p><h2>Чек-лист</h2></div><span class="assessment-rule">20 баллов за отметку</span></div><p class="assessment-intro">Сверьте работу с одногруппником вне сайта. Отмеченная галочка даёт 20 баллов; пустая — 0. Сайт не запускает и не подтверждает выполнение кода.</p><div class="checklist">${checklist}</div></div></section>
         <section class="completion-panel"><div class="score-card"><div><span class="eyebrow">ТЕКУЩИЙ РЕЗУЛЬТАТ</span><strong><span data-score-earned>${score.earned}</span><small> / <span data-score-maximum>${score.maximum}</span></small></strong></div><div class="score-details"><span>Квиз: ${score.correct}/${lab.questions.length} верных</span><span>Чек-лист: ${score.checks}/${lab.checklist.length} отмечено</span></div><div class="lab-completion-status" data-completion-status>${savedStatus}</div></div><div class="completion-action"><label class="peer-confirm"><input type="checkbox" data-peer-confirm ${state.peerConfirmed ? "checked" : ""}><span>Подтверждаю, что взаимная проверка проведена; пустые пункты оставлены без отметки.</span></label><button class="button button-primary" type="button" data-action="complete-lab" ${completeAllowed ? "" : "disabled"}>Завершить лабораторную</button><p class="completion-hint" data-completion-hint>${state.status === "completed" ? "Ответы, галочки, баллы и статус сохранены в локальном прогрессе." : answered ? "Подтвердите взаимную проверку, чтобы завершить работу." : "Ответьте на весь квиз, затем подтвердите взаимную проверку."}</p></div></section>
@@ -302,8 +318,9 @@
     if (!match) return `<section class="locked-page"><h1>Страница не найдена</h1><a class="button button-primary" href="index.html">К маршруту</a></section>`;
     const kind = match[1];
     const id = Number(match[2]);
-    const module = modules.find((item) => item.id === 1);
-    if (!module?.available) return renderLocked(module || { id: 1, title: "Основы объектно-ориентированного программирования" });
+    const module = moduleForContent(id);
+    if (!module) return `<section class="locked-page"><h1>Страница не найдена</h1><a class="button button-primary" href="index.html">К маршруту</a></section>`;
+    if (!module.available) return renderLocked(module);
     if (kind === "lesson") {
       const lesson = lessons.find((item) => item.id === id);
       return lesson ? renderLesson(lesson) : `<section class="locked-page"><h1>Страница не найдена</h1><a class="button button-primary" href="index.html">К маршруту</a></section>`;
@@ -329,7 +346,7 @@
       if (pageContent) document.title = `${match[1] === "lesson" ? "Лекция" : "Лабораторная"} ${String(pageContent.id).padStart(2, "0")} · ${pageContent.title} · OOPoman`;
     }
     if (match && match[1] === "lab") {
-      const module = modules.find((item) => item.id === 1);
+      const module = moduleForContent(Number(match[2]));
       if (module?.available && !window.OopomanStorage.markLabStarted(Number(match[2]))) {
         currentNotice("Не удалось сохранить прогресс в этом профиле. Проверьте настройки хранилища.", "warning");
       }

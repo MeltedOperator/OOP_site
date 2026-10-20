@@ -185,7 +185,11 @@ h3 { font-size: 22px; line-height: 1.18; }
 .content-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 19px; color: var(--muted); font-size: 12px; }
 .content-meta > span { padding: 7px 10px; border-radius: 99px; background: #e8eee3; color: var(--green); font-weight: 750; }
 .lesson-sections { display: grid; gap: 13px; }
-.lesson-section { padding: 22px 24px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.lesson-section { padding: 22px 24px; border: 1px solid #d9e2d5; border-radius: 14px; background: #f7f8f2; }
+.optional-section { margin-top: 16px; padding: 22px 24px; border: 1px dashed #cdbd98; border-radius: 14px; background: #f7f3e8; color: #4d4b40; }
+.optional-section .eyebrow { margin-bottom: 7px; color: #795e31; }
+.optional-section h2 { margin-bottom: 8px; font-size: 19px; }
+.optional-section p:last-child { margin: 0; font-size: 13px; line-height: 1.65; }
 .lesson-section-heading { display: flex; align-items: start; gap: 14px; margin-bottom: 13px; }
 .lesson-section-heading h2 { margin: 0 0 5px; font-size: 21px; letter-spacing: -.025em; }
 .lesson-section-number, .question-number { display: grid; width: 32px; height: 32px; flex: 0 0 32px; place-items: center; border-radius: 10px; background: #e8eee3; color: var(--green); font-size: 10px; font-weight: 850; }
@@ -217,7 +221,7 @@ h3 { font-size: 22px; line-height: 1.18; }
 .steps-section > .section-heading { margin: 0 0 12px; }
 .steps-section > .section-heading h2 { margin: 0; }
 .step-list { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
-.step-card { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 13px; padding: 17px 19px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.step-card { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 13px; padding: 17px 19px; border: 1px solid #e4d8c8; border-radius: 12px; background: #f8f2e9; }
 .step-marker { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 9px; background: #f4e7dc; color: #8a573c; font-size: 10px; font-weight: 850; }
 .step-title-row { display: flex; align-items: start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
 .step-title-row h3 { margin: 1px 0 0; font-size: 15px; letter-spacing: -.02em; }
@@ -225,7 +229,7 @@ h3 { font-size: 22px; line-height: 1.18; }
 .step-card .step-deliverable { margin: 0; color: #58665c; font-size: 11px; }
 .step-deliverable strong { color: var(--green); }
 .assessment-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 13px; margin-top: 28px; align-items: start; }
-.assessment-card { min-width: 0; padding: 21px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.assessment-card { min-width: 0; padding: 21px; border: 1px solid #d9e2ce; border-radius: 14px; background: #f0f4e8; }
 .assessment-card > .section-heading { align-items: start; gap: 12px; margin: 0 0 9px; }
 .assessment-card .section-heading h2 { margin: 0; font-size: 23px; }
 .assessment-rule { max-width: 145px; color: var(--green); font-size: 10px; font-weight: 750; line-height: 1.4; text-align: right; }

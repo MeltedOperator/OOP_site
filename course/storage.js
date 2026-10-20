@@ -21,7 +21,7 @@
     const checklist = {};
     if (value.checklist && typeof value.checklist === "object" && !Array.isArray(value.checklist)) {
       for (const [id, checked] of Object.entries(value.checklist)) {
-        if (/^c[1-9]$/.test(id) && typeof checked === "boolean") checklist[id] = checked;
+        if (/^c[1-9]\d*$/.test(id) && typeof checked === "boolean") checklist[id] = checked;
       }
     }
 
