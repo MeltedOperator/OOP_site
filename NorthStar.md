@@ -11,7 +11,6 @@ OOPoman is a small, local-first learning site for second-year students to study 
 - Weeks 1 and 2 are available. Week 3 and module 3 remain closed until Roman explicitly opens them.
 - Lessons include theory, and labs are interactive learning pages with a five-question quiz, an observable checklist, and a manual peer-check. The site shows progress and points without claiming to run or judge student code.
 - A student can see progress and points as they move through the course.
-- Week 1 is initially available. Weeks 2 and 3 remain unavailable until Roman explicitly opens them.
 - The course ends with one exam. Its content and format will be designed later.
 
 ## Assessment contract
