@@ -174,3 +174,10 @@ This file records material owner instructions and accepted decisions for continu
 - Координация остаётся owner-only, `tfw-gates-only`, `native-gates`, с `owner:roman`; роли запускает Roman на соответствующих gates. Задача продолжает использовать проектный checkout `C:\Users\tata2\Desktop\weboop`.
 
 **Disposition:** передать новому чату маршрут Coordinator задачи WEB после сохранения handover в HL §11 и task-local dispatch.
+
+## 2026-10-20 — Утверждение TS недели 2
+
+- Roman подтвердил точную редакцию `TS__OOP_20261018-204154_WEEK2.md` на коммите `504da0e91aaf70d0dd41e86d5d77b836e5cdec98` (объект файла `16f82248d3569bdfbd27cd863ab27298904ada57`) и знаменатель: 12 логических VALUE-файлов, 1 200 LOC — прогноз 900 добавлений и 300 удалений.
+- Источник: прямое сообщение владельца `01a1596a-4f02-7d92-a4c6-d3e90efc3927` в чате координатора `codex:thread:local:01a1595c-bfae-72a2-bb37-17b2dc73a9e8`.
+
+**Результат:** подтверждение записано в журнале задачи `OOP_20261018-204154_WEEK2/journal/20261020-180602__gate_answer__fe3d.md`. Состояние остаётся `TS_DRAFT` до корректного ONB возврата Исполнителя. По замороженному owner-only порядку Roman запускает следующий чат первым сообщением `/tfw-handoff OOP_20261018-204154_WEEK2`.
