@@ -60,3 +60,17 @@ RF identifies AC-7 as DEFERRED despite AC-7 being required; its evidence does no
 - [x] Avoided classifying by filename, discrepancy count or artifact volume.
 
 Stage complete: YES
+
+## Follow-up map — corrected Candidate and owner observations
+
+| Claim | Check | Result / limit |
+|---|---|---|
+| C10 — Source-PDF actions on lessons/labs 4–6 | Resolve the actual `sourceHref(file)` produced by `course/app.js` from each page under `course/`; compare with the six preserved source files in `OOP-course/` and check whether learner access is an approved AC. | All six generated targets miss; all six preserved files exist under `OOP-course/`. No approved AC explicitly requires clickable learner access to these PDFs, so the observed broken action is routed as a scope request, not a breach finding. |
+| C11 — Lesson 4–6 AC-2 content | Inspect the current Candidate `e8893345a8e085250df11891ea9de0b64fbe7143`, lesson data/rendering, timing, takeaways, code/examples and the six named source PDFs. | Five sections per lesson total 60 minutes; three takeaways each; code blocks are 1, 1 and 2. No explicit learner-objective field or learner-facing objective statement is present. Source-topic alignment is corroborated by EV E2 and direct read-only extraction. |
+| C12 — AC-7 and requested OOP-oriented design | Reconcile EV E11 against the AC-7 oracle; inspect HL/P1 and current lesson content/styles for the separate design request. | AC-7 narrow/wide observation is verified in EV E11. OOP principles are central in lesson content; a distinct OOP visual identity is not defined by the approved HL/TS. |
+
+No new browser workaround or implementation was used. The follow-up checks are bounded to current Candidate/EV/RF, the preserved source files, and the exact owner observation record.
+
+**Follow-up self-check:** exact current status/route/authority and Candidate were read; every new owner observation has an identified accepted claim, oracle and scope limit; no product work or new requirement was silently authorized.
+
+Stage complete: YES

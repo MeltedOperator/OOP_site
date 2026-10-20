@@ -186,3 +186,28 @@ Executor producer is `codex:thread:local:01a1596e-54da-7e31-8415-1cef346ee349`, 
 - [x] Verified RF AC claims, evidence references, citations and immutable accounting against actual artifacts.
 
 Stage complete: YES
+
+## Follow-up verification — owner observations at corrected Candidate
+
+### V10: C10 — source-PDF link targets
+- **Accepted claim / authority:** Current page data maps lessons/labs 4–6 to their preserved sources. The approved TS/HL does not separately require learner-clickable source-PDF links.
+- **Subject tuple:** Candidate `e8893345a8e085250df11891ea9de0b64fbe7143`; `course/app.js` and `course/data.js`; source files under `OOP-course/01_Лекции/` and `OOP-course/02_Лабораторные/`.
+- **Action:** Read the current `sourceHref(file)` implementation (`../${encodeURI(file)}`) and resolve it from the six `course/lesson-04..06.html` and `course/lab-04..06.html` page locations. Check each resolved target and its preserved source with `Test-Path`.
+- **Observed:** All six generated targets resolve to repository-root `01_Лекции/` or `02_Лабораторные/` and do not exist. All six corresponding files exist under `OOP-course/01_Лекции/` and `OOP-course/02_Лабораторные/`. The current UI renders “Открыть исходный PDF” for each lesson/lab page. This confirms the owner's broken-link observation.
+- **Disposition:** Confirmed broken user-facing PDF actions, but no explicit approved AC requires learner-clickable PDF links. Record as scope request S1; if the owner wants these links supported, the Coordinator must obtain owner-approved TS scope before dispatch. The path defect alone does not change this review's verdict.
+
+### V11: C11 — AC-2 and OOP-centered learning result
+- **Accepted claim / authority:** TS AC-2 and frozen HL §1/§3 require a self-directed, OOP-first 60-minute core with a concrete learning outcome, timed sections, a short consolidation, optional source depth and source-aligned content.
+- **Subject tuple:** Candidate `e8893345a8e085250df11891ea9de0b64fbe7143`; `course/data.js`, `course/app.js`, approved TS `504da0e91aaf70d0dd41e86d5d77b836e5cdec98`, HL epoch `6d5fd5e2dab9f6aa6a261bcea1c366f18f58d5a9` and the six lecture/lab source PDFs.
+- **Action:** Inspected lesson 4–6 data fields, all timed sections, takeaway and final-check sections, code examples, and the applicable source-PDF text; compared with current EV E2/E11 and RF.
+- **Observed:** Each lesson has five timed sections totaling 60 minutes, a three-item “Главное” recap and separately rendered optional depth. Embedded code examples number 1/1/2 across lessons 4/5/6. Topics, examples and outcomes focus on SRP/OCP, LSP/ISP/DIP/DI and GoF creation patterns; the transit/payment setting supplies examples rather than replacing the OOP concepts. Source-topic alignment is supported by EV E2 and was rechecked against the preserved PDFs. However, none of the three lessons states a concrete learner-facing objective (a “student can/do” result); `takeaway` statements list concepts, not an observable learning result. This leaves the explicit AC-2 outcome clause unestablished. The owner's broader request for more examples/depth does not specify a quantity or additional oracle in the approved TS.
+- **Finding:** F4 — material VALUE breach of TS AC-2's specific learning-outcome requirement. Coordinator rules once; the same Executor adds one concrete outcome per lesson and ties it to the existing timed content and consolidation without changing the 60-minute core, optional depth or OOP-first boundary; return updated EV/RF. Rung 1 within approved TS; next Candidate is the corrected implementation commit.
+
+### V12: C12 — responsive AC-7 and distinct OOP visual identity
+- **Accepted claim / authority:** TS AC-7 requires calm, non-color-only section distinction and readable narrow/wide layouts; owner additionally requests a distinct OOP-oriented design.
+- **Action:** Checked current EV E11's exact viewports and outcome against AC-7 and compared the request with frozen HL/TS.
+- **Observed:** EV E11 records lesson/lab 4 at 390×844 and 1280×800 CSS px, document widths 375/1265 px, readable content/controls and no clipping, overlap or horizontal overflow. Thus AC-7's responsive and section-readability conditions are VERIFIED for corrected Candidate. The approved HL asks for an engineering-workbook style and OOP-first learning content; it does not define a distinct OOP visual identity. Current content is OOP-oriented, and no AC-7 defect is established. Any new visual identity or increased worked-example/depth requirement needs a scoped, owner-approved TS change before dispatch.
+
+**Follow-up self-check:** current Candidate and return evidence resolve; every finding has class, accepted claim, fact/oracle, harm, consequence, owner, completion condition, route and Candidate effect; no scope request is treated as an approved implementation order.
+
+Stage complete: YES

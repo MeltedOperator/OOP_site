@@ -98,3 +98,29 @@ The non-material Knowledge currentness handover is not an acceptance finding: th
 - [x] Derived exactly one verdict without using checklist, discrepancy, file, test or artifact volume as a quality objective.
 
 Stage complete: YES
+
+## Follow-up judgment — corrected Candidate and owner observations
+
+### VALUE
+
+| Subject | Status | Evidence / finding IDs |
+|---|---|---|
+| Prior F1/F2 return | ✅ | Current RF/EV at Candidate `e8893345a8e085250df11891ea9de0b64fbe7143`: E10 corrects all availability statements (AC-8); E11 supplies the previously missing narrow/wide AC-7 observation. |
+| Source-PDF action | ⚪ N/A to current acceptance | Verify V10 confirms all six user-facing links resolve to absent paths, while sources are preserved under `OOP-course/`. The approved TS/HL does not require learner-clickable source-PDF links; record S1 for owner-approved scope if desired. |
+| AC-2 learning outcome | ❌ | F4, Verify V11: lesson time, topic alignment and takeaways are present, but no lesson states the specific learner result required by AC-2. A generic count of code examples is not an AC, so no independent example-count finding is made. |
+| OOP-first content | ✅ | Verify V11: lesson concepts and examples focus on object design; transit/payment is the teaching context. |
+| Distinct OOP visual identity / more depth | ⚪ N/A to current acceptance | The approved HL/TS has no separate brand or example-count/depth acceptance oracle. Record as scope requests S2/S3; require owner-approved TS scope before product dispatch. |
+
+### ASSURANCE
+
+AC-7 is now established for the corrected Candidate by EV E11 at 390×844 and 1280×800 CSS px. The three owner observations do not create a new unresolved render condition. F4 is a VALUE matter; S1 is a scope request, not an existing-AC breach.
+
+### TRACE and purpose
+
+Task route and authority remain valid at the supplied Coordinator REF; current task status is RF and no lifecycle event is authorized by this review. T1 (KNOWLEDGE.md §1 update or justified N/A) remains an owed KNW close item. The review remains fit for the original OOP-first, one-hour purpose once F4 is resolved; the owner's additional link, visual identity and expanded depth requests are separate scope decisions.
+
+**Follow-up verdict: 🔄 REVISE.** F4 is a material, correctable Rung 1 VALUE finding. Coordinator rules it once, then routes the same Executor; Reviewer issues no implementation dispatch. S1/S2/S3 remain scope requests that require approved TS authority before any work.
+
+**Follow-up self-check:** the verdict is based on F4's material AC-2 outcome gap; broken links and additional owner requests are recorded without expanding authority; prior F1/F2 are closed by current return; lifecycle remains RF.
+
+Stage complete: YES
