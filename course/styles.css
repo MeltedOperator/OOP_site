@@ -319,7 +319,6 @@ h3 { font-size: 22px; line-height: 1.18; }
 /* Module 2 workbook: a distinct paper-like study surface for the expanded lessons. */
 .content-page[data-module-id="2"] .page-intro,
 .content-page[data-module-id="2"] .lesson-section,
-.content-page[data-module-id="2"] .takeaway,
 .content-page[data-module-id="2"] .optional-section,
 .content-page[data-module-id="2"] .lab-overview,
 .content-page[data-module-id="2"] .step-card,
@@ -327,6 +326,12 @@ h3 { font-size: 22px; line-height: 1.18; }
   border-color: #c9d7ce;
   background: #f8fbf7;
 }
+.content-page[data-module-id="2"] .takeaway {
+  border-color: #c9d7ce;
+  background: #e7f1e9;
+  color: #244d3d;
+}
+.content-page[data-module-id="2"] .takeaway .eyebrow { color: #315c47; }
 .content-page[data-module-id="2"] .page-intro { border-top: 5px solid #3c765f; }
 .content-page[data-module-id="2"] .lesson-outcome {
   margin: 22px 0 8px; padding: 17px 19px; border-left: 4px solid #3c765f;
