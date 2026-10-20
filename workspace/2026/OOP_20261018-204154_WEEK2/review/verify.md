@@ -187,6 +187,38 @@ Executor producer is `codex:thread:local:01a1596e-54da-7e31-8415-1cef346ee349`, 
 
 Stage complete: YES
 
+## Rev1 Candidate verification — bounded current review
+
+### V13: Authority, Candidate and accounting
+- **Authority:** Supplied continuation `/tfw-review OOP_20261018-204154_WEEK2 … @ 5da8238805f49cb7b792f58b315938fb8b2cead2`; `status.md` remains RF and points to the unchanged owner-only, `tfw-gates-only`, single-phase, `native-gates` selection. Owner approval is `journal/20261020-202546__gate_answer__B91F.md` for TS rev1 `e1b23b30e8f77dbc2e567d1128fc901e0ec6030f`, 12 VALUE files / 1,600 LOC, 3,200 LOC escalation boundary.
+- **Return:** `RF_READY` at RF/EV return `b2ed96218aeb7bc13b6a70e82bb26b6eeaca541b`; `journal/20261020-210444__transition__7F2A.md` records ONB → RF. Candidate is `4fcf40aa08434b3b2beb9a9979bd4019d9e237bb`, Baseline `ee410b2cc851825803cd3728991864482efbc944`.
+- **Accounting:** Reproduced the exact NUL-safe commands and approved 12-path selector in TS rev1. Membership is six page CREATEs plus MODIFY of `course/data.js`, `course/app.js`, `course/storage.js`, `course/styles.css`, `course/README.md`, and `NorthStar.md`; 633 additions + 30 deletions = 663 touched text LOC, no binary/non-text member. This is below 1,600 LOC and 3,200 escalation boundary; no trigger or split. Candidate is an ancestor of current main, and all 12 approved paths match Candidate byte-for-byte at current HEAD.
+
+### V14: AC-2 — learning outcome, sequence, examples and source alignment
+- **Candidate inspection:** Read `course/data.js` and the actual `renderBlocks`/`renderLesson` rendering in `course/app.js`. Each of lessons 4–6 totals 60 minutes across five timed sections, states a learner action outcome, includes one criterion-backed self-check and three recaps, and keeps optional depth separate.
+- **Examples:** Lesson 4 has three: terminal role composition, SRP tariff isolation, and OCP payment strategy; lesson 5 has four: LSP card substitution, ISP reader interface, constructor DI and container assembly; lesson 6 has four: Factory Method ticket creation, Abstract Factory compatible families, Builder validation and explicit DI lifecycle. Every block contains goal, JavaScript, expected behavior, code decision and OOP connection, and the renderer presents those fields. Each page contains a self-check tied to its stated outcome.
+- **Source alignment:** The lecture topics and examples cover the approved SRP/OCP/cohesion-coupling, LSP/ISP/DIP/DI, and Factory Method/Abstract Factory/Builder/Singleton material. EV E2/E3 identify the exact corresponding lecture/lab PDFs and topic checks; the six PDF blobs were verified unchanged from Baseline. The updated content is centered on OOP and uses transport/finance as examples. E12 is tied to the exact Candidate and reports its local-render inspection.
+- **Result:** AC-2 is established at Candidate. The outcomes are actionable, example depth is visible rather than a list of terms, each code block includes behavioral and design explanations, the required sequence/self-check is present, and the hour/optional boundary holds.
+
+### V15: AC-7 — OOP engineering-workbook design
+- **Candidate inspection:** Week-two rendering adds distinct outcome, example-breakdown, diagram and self-check structures; each lesson has an OOP relation diagram with labelled before/after sides and an explanatory caption. Scoped CSS differs structurally from week 1, identifies theory/practice/assessment, and stacks diagram/example grids on narrow screens.
+- **Applicable evidence:** EV E14 names the exact Candidate, compares week-two pages with week 1, records a corrected interim 600 px overflow, and verifies the final render after the scoped CSS fix: lesson/lab document widths 375 px at 390×844 and 1265 px at 1280×800, with reading order, diagrams, examples and controls intact.
+- **Result:** AC-7 is VERIFIED; the OOP workbook identity is implemented through learning structure and diagrams, not a color-only change.
+
+### V16: AC-8 — six PDF links
+- **Candidate inspection:** `sourceHref` encodes each path segment and points to `../OOP-course/`. Resolved all six page links against the lesson/lab page URLs; they target the matching `OOP-course/01_Лекции/` or `02_Лабораторные/` PDF and each target exists. Independently compared Git blob IDs for all six sources at Baseline and Candidate; all six are identical.
+- **Applicable evidence:** EV E15 is Candidate-specific and records that each of the six local-preview requests returned `200 application/pdf`, and that source blobs match Baseline. The subject and oracle match the approved local-site AC-8; the exact encoded link mapping is reproducible from `data.js` and `sourceHref`.
+- **Result:** AC-8 is VERIFIED. The six owner-reported broken links were corrected in the approved implementation and open the preserved read-only source set according to E15.
+
+### V17: Prior AC applicability, current lineage and limits
+- AC-1 direct page IDs/routes remain mapped in current `data.js`; E1's route oracle is unchanged. AC-3 lab objects are byte-equivalent in parsed structure to the prior corrected Candidate; current structural inspection confirms six 60-minute steps, five four-option quiz questions and six checklists for each lab. AC-4/AC-5 `scoreFor`, `allQuestionsAnswered`, `currentAnswers`, `currentChecklist` and `updateLabState` function bodies are unchanged between the prior corrected and current Candidates; exact Candidate E4/E5 and current local render remain applicable. AC-6 is supported by current module readiness/route inspection and Candidate-specific E13. AC-9 reuses E8/E10 because `NorthStar.md` and `course/README.md` are unchanged since those checks; E16 confirms no regression.
+- Main at `167744c840564a3d846788764bf45e4868abded7` includes the Candidate; current HEAD adds no change to approved VALUE paths. Candidate has no newly observed VALUE or assurance defect.
+- The Executor reports loopback preview PID 23940 retained for owner inspection; Reviewer did not stop or alter it. T1 still requires Coordinator `/tfw-docs` update of `KNOWLEDGE.md` §1 or justified N/A at KNW close. The existing Reviewer economics binding gap remains pre-extraction; no numeric or failed-extraction claim is made.
+
+**Rev1 verification self-check:** checked the returned Candidate and exact owner-approved selector; reused only matching Candidate evidence; separated product acceptance from the pending KNW close item and economics gap.
+
+Stage complete: YES
+
 ## Follow-up verification — owner observations at corrected Candidate
 
 ### V10: C10 — source-PDF link targets

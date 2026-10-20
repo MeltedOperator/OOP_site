@@ -61,6 +61,23 @@ RF identifies AC-7 as DEFERRED despite AC-7 being required; its evidence does no
 
 Stage complete: YES
 
+## Review rev1 Candidate — current selection
+
+| Claim | Check | Result / limit |
+|---|---|---|
+| C13 — Authority and status | Resolve the supplied continuation REF, live `status.md`, current transition/dispatch, selected operating values and owner gate. | Same independent Reviewer and Coordinator route; owner-only, gates-only, single-phase, native-gates; status RF; approved TS rev1 and 12-file/1,600-LOC denominator are explicit. |
+| C14 — Candidate identity and accounting | Bind Baseline/Candidate and current main; reproduce the exact NUL-safe TS selector commands. | Candidate `4fcf40aa08434b3b2beb9a9979bd4019d9e237bb` is on main and its approved VALUE paths are unchanged at current HEAD; 12 files, 633 additions + 30 deletions = 663 LOC, no binary, below denominator and trigger. |
+| C15 — AC-2 lessons | Inspect current data/renderers, outcomes, sections/time, example blocks and self-checks against TS rev1 and lecture PDF topics. | Each 60-minute lesson has an action outcome, one aligned self-check, separate optional depth, 3/4/4 explained JS examples, and source-aligned OOP topics. |
+| C16 — AC-7 OOP workbook and responsiveness | Inspect week-two scoped structure/styles and diagram data; reconcile EV E14's exact Candidate, comparison and viewport observations. | Outcome/code breakdown/diagram/self-check blocks distinguish week 2 structurally; each lesson contains a labelled relation diagram; E14 records responsive readings at 390×844 and 1280×800 CSS px. |
+| C17 — AC-8 local PDF access | Resolve all six encoded links from their course page URLs, verify exact local source files and immutable blobs, and assess Candidate-bound EV E15's local HTTP result. | All six resolve to their matching `OOP-course/` files, which are unchanged from Baseline; E15 reports each source action returned `200 application/pdf` through the local preview. |
+| C18 — unaffected ACs and close boundary | Reuse only evidence with matching oracle/subject; inspect changed dependencies for AC-1, AC-3–6 and AC-9, current RF/EV, task close and remaining TRACE. | Existing route/scoring/lab/document evidence remains applicable; T1 is still owed at KNW. Executor economics remains the previously recorded pre-extraction binding gap. |
+
+No implementation, browser workaround, test suite, lifecycle event or temporary artifact was created in this review continuation.
+
+**Rev1 map self-check:** the current immutable authority, return, Candidate, evidence and any remaining limits are identified before judgment.
+
+Stage complete: YES
+
 ## Follow-up map — corrected Candidate and owner observations
 
 | Claim | Check | Result / limit |

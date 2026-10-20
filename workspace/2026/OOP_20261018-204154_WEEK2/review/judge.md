@@ -99,6 +99,32 @@ The non-material Knowledge currentness handover is not an acceptance finding: th
 
 Stage complete: YES
 
+## Review rev1 Candidate — current judgment
+
+### VALUE
+
+| Subject | Status | Evidence / finding IDs |
+|---|---|---|
+| Purpose, OOP-first learning and one-hour core | ✅ | V14: three concrete learner outcomes, five timed sections totaling 60 minutes, self-checks tied to outcomes, separate optional depth, and 3/4/4 explained code examples align with the approved AC-2/HL. |
+| Lab routes, learning criteria and scoring | ✅ | V17: current lab structure retains six timed steps, five four-option questions and six observable checks; E3–E5 apply to unchanged lab/scoring/completion logic. |
+| OOP workbook and responsive design | ✅ | V15: outcome/code/diagram/self-check structures distinguish week 2 from week 1; diagrams are labelled and explained; E14 verifies responsive behavior at both required widths. |
+| Source PDF availability and integrity | ✅ | V16: all six encoded link targets resolve to the corresponding existing, unchanged PDFs; E15 reports each local response as `200 application/pdf`. |
+| Module access, local progress, docs and reserved authority | ✅ | V17: AC-1/AC-4/AC-5/AC-6/AC-9 evidence remains applicable; the candidate is on main and owner acceptance remains reserved. |
+
+### ASSURANCE
+
+Current EV rows E12–E17 are bound to Candidate `4fcf40aa08434b3b2beb9a9979bd4019d9e237bb`; their local browser/HTTP oracle and current Candidate applicability match the TS rev1 claims. Independent review also inspected the rendering code, lesson data, link resolution, existing source blobs and exact accounting. No required AC proof remains open.
+
+### TRACE and purpose
+
+The current selection, approved TS rev1, owner denominator, Executor return, RF status/event, Candidate and Coordinator route resolve. The approved 12-path selector reports 663 touched text LOC against 1,600 approved LOC (3,200 escalation boundary), with no binary and no trigger. No lifecycle transition is authored by Reviewer. T1 remains an owed Coordinator documentation action for KNW close; Executor economics remains the recorded pre-extraction binding gap and does not change product acceptance.
+
+**Current review verdict: ✅ APPROVE.** AC-1 through AC-9 are established at the returned Candidate. The owner-authorized rev1 responses close the prior F4/S1/S2/S3 return. Coordinator is next to apply the RF → KNW transition with its valid status/journal event and retain T1 for the KNW close route; Reviewer does not write that transition or mark the task DONE.
+
+**Rev1 judgment self-check:** no open material VALUE or assurance finding changes acceptance; nonterminal KNW/economics trace effects remain recorded with their existing owners and routes.
+
+Stage complete: YES
+
 ## Follow-up judgment — corrected Candidate and owner observations
 
 ### VALUE
