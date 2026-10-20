@@ -6,15 +6,15 @@ value: "Студенты продолжат OOP-курс через шесть �
 lifecycle: TS_DRAFT
 owner: roman
 authority: HL-OOP_20261018-204154_WEEK2.md
-coordinator_route: "codex:thread:local:01a143a1-8242-7fd3-943b-8293c09bf58a"
+coordinator_route: "codex:thread:local:01a1595c-bfae-72a2-bb37-17b2dc73a9e8"
 upstream_route: owner:roman
 dialogue: tfw-gates-only
 activation: owner-only
-coordination_authority: "HL-OOP_20261018-204154_WEEK2.md @ 157451f8060a2c61020ced3af0be2cd544f97c25"
+coordination_authority: "HL-OOP_20261018-204154_WEEK2.md @ 6d5fd5e2dab9f6aa6a261bcea1c366f18f58d5a9"
 reporting: native-gates
-selection_ref: baseline
+selection_ref: journal/20261020-175833__coordination_selected__223c.md @ 89905b95fdcdc2b597a7b8ce85e89748290f6dbe
 created: 20261018-205055
-updated: 20261020-122353
+updated: 20261020-175910
 ---
 
 **Task state.** This file is the only authority for this task's live state. Any downstream projection is disposable and never outranks it.
