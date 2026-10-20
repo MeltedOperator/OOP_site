@@ -187,6 +187,21 @@ Executor producer is `codex:thread:local:01a1596e-54da-7e31-8415-1cef346ee349`, 
 
 Stage complete: YES
 
+## Contrast follow-up verification — owner report at Candidate 4fcf40a
+
+### V19: C19 — “Главное” callout rendering and readability
+
+- **Accepted claim / authority:** TS rev1 AC-7 requires the calm, readable presentation promised by the frozen HL; specifically, “Спокойный тон HL и читаемость сохраняются.” The Coordinator's bounded follow-up identifies this owner observation for the fixed Candidate.
+- **Subject tuple:** Candidate `4fcf40aa08434b3b2beb9a9979bd4019d9e237bb`; `course/styles.css`, `course/app.js`, rendered pages `lesson-04`, `lesson-05`, `lesson-06`; local preview `http://127.0.0.1:8768/course/index.html?page=lesson-04` and corresponding lesson-05/06 routes.
+- **Action:** Opened all three lecture pages in the local browser. Set the CSS viewport successively to 390×844 and 1280×800. For each page at each size, read `getComputedStyle` from `.takeaway`, its list text and `.eyebrow`; inspected the actual full-page mobile render. No implementation or task lifecycle action was performed.
+- **Observed:** All six page/viewport combinations render the callout background as `rgb(248, 251, 247)` (#f8fbf7), main and list text as `rgb(243, 246, 239)` (#f3f6ef), and the eyebrow label as `rgb(205, 227, 181)` (#cde3b5). Main-text contrast is 1.05:1; label contrast is 1.32:1. The text and label nearly disappear against the light background in the mobile render and are unreadable at normal viewing. No viewport changes these values. There are exactly three occurrences, one per module-two lecture.
+- **Cause:** Base `.takeaway` styling at `course/styles.css:205–206` sets a dark-green `var(--green)` background and pale foreground. The later module-two rule at `course/styles.css:320–327` includes `.content-page[data-module-id="2"] .takeaway` and overrides its background to `#f8fbf7`, but leaves the pale foreground and eyebrow colors in force. `course/app.js:224` renders this same callout on each lecture page.
+- **Finding:** F5 — material VALUE breach of approved TS rev1 AC-7 readability. Students cannot read the three “Главное” summaries; the required calm readable study surface fails at both the specified mobile and desktop viewport sizes. Coordinator rules once; if accepted, the same Executor corrects foreground/background styling for all three callouts, demonstrates readable contrast and returns updated Candidate-bound EV/RF. The existing approved TS AC-7 is the implementation authority; Rung 1. Reviewer does not dispatch implementation.
+
+**Contrast follow-up self-check:** exact Candidate, all occurrences and both requested viewport sizes checked; computed styles and actual rendering agree on unreadability; finding is bounded to existing AC-7 and carries an executable same-Executor completion route.
+
+Stage complete: YES
+
 ## Rev1 Candidate verification — bounded current review
 
 ### V13: Authority, Candidate and accounting

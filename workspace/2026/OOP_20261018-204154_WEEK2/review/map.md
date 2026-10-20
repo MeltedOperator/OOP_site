@@ -91,3 +91,13 @@ No new browser workaround or implementation was used. The follow-up checks are b
 **Follow-up self-check:** exact current status/route/authority and Candidate were read; every new owner observation has an identified accepted claim, oracle and scope limit; no product work or new requirement was silently authorized.
 
 Stage complete: YES
+
+## Contrast follow-up map — Candidate 4fcf40a
+
+| Claim | Check | Result / limit |
+|---|---|---|
+| C19 — AC-7 readability of “Главное” callouts | Inspect every module-two lecture callout (lessons 4–6) in the actual local preview at 390×844 and 1280×800 CSS px; record rendered background/foreground and compare with AC-7 readability. | Three callouts are present. The rendered paper background and pale foreground are unchanged at both sizes; actual mobile full-page rendering shows the text nearly disappearing. |
+
+Candidate, approved TS rev1, current RF and Coordinator-authorized bounded follow-up scope remain fixed. No product mutation or lifecycle transition is authorized by this review continuation.
+
+Stage complete: YES

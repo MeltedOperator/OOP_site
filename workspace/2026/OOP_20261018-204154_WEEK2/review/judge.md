@@ -150,3 +150,25 @@ Task route and authority remain valid at the supplied Coordinator REF; current t
 **Follow-up self-check:** the verdict is based on F4's material AC-2 outcome gap; broken links and additional owner requests are recorded without expanding authority; prior F1/F2 are closed by current return; lifecycle remains RF.
 
 Stage complete: YES
+
+## Contrast follow-up judgment — Candidate 4fcf40a
+
+### VALUE
+
+| Subject | Status | Evidence / finding IDs |
+|---|---|---|
+| AC-7 readability of “Главное” summaries | ❌ | V19: all three module-two lecture callouts render pale body/label text on the pale workbook background at both requested viewports; contrast is 1.05:1 for summary text and 1.32:1 for the label. The rendered text is unreadable. |
+
+### ASSURANCE
+
+The finding is based on the exact Candidate in the running local preview, direct computed foreground/background values from every lesson 4–6 page at 390×844 and 1280×800 CSS px, and visual inspection of the full mobile page. This establishes the observed failure without relying on the Executor's prior AC-7 summary. V19 identifies the concrete CSS cascade cause and fixed scope.
+
+### TRACE and purpose
+
+Current status remains RF; Candidate, approved TS rev1, owner authority and Coordinator route remain unchanged. No implementation, status transition or lifecycle event was authored by Reviewer. The failure obstructs the approved one-hour workbook's readable recap at every supported viewport checked, but it does not make the whole course unfit for purpose or expose a frozen contract defect.
+
+**Contrast follow-up verdict: 🔄 REVISE.** F5 is one material, correctable Rung 1 VALUE finding against TS rev1 AC-7. The Coordinator rules F5 once in the live REVIEW; if accepted, the same Executor corrects the existing styles for all three lecture callouts under the approved AC-7, records readable contrast and returns updated EV/RF for independent review. The current Candidate remains `4fcf40aa08434b3b2beb9a9979bd4019d9e237bb` until a corrected implementation Candidate is returned. No lifecycle transition follows from this Reviewer verdict alone.
+
+**Contrast follow-up self-check:** classification precedes aggregate verdict; F5 has accepted claim, fact/oracle, harm, material consequence, owner, observable completion, route/rung and Candidate effect; no repair or authority ruling was performed.
+
+Stage complete: YES
