@@ -40,6 +40,14 @@
     notice.hidden = !text;
   }
 
+  function isBlockedLab(progress, id) {
+    return Array.isArray(progress.blockedLabs) && progress.blockedLabs.includes(String(id));
+  }
+
+  function blockedLabNotice() {
+    return "Запись прогресса этой лабораторной не удалось безопасно прочитать или изменить. Исходные данные сохранены. Чтобы начать заново, используйте подтверждённый сброс прогресса OOPoman.";
+  }
+
   function filename(file) {
     return escapeHtml(file.split("/").pop().replace(/\.pdf$/i, ""));
   }
@@ -361,12 +369,14 @@
     if (match && match[1] === "lab") {
       const module = moduleForContent(Number(match[2]));
       if (module?.available && !window.OopomanStorage.markLabStarted(Number(match[2]))) {
-        currentNotice("Не удалось сохранить прогресс в этом профиле. Проверьте настройки хранилища.", "warning");
+        const current = progressSnapshot();
+        currentNotice(isBlockedLab(current, match[2]) ? blockedLabNotice() : "Не удалось сохранить прогресс в этом профиле. Проверьте настройки хранилища.", "warning");
       }
     }
 
     const currentState = progressSnapshot();
     if (!currentState.writable) currentNotice("Не удалось прочитать прогресс этого профиля. Данные не будут перезаписаны; попробуйте сбросить только прогресс OOPoman.", "warning");
+    else if (match && match[1] === "lab" && isBlockedLab(currentState, match[2])) currentNotice(blockedLabNotice(), "warning");
     if (contentPage) {
       app.innerHTML = renderContentPage(contentPage, currentState.value);
       return;
@@ -398,7 +408,10 @@
     if (!lab) return;
     const result = updateLabState(lab);
     refreshLabFeedback(lab, result.answers, stateFor(progressSnapshot().value, lab.id).status === "completed");
-    if (!result.saved) currentNotice("Не удалось сохранить ответы в этом профиле браузера.", "warning");
+    if (!result.saved) {
+      const current = progressSnapshot();
+      currentNotice(isBlockedLab(current, lab.id) ? blockedLabNotice() : "Не удалось сохранить ответы в этом профиле браузера.", "warning");
+    }
     else currentNotice("Ответы и отметки сохранены в локальном прогрессе.", "success");
   });
 
@@ -426,7 +439,8 @@
       if (!lab) return;
       const result = updateLabState(lab, true);
       if (!result.saved) {
-        currentNotice("Чтобы завершить лабораторную, ответьте на весь квиз, подтвердите взаимную проверку и разрешите сохранение в этом профиле.", "warning");
+        const current = progressSnapshot();
+        currentNotice(isBlockedLab(current, lab.id) ? blockedLabNotice() : "Чтобы завершить лабораторную, ответьте на весь квиз, подтвердите взаимную проверку и разрешите сохранение в этом профиле.", "warning");
         return;
       }
       currentNotice("Лабораторная завершена. Ответы, баллы и статус сохранены.", "success");
