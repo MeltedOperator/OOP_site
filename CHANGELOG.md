@@ -20,3 +20,10 @@
   on all three lessons. Final Candidate `b4115b6f042f9d3fe65b6aa061fd558cb3bd2802` received
   independent Reviewer APPROVE; the accepted course architecture reference is recorded in
   `KNOWLEDGE.md` §1. This is a task history entry, not a version, release or deployment.
+
+## 2026-10-27
+
+- **OOP_20261023-035651_R:** Preserved unsupported lab progress during unrelated saves and blocked
+  unsafe writes to the affected lab. Candidate `dcf635d20cfdd4f5559b2bce297dad2cc5dc4c68` received
+  independent Reviewer APPROVE at `764b5fae8e5d492e3dd5c189e05c038fd57493e6`; owner confirmation
+  covers the browser scenario. No version, release or deployment is implied.

@@ -20,7 +20,11 @@ missing authorized decision. No generated index, original chat or task-archive s
   progress/reset interface. Module 2 is available with lessons and labs 4–6; module 3 remains locked.
   Its week-two lessons provide a 60-minute required core, optional depth, worked OOP examples and
   recap diagrams. The route uses profile-scoped Chrome `localStorage` at `oopoman.progress.v1`; reset
-  removes only that key after confirmation.
+  removes only that key after confirmation. If a lab entry has unsupported data, the storage layer
+  preserves its raw value, blocks further writes to that lab, and warns when the lab opens and after
+  a write is refused. The learner can explicitly clear course progress to recover. This behavior is verified
+  by Candidate `dcf635d20cfdd4f5559b2bce297dad2cc5dc4c68` and REVIEW
+  `764b5fae8e5d492e3dd5c189e05c038fd57493e6`; simultaneous writes from multiple tabs remain unverified.
 - Lab scoring is dynamic: 20 points for each correct quiz answer and each checked checklist item;
   the maximum follows the actual item count. Completion requires every quiz answer and peer-check
   confirmation, with progress retained locally. The six lesson/lab PDF links open their preserved

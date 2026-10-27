@@ -255,3 +255,10 @@ This file records material owner instructions and accepted decisions for continu
 
 - После замечания Coordinator Reviewer записал русскую версию REVIEW, сохранив `APPROVE`, Candidate и O1/O2; фактический адрес единицы Reviewer подтверждён квитанцией `handoff_thread`: `codex:thread:local:01a17d8a-2c70-7cd3-9ca2-5873d5863a5c`.
 - REVIEW доступен в коммите `764b5fae8e5d492e3dd5c189e05c038fd57493e6`. Сигнал Reviewer содержал сокращённый SHA; сам REVIEW и его состояние проверяются по полному неизменяемому коммиту. O2 сохраняется как pre-extraction gap, детали и disposition — в REVIEW.
+
+## 2026-10-27 — Закрытие задачи R
+
+- Независимый REVIEW `764b5fae8e5d492e3dd5c189e05c038fd57493e6` подтверждает `APPROVE`; Candidate `dcf635d20cfdd4f5559b2bce297dad2cc5dc4c68` не потребовал новых кодовых исправлений. Candidate/RF локально интегрированы в `main` коммитом `654a3831b664bbf5ea83b32fa183ccfd273a995c`, REVIEW и переход `RF → KNW` — коммитом `62d182d0551b4978c173b38643bf1a7f030eab03`; публикации и GitHub push не выполнялись.
+- `$tfw-docs`: Applied — в `KNOWLEDGE.md` §1 добавлено только проверенное поведение сохранения неподдерживаемых данных со ссылками на Candidate/REVIEW; архитектурная схема и storage key не изменены. `CHANGELOG.md` получил task-history запись без выпуска или развёртывания.
+- `$tfw-knowledge`: N/A. Источники HL §11 S1–S4 и журнал содержат решения и приоритеты только этой задачи; подтверждение браузерного сценария — разовая приёмочная аттестация. Проверка `KNOWLEDGE.md`/`knowledge/records/` не выявила основания публиковать отдельный постоянный human-sourced claim.
+- Экономический отчёт учитывает только возвращённый диапазон Executor. REVIEW §5 O2 описывает собственный pre-extraction gap Reviewer; Coordinator также не получил точный native source file/version/range для привязки и не выполнял извлечение. Неизвестные расходы не считаются нулевыми.
