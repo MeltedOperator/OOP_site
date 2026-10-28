@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">Чистая граница автобусной смены</title>
+  <desc id="desc">FinishShift зависит от ShiftRepository и работает с Shift. MemoryShiftRepository реализует порт снаружи доменной модели.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#51447e"/></marker></defs>
+  <style>text{font-family:Arial,sans-serif;fill:#25213a}.box{fill:#fbfaff;stroke:#6d5bb5;stroke-width:3}.head{fill:#e9e6f3}.line{stroke:#51447e;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke-dasharray:8 8}</style>
+  <rect class="box" x="60" y="140" width="310" height="180" rx="16"/><rect class="head" x="60" y="140" width="310" height="60" rx="16"/><text x="215" y="180" text-anchor="middle" font-size="24" font-weight="700">«use case» FinishShift</text><text x="90" y="245" font-size="20">close(shift)</text><text x="90" y="285" font-size="18">сохраняет и считает</text>
+  <rect class="box" x="445" y="140" width="300" height="180" rx="16"/><rect class="head" x="445" y="140" width="300" height="60" rx="16"/><text x="595" y="180" text-anchor="middle" font-size="24" font-weight="700">ShiftRepository</text><text x="475" y="245" font-size="20">«protocol» save(shift)</text><text x="475" y="285" font-size="18">внутренний порт</text>
+  <rect class="box" x="820" y="140" width="320" height="180" rx="16"/><rect class="head" x="820" y="140" width="320" height="60" rx="16"/><text x="980" y="180" text-anchor="middle" font-size="24" font-weight="700">MemoryShiftRepository</text><text x="850" y="245" font-size="20">«реализует» порт</text><text x="850" y="285" font-size="18">список в памяти</text>
+  <rect class="box" x="445" y="390" width="300" height="130" rx="16"/><rect class="head" x="445" y="390" width="300" height="55" rx="16"/><text x="595" y="427" text-anchor="middle" font-size="24" font-weight="700">Shift</text><text x="480" y="485" font-size="19">bus · stops</text>
+  <path class="line" d="M370 230H435"/><path class="line dash" d="M820 260H755"/><path class="line" d="M595 320V380"/>
+  <text x="600" y="565" text-anchor="middle" font-size="20" fill="#51447e">Модель остаётся независимой от способа хранения</text>
+</svg>

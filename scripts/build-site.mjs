@@ -11,7 +11,7 @@ if (existing) rmSync(output, { recursive: true, force: true });
 mkdirSync(path.join(output, "course"), { recursive: true });
 cpSync(path.join(root, "course"), path.join(output, "course"), { recursive: true });
 
-const browser = { window: {} };
+const browser = { window: { location: { protocol: "http:", hostname: "localhost" } } };
 runInNewContext(readFileSync(path.join(root, "course", "data.js"), "utf8"), browser);
 const course = browser.window.OopomanCourse;
 if (!course) throw new Error("Course data did not load.");
@@ -46,4 +46,16 @@ writeFileSync(path.join(output, "index.html"), `<!doctype html>
 </html>
 `);
 
-console.log(`Prepared ${availableFiles.size} source PDFs and the course site in dist/.`);
+const umlSource = path.join(root, "architecture", "week3");
+const umlOutput = path.join(output, "architecture", "week3");
+mkdirSync(umlOutput, { recursive: true });
+for (const name of [
+  "lesson-07.svg", "lesson-08.svg", "lesson-09.svg",
+  "lab-07.svg", "lab-08.svg", "lab-09.svg",
+]) {
+  const source = path.join(umlSource, name);
+  if (!existsSync(source) || !lstatSync(source).isFile()) throw new Error(`Missing UML asset: ${name}`);
+  cpSync(source, path.join(umlOutput, name));
+}
+
+console.log(`Prepared ${availableFiles.size} source PDFs, six UML diagrams and the course site in dist/.`);

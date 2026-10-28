@@ -688,6 +688,186 @@ console.log(reportService.clock === metricsService.clock);`, expected: "Выво
     },
   ]);
 
+  lessons.push(...[
+    {
+      id: 7, title: "Стыковка объектов", subtitle: "Adapter переводит, Decorator оборачивает, Facade упрощает",
+      outcome: "Различать три роли на границе платёжного сценария.", minutes: 60, file: lessonFiles[6], labId: 7,
+      sections: [
+        { title: "Когда объекты говорят по-разному", time: "10 минут", intro: "Приложение просит выполнить операцию знакомым способом, а внешний объект может ожидать другие имена и данные. Контракт — договор о входе и результате операции.", blocks: [
+          { type: "p", text: "Граница — место, где встречаются две части программы. Здесь рассматриваем только вымышленный локальный шлюз: никаких настоящих платежей, сетевых вызовов или данных карт." },
+          { type: "uml", src: "../architecture/week3/lesson-07.svg", title: "Три роли вокруг запроса", alt: "Диаграмма классов: TransitTerminal использует PaymentPort, CountingDecorator оборачивает порт, LocalGatewayAdapter связывает порт с FictionalGateway.", caption: "Текстовое описание: терминал зависит от общего порта, декоратор сохраняет тот же порт, а адаптер переводит запрос для локального шлюза." },
+        ] },
+        { title: "Adapter переводит формат", time: "15 минут", intro: "Адаптер принимает запрос, который понимает приложение, преобразует его в формат другой стороны и возвращает общий результат.", blocks: [
+          { type: "list", items: ["Запрос приложения содержит сумму в тенге.", "Вымышленная библиотека принимает целое число тиынов.", "Адаптер умножает сумму на 100 и преобразует ответ в PaymentResult."] },
+          { type: "callout", text: "Адаптер не равен сетевому клиенту: в примере он вызывает обычный локальный объект." },
+        ] },
+        { title: "Decorator оборачивает тот же контракт", time: "15 минут", intro: "Декоратор получает объект с тем же методом, добавляет одну обязанность и передаёт результат дальше.", blocks: [
+          { type: "p", text: "Счётчик вызовов может окружить платёжный порт, не меняя сумму и результат. В обязательном примере не нужны повторы или кэш: это отдельные решения с собственными последствиями." },
+          { type: "list", items: ["Обёртка реализует тот же метод, что и исходный объект.", "Декораторы можно соединять композиционно.", "Клиенту не нужно знать, сколько обёрток стоит внутри."] },
+        ] },
+        { title: "Facade упрощает сценарий", time: "12 минут", intro: "Фасад — один понятный вход, который скрывает порядок вызова нескольких объектов.", blocks: [
+          { type: "list", items: ["TransitTerminal принимает запрос поездки.", "Он передаёт запрос платежному порту.", "Вызывающий код получает одобрение или отказ без знания формата шлюза."] },
+          { type: "callout", text: "Фасад упрощает сценарий; адаптер переводит два контракта. Это разные обязанности." },
+        ] },
+        { title: "Соберём роли в программе", time: "8 минут", intro: "Полный пример показывает все три роли. Каждый класс решает одну небольшую задачу.", blocks: [
+          { type: "example", title: "Фиктивная локальная оплата", goal: "Проследить запрос от терминала до локального объекта.", code: `from dataclasses import dataclass\nfrom typing import Protocol\n\n@dataclass(frozen=True)\nclass PaymentRequest:\n    route: str\n    amount_tenge: int\n\n@dataclass(frozen=True)\nclass PaymentResult:\n    approved: bool\n    reference: str\n\nclass PaymentPort(Protocol):\n    def charge(self, request: PaymentRequest) -> PaymentResult: ...\n\nclass FictionalGateway:\n    def charge_tiyn(self, route: str, amount_tiyn: int) -> dict[str, str]:\n        status = "approved" if amount_tiyn <= 50000 else "declined"\n        return {"status": status, "reference": "LOCAL-7"}\n\nclass LocalGatewayAdapter:\n    def __init__(self, gateway: FictionalGateway) -> None:\n        self.gateway = gateway\n    def charge(self, request: PaymentRequest) -> PaymentResult:\n        raw = self.gateway.charge_tiyn(request.route, request.amount_tenge * 100)\n        return PaymentResult(raw["status"] == "approved", raw["reference"])\n\nclass CountingDecorator:\n    def __init__(self, wrapped: PaymentPort) -> None:\n        self.wrapped, self.calls = wrapped, 0\n    def charge(self, request: PaymentRequest) -> PaymentResult:\n        self.calls += 1\n        return self.wrapped.charge(request)\n\nclass TransitFacade:\n    def __init__(self, payments: PaymentPort) -> None:\n        self.payments = payments\n    def tap(self, route: str, amount_tenge: int) -> PaymentResult:\n        return self.payments.charge(PaymentRequest(route, amount_tenge))\n\ncounting = CountingDecorator(LocalGatewayAdapter(FictionalGateway()))\nresult = TransitFacade(counting).tap("12", 150)\nprint(f"Маршрут 12: {'одобрено' if result.approved else 'отклонено'} · {result.reference}")\nprint(f"Вызовов: {counting.calls}")`, output: `Маршрут 12: одобрено · LOCAL-7\nВызовов: 1`, expected: "Терминал получил результат через общий порт; счётчик увидел один вызов.", decision: "Перевод формата остаётся в адаптере, а терминал вызывает фасад.", oop: "Композиция соединяет малые объекты через стабильный контракт." },
+        ] },
+      ],
+      takeaway: ["Adapter переводит формат.", "Decorator добавляет поведение вокруг того же контракта.", "Facade даёт короткий вход в сценарий.", "Вымышленный контракт не описывает API конкретного провайдера."],
+      extension: { title: "Как различаются реальные ответы", detail: "Stripe описывает платёж как PaymentIntent с собственным статусом; в некоторых состояниях нужно дополнительное действие, в других обработка ещё продолжается. Adyen Checkout возвращает resultCode; действие может потребовать следующий /payments/details вызов, а отдельные способы оплаты завершаются позже через webhook. Оба документируют ключ идемпотентности для повторной отправки POST, но формат и условия различаются: Stripe привязывает результат ключа к параметрам первого запроса, а Adyen ограничивает ключ 64 символами и указывает срок хранения 7–14 дней. Это краткое сравнение двух конкретных документов, не общий закон и не часть фиктивного контракта курса. Здесь нет аккаунтов, ключей, запросов или повторов.", links: [
+        { label: "Stripe: PaymentIntent API", href: "https://docs.stripe.com/api/payment_intents" },
+        { label: "Stripe: Idempotent requests", href: "https://docs.stripe.com/api/idempotent_requests" },
+        { label: "Adyen: Checkout /payments API", href: "https://docs.adyen.com/api-explorer/Checkout/71/post/payments" },
+        { label: "Adyen: Result codes and additional actions", href: "https://docs.adyen.com/online-payments/build-your-integration/payment-result-codes/" },
+        { label: "Adyen: API idempotency", href: "https://docs.adyen.com/development-resources/api-idempotency" },
+      ] },
+    },
+    {
+      id: 8, title: "Передача работы", subtitle: "Chain направляет проверку, Observer сообщает о результате",
+      outcome: "Объяснить остановку цепочки проверок и независимое уведомление нескольких слушателей.", minutes: 60, file: lessonFiles[7], labId: 8,
+      sections: [
+        { title: "Проверку удобно разделить на шаги", time: "10 минут", intro: "Перед поездкой можно сначала проверить карту, а затем — баланс. Если первый шаг отказал, второй не нужен.", blocks: [
+          { type: "p", text: "Chain of Responsibility (цепочка обязанностей) передаёт запрос обработчикам по очереди. Каждый решает, продолжить ли проверку или вернуть отказ." },
+          { type: "uml", src: "../architecture/week3/lesson-08.svg", title: "Проверки и подписчики результата", alt: "Схема: ActiveCardCheck передаёт запрос BalanceCheck; результат RideMonitor направляет Screen и Counter.", caption: "Текстовое описание: обработчики работают последовательно, а издатель после итогового решения независимо уведомляет экран и счётчик." },
+        ] },
+        { title: "Обработчик решает: продолжить или остановить", time: "15 минут", intro: "Узел цепочки знает одно правило и передаёт тот же запрос дальше только при успехе.", blocks: [
+          { type: "list", items: ["Первый узел проверяет активность карты.", "Следующий сравнивает баланс и тариф.", "Отказ возвращает понятную причину и завершает цепочку."] },
+          { type: "callout", text: "Учебный успех означает только прохождение выбранных локальных проверок, а не реальную авторизацию платежа." },
+        ] },
+        { title: "Observer уведомляет подписчиков", time: "15 минут", intro: "Observer (наблюдатель) подписан на событие и реагирует на него. Издатель сообщает результат, но не знает внутреннюю работу подписчика.", blocks: [
+          { type: "p", text: "Экран и счётчик могут получить одно событие о поездке. Издатель хранит список слушателей и вызывает каждого после того, как решение уже принято." },
+          { type: "list", items: ["Подписчик добавляется без изменения обработчиков.", "Слушатель не решает, хватает ли баланса.", "Уведомление не превращается в внешний мониторинг."] },
+        ] },
+        { title: "Сначала решение, затем событие", time: "12 минут", intro: "Цепочка отвечает за порядок проверок; издатель — за передачу готового итога.", blocks: [
+          { type: "list", items: ["Chain передаёт запрос и может его остановить.", "Результат представляет решение и краткую причину.", "Observer сообщает об этом результате двум разным ролям."] },
+          { type: "callout", text: "В курсе нет реальной карты, Prometheus, очереди или диспетчерской службы." },
+        ] },
+        { title: "Полная программа", time: "8 минут", intro: "Самодостаточный пример покажет один прошедший запрос и один ранний отказ.", blocks: [
+          { type: "example", title: "Проверка поездки", goal: "Увидеть передачу запроса и одно событие у двух подписчиков.", code: `from dataclasses import dataclass\nfrom typing import Callable\n\n@dataclass(frozen=True)\nclass Ride:\n    card: str\n    active: bool\n    balance: int\n    fare: int\n\n@dataclass(frozen=True)\nclass Result:\n    approved: bool\n    reason: str\n\nclass Check:\n    def __init__(self, next_check=None):\n        self.next_check = next_check\n    def handle(self, ride: Ride) -> Result:\n        problem = self.problem(ride)\n        if problem:\n            return Result(False, problem)\n        return self.next_check.handle(ride) if self.next_check else Result(True, "готово")\n    def problem(self, ride: Ride) -> str:\n        raise NotImplementedError\n\nclass ActiveCardCheck(Check):\n    def problem(self, ride: Ride) -> str:\n        return "карта заблокирована" if not ride.active else ""\n\nclass BalanceCheck(Check):\n    def problem(self, ride: Ride) -> str:\n        return "не хватает баланса" if ride.balance < ride.fare else ""\n\nclass RideMonitor:\n    def __init__(self):\n        self.listeners: list[Callable[[Ride, Result], None]] = []\n    def subscribe(self, listener: Callable[[Ride, Result], None]) -> None:\n        self.listeners.append(listener)\n    def publish(self, ride: Ride, result: Result) -> None:\n        for listener in self.listeners:\n            listener(ride, result)\n\ndef show(ride: Ride, result: Result) -> None:\n    print(f"Экран: {ride.card} — {'разрешено' if result.approved else 'отказ'}")\n\ndef count(ride: Ride, result: Result) -> None:\n    print(f"Счётчик: {'разрешено' if result.approved else 'отказ'}=1")\n\nchecks = ActiveCardCheck(BalanceCheck())\nmonitor = RideMonitor()\nmonitor.subscribe(show)\nmonitor.subscribe(count)\nfor ride in (Ride("KZ-12", True, 300, 120), Ride("KZ-44", False, 500, 120)):\n    result = checks.handle(ride)\n    monitor.publish(ride, result)`, output: `Экран: KZ-12 — разрешено\nСчётчик: разрешено=1\nЭкран: KZ-44 — отказ\nСчётчик: отказ=1`, expected: "Вторая поездка остановилась на первой проверке; оба исхода дошли до двух слушателей.", decision: "Следующий узел вызывается только после успешной проверки.", oop: "Композиция связывает обработчики, а издатель знает только подписанные функции." },
+        ] },
+      ],
+      takeaway: ["Chain задаёт порядок проверок.", "Отказ останавливает передачу запроса.", "Observer отделяет издателя от слушателей.", "Уведомление сообщает решение, но не принимает его."],
+    },
+    {
+      id: 9, title: "Границы архитектуры", subtitle: "Clean Architecture и направление зависимостей",
+      outcome: "Разложить сценарий на предметное правило и внешние детали так, чтобы хранилище можно было заменить.", minutes: 60, file: lessonFiles[8], labId: 9,
+      sections: [
+        { title: "Почему границы помогают менять систему", time: "10 минут", intro: "Правила поездки, сценарий автобусной смены, хранилище и экран меняются по разным причинам.", blocks: [
+          { type: "p", text: "Clean Architecture (чистая архитектура) группирует код по обязанностям и направляет зависимости внутрь, к важным правилам. Слой — группа кода с одной ролью." },
+          { type: "uml", src: "../architecture/week3/lesson-09.svg", title: "Внешний слой реализует внутренний порт", alt: "Схема: интерфейс вызывает сценарий приложения, тот обращается к ShiftRepository, а MemoryShiftRepository снаружи реализует этот порт; модель Shift внутри.", caption: "Текстовое описание: сценарий зависит от внутреннего контракта. Внешняя реализация подходит к нему; доменная модель не знает о хранилище." },
+        ] },
+        { title: "Domain хранит предметные правила", time: "15 минут", intro: "Domain (домен) описывает важные понятия задачи: например, автобусную смену и её остановки.", blocks: [
+          { type: "list", items: ["Доменная модель не знает о HTML, SQL или консоли.", "Она хранит предметные данные и относящиеся к ним правила.", "В небольшом примере достаточно dataclass и обычных методов Python."] },
+        ] },
+        { title: "Application описывает сценарий", time: "15 минут", intro: "Application (приложение) связывает модель с действием, например сохранением закрытой смены.", blocks: [
+          { type: "p", text: "Порт — внутренний контракт внешней возможности. Dependency Rule (правило зависимостей) говорит, что код детали может знать внутренний контракт, но внутреннее правило не импортирует эту деталь." },
+          { type: "callout", text: "Направление зависимости видно в исходном коде и импортах; порядок вызова во время работы сам по себе его не определяет." },
+        ] },
+        { title: "Infrastructure и Presentation находятся снаружи", time: "10 минут", intro: "Infrastructure (инфраструктура) содержит хранилища и драйверы. Presentation (представление) — экран, через который человек начинает сценарий.", blocks: [
+          { type: "list", items: ["Сценарий просит порт сохранить данные.", "Локальная память и база могут быть разными реализациями.", "Смена реализации не должна переписывать доменное правило."] },
+        ] },
+        { title: "Проверим границу на коде", time: "10 минут", intro: "Один файл показывает слои последовательно. Сценарий получает хранилище извне и не создаёт его сам.", blocks: [
+          { type: "example", title: "Закрытие автобусной смены", goal: "Сохранить предметную модель внутри сценария и подключить память снаружи.", code: `from dataclasses import dataclass, field\nfrom typing import Protocol\n\n@dataclass\nclass Shift:\n    bus: str\n    stops: list[str] = field(default_factory=list)\n\nclass ShiftRepository(Protocol):\n    def save(self, shift: Shift) -> None: ...\n\nclass FinishShift:\n    def __init__(self, repository: ShiftRepository) -> None:\n        self.repository = repository\n    def close(self, shift: Shift) -> int:\n        self.repository.save(shift)\n        return len(shift.stops)\n\nclass MemoryShiftRepository:\n    def __init__(self) -> None:\n        self.saved: list[Shift] = []\n    def save(self, shift: Shift) -> None:\n        self.saved.append(shift)\n\nrepository = MemoryShiftRepository()\nuse_case = FinishShift(repository)\nshift = Shift("BUS-17", ["Абая", "Сейфуллина"])\nprint(f"Автобус {shift.bus}: остановок в отчёте {use_case.close(shift)}")`, output: `Автобус BUS-17: остановок в отчёте 2`, expected: "Use case сохранил смену через порт и вернул число остановок.", decision: "FinishShift зависит от ShiftRepository, а не от детали хранения.", oop: "Внедрение зависимости передаёт конкретный объект через конструктор." },
+        ] },
+      ],
+      takeaway: ["Domain содержит предметные данные и правила.", "Application описывает сценарии и внутренние порты.", "Infrastructure реализует внешние детали.", "Зависимости исходного кода направлены к внутренним правилам."],
+      extension: { title: "Необязательное углубление", detail: "Подумайте, как реализовать ShiftRepository поверх SQLite. FinishShift и Shift не должны импортировать SQLite." },
+    },
+  ]);
+
+  labs.push(...[
+    {
+      id: 7, title: "Локальный адаптер оплаты поездки", subtitle: "Согласуйте форматы без реального платежа",
+      minutes: 60, file: labFiles[6],
+      goal: "Связать запрос терминала с фиктивным локальным шлюзом через Adapter и вернуть понятный результат.",
+      context: "Все данные вымышлены. Программа не обращается к сети, банку, аккаунту или устройству и не выполняет платеж.",
+      deliverables: ["Общий PaymentPort и преобразующий адаптер.", "Одобрение, отказ и один пример остановки при ошибке.", "Объяснение того, где переводятся суммы и ответы."],
+      criteria: ["Терминал зависит от общего порта.", "Адаптер переводит тенге в тиыны и преобразует результат.", "Локальная заглушка возвращает одобрение или отказ.", "TimeoutError останавливает сценарий без повтора.", "В коде нет сети, SDK, секретов или настоящих платёжных данных."],
+      steps: [
+        { title: "Опишите запрос", time: "10 минут", detail: "Создайте PaymentRequest с маршрутом и суммой в тенге, затем отдельный тип результата.", deliverable: "Поля запроса и решения разделены." },
+        { title: "Задайте порт приложения", time: "12 минут", detail: "Опишите PaymentPort.charge, чтобы сценарий не знал формат фиктивного шлюза.", deliverable: "Один знакомый клиенту контракт." },
+        { title: "Переведите формат в адаптере", time: "12 минут", detail: "Умножьте сумму на 100, вызовите локальную заглушку и преобразуйте словарь в PaymentResult.", deliverable: "Внешний формат изолирован на одной границе." },
+        { title: "Покажите три исхода", time: "12 минут", detail: "Сумма до 500 тенге одобряется; большая сумма отклоняется; маршрут TIMEOUT вызывает TimeoutError, который фасад превращает в остановку.", deliverable: "Одобрение, отказ и понятное сообщение об ошибке." },
+        { title: "Проследите вызов", time: "9 минут", detail: "Пройдите от терминала через порт и адаптер к объекту, затем обратно к результату. Не добавляйте повтор или жизненный цикл провайдера.", deliverable: "Короткое объяснение каждого перехода." },
+        { title: "Сверьте пример", time: "5 минут", detail: "Сравните три строки вывода и отметьте чек-лист.", deliverable: "Статический проверяемый пример без внешней операции." },
+      ],
+      example: { type: "example", title: "Самодостаточная локальная программа", goal: "Получить три детерминированных результата.", code: `from dataclasses import dataclass\nfrom typing import Protocol\n\n@dataclass(frozen=True)\nclass PaymentRequest:\n    route: str\n    amount_tenge: int\n\n@dataclass(frozen=True)\nclass PaymentResult:\n    approved: bool\n    message: str\n\nclass PaymentPort(Protocol):\n    def charge(self, request: PaymentRequest) -> PaymentResult: ...\n\nclass FictionalGateway:\n    def charge_tiyn(self, route: str, amount_tiyn: int) -> dict[str, str]:\n        if route == "TIMEOUT":\n            raise TimeoutError("локальная остановка")\n        if amount_tiyn > 50000:\n            return {"status": "declined", "message": "лимит примера"}\n        return {"status": "approved", "message": "T-001"}\n\nclass LocalGatewayAdapter:\n    def __init__(self, gateway: FictionalGateway) -> None:\n        self.gateway = gateway\n    def charge(self, request: PaymentRequest) -> PaymentResult:\n        raw = self.gateway.charge_tiyn(request.route, request.amount_tenge * 100)\n        return PaymentResult(raw["status"] == "approved", raw["message"])\n\nclass TransitTerminal:\n    def __init__(self, payments: PaymentPort) -> None:\n        self.payments = payments\n    def tap(self, request: PaymentRequest) -> PaymentResult:\n        try:\n            return self.payments.charge(request)\n        except TimeoutError:\n            return PaymentResult(False, "остановка: шлюз не ответил")\n\nterminal = TransitTerminal(LocalGatewayAdapter(FictionalGateway()))\nfor request in (PaymentRequest("12", 150), PaymentRequest("12", 700), PaymentRequest("TIMEOUT", 150)):\n    result = terminal.tap(request)\n    status = "одобрено" if result.approved else "отклонено"\n    print(f"{request.route}: {status} · {result.message}")`, output: `12: одобрено · T-001\n12: отклонено · лимит примера\nTIMEOUT: отклонено · остановка: шлюз не ответил` },
+      diagram: { type: "uml", src: "../architecture/week3/lab-07.svg", title: "Локальная граница Adapter", alt: "TransitTerminal использует PaymentPort; LocalGatewayAdapter реализует порт и содержит FictionalGateway.", caption: "Текстовое описание: терминал вызывает контракт, адаптер меняет формат для локальной заглушки и возвращает общий результат. Сетевого вызова нет." },
+      extension: { title: "Необязательное углубление", detail: "Сравните свою фиктивную форму с официальными ссылками в лекции. Не добавляйте сетевой клиент или автоматический повтор." },
+      questions: [
+        { id: "q1", text: "Что делает адаптер?", options: ["Переводит формат запроса и ответа", "Запускает сеть", "Начисляет баллы", "Решает, какой урок открыть"], answer: 0, explanation: "Он согласует два контракта." },
+        { id: "q2", text: "Почему терминал зависит от PaymentPort?", options: ["Чтобы не знать формат шлюза", "Чтобы умножать сумму внутри фасада", "Чтобы всегда одобрять запрос", "Чтобы хранить данные карты"], answer: 0, explanation: "Порт скрывает детали конкретной реализации." },
+        { id: "q3", text: "Сколько тиынов в 150 тенге?", options: ["150", "1 500", "15 000", "150 000"], answer: 2, explanation: "В учебном преобразовании 1 тенге равен 100 тиынам." },
+        { id: "q4", text: "Что делает фасад при TimeoutError?", options: ["Останавливается и возвращает сообщение", "Повторяет до одобрения", "Меняет сумму", "Вызывает банк"], answer: 0, explanation: "Повторы не входят в эту модель." },
+        { id: "q5", text: "Что верно о FictionalGateway?", options: ["Это локальный объект без сети", "Это настоящий API", "Он списывает реальные деньги", "Он хранит PAN карты"], answer: 0, explanation: "Заглушка служит только для статического учебного примера." },
+      ],
+      checklist: ["Запрос и результат отделены от словаря шлюза.", "Сумму переводит адаптер.", "Терминал зависит от общего порта.", "Показаны одобрение, отказ и остановка.", "Нет сети, секретов, реальных данных и повторов."],
+    },
+    {
+      id: 8, title: "Проверка поездки и уведомление", subtitle: "Два узла Chain и два наблюдателя",
+      minutes: 60, file: labFiles[7],
+      goal: "Собрать две локальные проверки и уведомить независимых слушателей об их результате.",
+      context: "Пример работает только с вымышленными объектами; он не использует реальные карты, платежи или мониторинг.",
+      deliverables: ["ActiveCardCheck и BalanceCheck в цепочке.", "RideMonitor с экраном и счётчиком.", "Пояснение порядка проверки и момента уведомления."],
+      criteria: ["Каждый обработчик выполняет одну проверку.", "Отказ первого узла прекращает цепочку.", "Успех проходит к проверке баланса.", "Издатель уведомляет оба подписчика после результата.", "Слушатели не меняют решение проверок."],
+      steps: [
+        { title: "Опишите поездку", time: "10 минут", detail: "Ride хранит карту, её активность, баланс и тариф; Result — решение и причину.", deliverable: "Запрос отделён от обработчиков." },
+        { title: "Создайте базовый Check", time: "12 минут", detail: "Обработчик проверяет условие и либо возвращает отказ, либо передаёт запрос дальше.", deliverable: "Общее правило передачи управления." },
+        { title: "Соберите два узла", time: "12 минут", detail: "Сначала ActiveCardCheck, затем BalanceCheck. Добавьте одну причину отказа для каждого.", deliverable: "Понятный порядок проверок." },
+        { title: "Подпишите слушателей", time: "12 минут", detail: "RideMonitor хранит две функции: экран и счётчик. Обе получают один Ride и Result.", deliverable: "Два наблюдателя не зависят от проверки." },
+        { title: "Опубликуйте только итог", time: "9 минут", detail: "Вызовите checks.handle, затем monitor.publish для каждой поездки.", deliverable: "Решение отделено от уведомления." },
+        { title: "Сверьте вывод", time: "5 минут", detail: "Проверьте, что экран и счётчик получили каждый из двух итогов.", deliverable: "Согласованный пример Chain и Observer." },
+      ],
+      example: { type: "example", title: "Самодостаточная цепочка", goal: "Показать продолжение, ранний отказ и два уведомления.", code: `from dataclasses import dataclass\nfrom typing import Callable\n\n@dataclass(frozen=True)\nclass Ride:\n    card: str\n    active: bool\n    balance: int\n    fare: int\n\n@dataclass(frozen=True)\nclass Result:\n    approved: bool\n    reason: str\n\nclass Check:\n    def __init__(self, next_check=None):\n        self.next_check = next_check\n    def handle(self, ride: Ride) -> Result:\n        problem = self.problem(ride)\n        if problem:\n            return Result(False, problem)\n        return self.next_check.handle(ride) if self.next_check else Result(True, "готово")\n    def problem(self, ride: Ride) -> str:\n        raise NotImplementedError\n\nclass ActiveCardCheck(Check):\n    def problem(self, ride: Ride) -> str:\n        return "карта заблокирована" if not ride.active else ""\n\nclass BalanceCheck(Check):\n    def problem(self, ride: Ride) -> str:\n        return "не хватает баланса" if ride.balance < ride.fare else ""\n\nclass RideMonitor:\n    def __init__(self):\n        self.listeners: list[Callable[[Ride, Result], None]] = []\n    def subscribe(self, listener: Callable[[Ride, Result], None]) -> None:\n        self.listeners.append(listener)\n    def publish(self, ride: Ride, result: Result) -> None:\n        for listener in self.listeners:\n            listener(ride, result)\n\ndef show(ride: Ride, result: Result) -> None:\n    decision = "разрешено" if result.approved else "отказ"\n    print(f"Экран: {ride.card} — {decision}")\n\ndef count(ride: Ride, result: Result) -> None:\n    decision = "разрешено" if result.approved else "отказ"\n    print(f"Счётчик: {decision}=1")\n\nchecks = ActiveCardCheck(BalanceCheck())\nmonitor = RideMonitor()\nmonitor.subscribe(show)\nmonitor.subscribe(count)\nfor ride in (Ride("KZ-12", True, 300, 120), Ride("KZ-44", False, 500, 120)):\n    result = checks.handle(ride)\n    monitor.publish(ride, result)`, output: `Экран: KZ-12 — разрешено\nСчётчик: разрешено=1\nЭкран: KZ-44 — отказ\nСчётчик: отказ=1` },
+      diagram: { type: "uml", src: "../architecture/week3/lab-08.svg", title: "Проверки, затем уведомления", alt: "Ride проходит ActiveCardCheck и BalanceCheck; затем RideMonitor уведомляет ScreenObserver и CounterObserver.", caption: "Текстовое описание: запрос проходит цепочку до первого отказа; готовый итог издатель отправляет экрану и счётчику." },
+      extension: { title: "Необязательное углубление", detail: "Добавьте третий локальный обработчик или подписчика, не подключая внешнюю систему мониторинга." },
+      questions: [
+        { id: "q1", text: "Когда Check вызывает следующий узел?", options: ["После успешной проверки", "После отказа", "До проверки", "После ответа экрана"], answer: 0, explanation: "Отказ останавливает цепочку." },
+        { id: "q2", text: "Какой узел выполняется первым?", options: ["ActiveCardCheck", "BalanceCheck", "RideMonitor", "Screen"], answer: 0, explanation: "Карта проверяется до баланса." },
+        { id: "q3", text: "За что отвечает RideMonitor?", options: ["Передаёт готовый итог подписчикам", "Проверяет баланс", "Меняет тариф", "Создаёт карту"], answer: 0, explanation: "Издатель уведомляет, но не решает." },
+        { id: "q4", text: "Может ли экран изменить итог?", options: ["Нет, он получает готовый Result", "Да, если хочет", "Да, при большом балансе", "Только при двух слушателях"], answer: 0, explanation: "Подписчик реагирует на событие." },
+        { id: "q5", text: "Как связаны Chain и Observer здесь?", options: ["Сначала Chain формирует итог, затем Observer его передаёт", "Observer запускает каждый обработчик", "Chain хранит HTML", "Это один и тот же паттерн"], answer: 0, explanation: "Они решают разные задачи." },
+      ],
+      checklist: ["Ride и Result описывают запрос и решение.", "Карта проверяется раньше баланса.", "Отказ прекращает цепочку.", "Экран и счётчик подписаны независимо.", "Слушатели получают итог после решения."],
+    },
+    {
+      id: 9, title: "Смена автобуса", subtitle: "Сценарий зависит от порта, а не от базы",
+      minutes: 60, file: labFiles[8],
+      goal: "Разделить доменную модель смены, сценарий приложения и реализацию хранилища.",
+      context: "Хранилище использует память; это учебная граница, а не база данных или производственная архитектура.",
+      deliverables: ["Shift с автобусом и остановками.", "FinishShift с зависимостью от ShiftRepository.", "MemoryShiftRepository и пример локального запуска."],
+      criteria: ["Shift не импортирует хранилище или фреймворк.", "Сценарий зависит от порта.", "Хранилище реализует операцию save.", "Пример показывает две остановки.", "Направление зависимости объяснено."],
+      steps: [
+        { title: "Выделите Domain", time: "10 минут", detail: "Создайте Shift с номером автобуса и остановками. Модель ничего не знает о сохранении.", deliverable: "Предметная модель без технических деталей." },
+        { title: "Определите порт", time: "12 минут", detail: "Опишите ShiftRepository.save. Это контракт, а не конкретная база.", deliverable: "Внутренний интерфейс внешнего хранения." },
+        { title: "Создайте сценарий", time: "12 минут", detail: "FinishShift получает порт через конструктор, сохраняет смену и возвращает число остановок.", deliverable: "Use case без собственного создания базы." },
+        { title: "Подключите Infrastructure", time: "12 минут", detail: "MemoryShiftRepository хранит объекты в списке и реализует save.", deliverable: "Внешняя реализация внутреннего порта." },
+        { title: "Проследите зависимость", time: "9 минут", detail: "Сценарий знает порт, адаптер реализует его, а Shift не знает ни один из них.", deliverable: "Описание направления к внутренним правилам." },
+        { title: "Сверьте сценарий", time: "5 минут", detail: "Сравните результат закрытия смены с ожидаемым выводом и отметьте чек-лист.", deliverable: "Понятный пример архитектурной границы." },
+      ],
+      example: { type: "example", title: "Самодостаточное закрытие смены", goal: "Подключить хранилище снаружи сценария.", code: `from dataclasses import dataclass, field\nfrom typing import Protocol\n\n@dataclass\nclass Shift:\n    bus: str\n    stops: list[str] = field(default_factory=list)\n\nclass ShiftRepository(Protocol):\n    def save(self, shift: Shift) -> None: ...\n\nclass FinishShift:\n    def __init__(self, repository: ShiftRepository) -> None:\n        self.repository = repository\n    def close(self, shift: Shift) -> int:\n        self.repository.save(shift)\n        return len(shift.stops)\n\nclass MemoryShiftRepository:\n    def __init__(self) -> None:\n        self.saved: list[Shift] = []\n    def save(self, shift: Shift) -> None:\n        self.saved.append(shift)\n\nrepository = MemoryShiftRepository()\nfinish_shift = FinishShift(repository)\nshift = Shift("BUS-17", ["Абая", "Сейфуллина"])\ncount = finish_shift.close(shift)\nprint(f"Автобус {shift.bus}: смена закрыта, остановок {count}")`, output: `Автобус BUS-17: смена закрыта, остановок 2` },
+      diagram: { type: "uml", src: "../architecture/week3/lab-09.svg", title: "Слои автобусной смены", alt: "FinishShift зависит от ShiftRepository; MemoryShiftRepository реализует порт; Shift содержит доменные данные.", caption: "Текстовое описание: домен не знает хранилище; сценарий зависит от внутреннего порта, который реализует внешняя деталь." },
+      extension: { title: "Необязательное углубление", detail: "Набросайте SQLite-реализацию ShiftRepository. Не добавляйте импорт SQLite в Shift или FinishShift." },
+      questions: [
+        { id: "q1", text: "Что хранит Shift?", options: ["Автобус и остановки", "Подключение к SQL", "HTML-кнопку", "Секретный ключ"], answer: 0, explanation: "Это данные предметной области." },
+        { id: "q2", text: "От чего зависит FinishShift?", options: ["От ShiftRepository", "От SQLite", "От браузера", "От конкретного файла"], answer: 0, explanation: "Сценарий использует контракт." },
+        { id: "q3", text: "Где находится MemoryShiftRepository?", options: ["Во внешней инфраструктуре", "Внутри Shift", "Внутри HTML", "Вместо Application"], answer: 0, explanation: "Это конкретная реализация порта." },
+        { id: "q4", text: "Что задаёт Dependency Rule?", options: ["Внешняя деталь знает внутренний контракт", "Домен импортирует базу", "Все классы в одном файле", "Экран выполняет сценарий сам"], answer: 0, explanation: "Исходный код направляется к внутренним правилам." },
+        { id: "q5", text: "Зачем передавать репозиторий через конструктор?", options: ["Чтобы заменить реализацию снаружи", "Чтобы спрятать порт", "Чтобы Shift выбрал базу", "Чтобы сайт запускал Python"], answer: 0, explanation: "Зависимость остаётся явной и заменяемой." },
+      ],
+      checklist: ["Shift хранит только предметные данные.", "ShiftRepository объявлен как порт.", "FinishShift получает порт через конструктор.", "MemoryShiftRepository подключён снаружи.", "Слои и направление зависимостей объяснены."],
+    },
+  ]);
+
+  const isLocalPreview = typeof window !== "undefined" && (
+    window.location?.protocol === "file:" ||
+    ["localhost", "127.0.0.1", "::1"].includes(window.location?.hostname)
+  );
+  const weekThreeReady = isLocalPreview && [7, 8, 9].every((id) =>
+    lessons.some((lesson) => lesson.id === id && lesson.minutes === 60 && lesson.sections.length > 0 && lesson.takeaway.length > 0) &&
+    labs.some((lab) => lab.id === id && lab.minutes === 60 && lab.questions.length === 5 && lab.checklist.length > 0 && lab.example?.code && lab.example?.output)
+  );
+
   const weekTwoReady = [4, 5, 6].every((id) =>
     lessonFiles[id - 1] &&
     labFiles[id - 1] &&
@@ -698,7 +878,7 @@ console.log(reportService.clock === metricsService.clock);`, expected: "Выво
   const modules = [
     { id: 1, title: "Основы объектно-ориентированного программирования", available: true },
     { id: 2, title: "Принципы SOLID и порождающие паттерны", available: weekTwoReady },
-    { id: 3, title: "Структурные и поведенческие паттерны", available: false },
+    { id: 3, title: "Структурные и поведенческие паттерны", available: weekThreeReady },
   ].map((module) => {
     const start = (module.id - 1) * 3;
     return {

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" role="img" aria-labelledby="title desc">
+  <title id="title">Последовательность проверки поездки</title>
+  <desc id="desc">Ride передаётся ActiveCardCheck и затем BalanceCheck. Result передаётся RideMonitor, который уведомляет Screen и Counter.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#51447e"/></marker></defs>
+  <style>text{font-family:Arial,sans-serif;fill:#25213a}.box{fill:#fbfaff;stroke:#6d5bb5;stroke-width:3}.head{fill:#e9e6f3}.life{stroke:#aaa3c5;stroke-width:2;stroke-dasharray:7 8}.arrow{stroke:#51447e;stroke-width:3;fill:none;marker-end:url(#arrow)}</style>
+  <rect class="box" x="35" y="55" width="185" height="72" rx="12"/><text x="127" y="100" text-anchor="middle" font-size="21" font-weight="700">Ride</text>
+  <rect class="box" x="270" y="55" width="220" height="72" rx="12"/><text x="380" y="100" text-anchor="middle" font-size="20" font-weight="700">ActiveCardCheck</text>
+  <rect class="box" x="540" y="55" width="195" height="72" rx="12"/><text x="637" y="100" text-anchor="middle" font-size="20" font-weight="700">BalanceCheck</text>
+  <rect class="box" x="785" y="55" width="185" height="72" rx="12"/><text x="877" y="100" text-anchor="middle" font-size="20" font-weight="700">RideMonitor</text>
+  <rect class="box" x="1020" y="55" width="150" height="72" rx="12"/><text x="1095" y="100" text-anchor="middle" font-size="20" font-weight="700">Listeners</text>
+  <path class="life" d="M127 127V520M380 127V520M637 127V520M877 127V520M1095 127V520"/>
+  <path class="arrow" d="M127 175H370"/><text x="240" y="164" text-anchor="middle" font-size="18">handle(ride)</text>
+  <path class="arrow" d="M380 235H627"/><text x="500" y="224" text-anchor="middle" font-size="18">успех → дальше</text>
+  <path class="arrow" d="M637 295H867"/><text x="750" y="284" text-anchor="middle" font-size="18">Result</text>
+  <path class="arrow" d="M877 355H1085"/><text x="980" y="344" text-anchor="middle" font-size="18">publish</text>
+  <path class="arrow" d="M1095 415H882"/><text x="990" y="405" text-anchor="middle" font-size="18">ScreenObserver</text>
+  <path class="arrow" d="M1095 475H882"/><text x="990" y="465" text-anchor="middle" font-size="18">CounterObserver</text>
+</svg>

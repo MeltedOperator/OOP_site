@@ -197,11 +197,21 @@
       if (block.type === "code") return `<pre><code>${escapeHtml(block.text)}</code></pre>`;
       if (block.type === "callout") return `<aside class="content-callout">${escapeHtml(block.text)}</aside>`;
       if (block.type === "example") {
+        const breakdown = block.expected || block.decision || block.oop
+          ? `<dl class="example-breakdown"><div><dt>Ожидаемое поведение</dt><dd>${escapeHtml(block.expected || "")}</dd></div><div><dt>Решение в коде</dt><dd>${escapeHtml(block.decision || "")}</dd></div><div><dt>Связь с ООП</dt><dd>${escapeHtml(block.oop || "")}</dd></div></dl>`
+          : "";
         return `<article class="code-example" aria-label="${escapeHtml(block.title)}">
           <header class="code-example-heading"><p class="eyebrow">РАЗОБРАННЫЙ ПРИМЕР</p><h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.goal)}</p></header>
           <pre><code>${escapeHtml(block.code)}</code></pre>
-          <dl class="example-breakdown"><div><dt>Ожидаемое поведение</dt><dd>${escapeHtml(block.expected)}</dd></div><div><dt>Решение в коде</dt><dd>${escapeHtml(block.decision)}</dd></div><div><dt>Связь с ООП</dt><dd>${escapeHtml(block.oop)}</dd></div></dl>
+          ${block.output ? `<div class="example-output"><p class="eyebrow">ОЖИДАЕМЫЙ ВЫВОД</p><pre><code>${escapeHtml(block.output)}</code></pre></div>` : ""}
+          ${breakdown}
         </article>`;
+      }
+      if (block.type === "uml") {
+        return `<figure class="uml-diagram"><img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt)}" loading="lazy"><figcaption><strong>${escapeHtml(block.title)}</strong><p>${escapeHtml(block.caption)}</p></figcaption></figure>`;
+      }
+      if (block.type === "links") {
+        return `<ul class="source-links">${block.items.map((item) => `<li><a href="${escapeHtml(item.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.label)} ↗</a></li>`).join("")}</ul>`;
       }
       if (block.type === "diagram") {
         const renderSide = (side) => `<section class="oop-diagram-panel"><h3>${escapeHtml(side.label)}</h3><ol>${side.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol></section>`;
@@ -215,7 +225,10 @@
   }
   function renderExtension(extension) {
     if (!extension) return "";
-    return `<aside class="optional-section"><p class="eyebrow">НЕОБЯЗАТЕЛЬНОЕ УГЛУБЛЕНИЕ</p><h2>${escapeHtml(extension.title)}</h2><p>${escapeHtml(extension.detail)}</p></aside>`;
+    const links = extension.links?.length
+      ? `<ul class="source-links">${extension.links.map((item) => `<li><a href="${escapeHtml(item.href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.label)} ↗</a></li>`).join("")}</ul>`
+      : "";
+    return `<aside class="optional-section"><p class="eyebrow">НЕОБЯЗАТЕЛЬНОЕ УГЛУБЛЕНИЕ</p><h2>${escapeHtml(extension.title)}</h2><p>${escapeHtml(extension.detail)}</p>${links}</aside>`;
   }
 
   function sourceHref(file) {
@@ -265,6 +278,7 @@
         <section class="lab-overview"><div><p class="eyebrow">ЦЕЛЬ</p><p>${escapeHtml(lab.goal)}</p></div><div><p class="eyebrow">КОНТЕКСТ</p><p>${escapeHtml(lab.context)}</p></div></section>
         <div class="lab-columns"><section class="detail-card"><div class="detail-heading"><span class="detail-icon" aria-hidden="true">01</span><div><p class="eyebrow">РЕЗУЛЬТАТ</p><h2>Что подготовить</h2></div></div><ul class="deliverable-list">${lab.deliverables.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section><section class="detail-card"><div class="detail-heading"><span class="detail-icon detail-icon-lime" aria-hidden="true">02</span><div><p class="eyebrow">КРИТЕРИИ</p><h2>Что проверить</h2></div></div><ul class="deliverable-list">${lab.criteria.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section></div>
         <section class="steps-section"><div class="section-heading"><div><p class="eyebrow">МАРШРУТ · 60 МИНУТ</p><h2>Пошаговая работа</h2></div><span class="section-time">${lab.minutes} минут</span></div><ol class="step-list">${lab.steps.map((step, index) => `<li class="step-card"><div class="step-marker">${String(index + 1).padStart(2, "0")}</div><div><div class="step-title-row"><h3>${escapeHtml(step.title)}</h3><span class="section-time">${escapeHtml(step.time)}</span></div><p>${escapeHtml(step.detail)}</p><p class="step-deliverable"><strong>Результат шага:</strong> ${escapeHtml(step.deliverable)}</p></div></li>`).join("")}</ol></section>
+        ${lab.example ? `<section class="lab-code-model"><div class="section-heading"><div><p class="eyebrow">ПОЛНАЯ ПРОГРАММА</p><h2>Образец работы</h2></div><span class="section-time">Статический пример</span></div><div class="rich-content">${renderBlocks([lab.example, lab.diagram])}</div><p class="static-code-note">Сайт показывает пример как текст и не запускает Python.</p></section>` : ""}
         ${renderExtension(lab.extension)}
         <section class="assessment-grid"><div class="assessment-card"><div class="section-heading"><div><p class="eyebrow">САМОПРОВЕРКА</p><h2>Квиз</h2></div><span class="assessment-rule">20 баллов за правильный ответ</span></div><p class="assessment-intro">Ответьте на все вопросы. Правильный ответ даёт 20 баллов; неправильный — 0.</p>${questions}</div>
           <div class="assessment-card"><div class="section-heading"><div><p class="eyebrow">ВЗАИМОПРОВЕРКА</p><h2>Чек-лист</h2></div><span class="assessment-rule">20 баллов за отметку</span></div><p class="assessment-intro">Сверьте работу с одногруппником вне сайта. Отмеченная галочка даёт 20 баллов; пустая — 0. Сайт не запускает и не подтверждает выполнение кода.</p><div class="checklist">${checklist}</div></div></section>

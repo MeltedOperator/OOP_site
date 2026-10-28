@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-28
+
+- **OOP_20261027-201313_WEEK3:** Added connected lecture/lab pages 7–9 with Python examples,
+  static expected output and UML diagrams. Module 3 is available only in the local development
+  preview while work is unfinished; it remains locked on non-local hosts. The fictional payment
+  example performs no network operation. Publication remains gated by independent Review and
+  explicit owner acceptance. This task history entry is not a release or deployment.
+
 ## 2026-10-16
 
 - **OOP_20261015-164702_WEB:** Added the locally opened OOPoman course shell with three ordered

@@ -8,7 +8,7 @@ OOPoman is a small, local-first learning site for second-year students to study 
 
 - A student starts at a welcoming course card that explains the course and its expectations.
 - Each available week has a 60-minute lecture core and a 60-minute lab route; clearly marked optional depth sits outside those required hours.
-- Weeks 1 and 2 are available. Week 3 and module 3 remain closed until Roman explicitly opens them.
+- Weeks 1 and 2 are available. Week 3 is available only in Roman's local development preview while the approved course work is in progress; it stays locked on non-local hosts and unfinished material is not published.
 - Lessons include theory, and labs are interactive learning pages with a five-question quiz, an observable checklist, and a manual peer-check. The site shows progress and points without claiming to run or judge student code.
 - A student can see progress and points as they move through the course.
 - The course ends with one exam. Its content and format will be designed later.
@@ -28,7 +28,7 @@ Each correct quiz answer and each checked ordinary checklist item awards 20 poin
 
 ## Success
 
-The project succeeds when a student can understand the course at a glance, complete the available week 1 and week 2 material in order, see how points were awarded, and use the site locally without an account or project backend. Week 3 remains closed. Manual peer-check stays outside automatic site verification, source PDFs remain preserved, and the implementation stays understandable to a second-year student.
+The project succeeds when a student can understand the course at a glance, complete the available week 1 and week 2 material in order, see how points were awarded, and use the site locally without an account or project backend. Roman can inspect week 3 during local development; distribution remains gated by independent Review and explicit owner acceptance. Manual peer-check stays outside automatic site verification, source PDFs remain preserved, and the implementation stays understandable to a second-year student.
 
 ## Open decisions
 

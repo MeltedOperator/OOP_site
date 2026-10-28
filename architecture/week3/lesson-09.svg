@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Направление зависимостей Clean Architecture</title>
+  <desc id="desc">Модель Shift находится внутри. FinishShift зависит от внутреннего порта ShiftRepository. Память и экран снаружи подключаются к сценарию.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#51447e"/></marker></defs>
+  <style>text{font-family:Arial,sans-serif;fill:#25213a}.layer{fill:#fbfaff;stroke:#6d5bb5;stroke-width:3}.inner{fill:#f0eef8;stroke:#51447e;stroke-width:3}.line{stroke:#51447e;stroke-width:3;fill:none;marker-end:url(#arrow)}</style>
+  <rect class="layer" x="45" y="90" width="235" height="420" rx="24"/><text x="162" y="135" text-anchor="middle" font-size="24" font-weight="700">Presentation</text><text x="162" y="170" text-anchor="middle" font-size="18">экран / запуск</text>
+  <rect class="layer" x="330" y="90" width="320" height="420" rx="24"/><text x="490" y="135" text-anchor="middle" font-size="24" font-weight="700">Application</text><text x="490" y="170" text-anchor="middle" font-size="18">сценарий смены</text>
+  <rect class="inner" x="375" y="230" width="230" height="120" rx="14"/><text x="490" y="270" text-anchor="middle" font-size="22" font-weight="700">FinishShift</text><text x="490" y="310" text-anchor="middle" font-size="18">закрыть и сохранить</text>
+  <rect class="inner" x="375" y="385" width="230" height="85" rx="14"/><text x="490" y="420" text-anchor="middle" font-size="21" font-weight="700">ShiftRepository</text><text x="490" y="450" text-anchor="middle" font-size="17">внутренний порт</text>
+  <rect class="layer" x="700" y="90" width="225" height="420" rx="24"/><text x="812" y="135" text-anchor="middle" font-size="24" font-weight="700">Infrastructure</text><text x="812" y="170" text-anchor="middle" font-size="18">хранилище</text><rect class="inner" x="730" y="255" width="165" height="120" rx="14"/><text x="812" y="300" text-anchor="middle" font-size="20" font-weight="700">Memory</text><text x="812" y="335" text-anchor="middle" font-size="17">реализация порта</text>
+  <rect class="inner" x="965" y="200" width="190" height="190" rx="18"/><text x="1060" y="250" text-anchor="middle" font-size="23" font-weight="700">Domain</text><text x="1060" y="295" text-anchor="middle" font-size="21">Shift</text><text x="1060" y="335" text-anchor="middle" font-size="17">автобус · остановки</text>
+  <path class="line" d="M280 300H360"/><path class="line" d="M490 350V375"/><path class="line" d="M730 315H615"/><path class="line" d="M650 440Q800 440 965 360"/>
+  <text x="600" y="575" text-anchor="middle" font-size="21" font-weight="700" fill="#51447e">Исходный код внешнего слоя зависит от внутреннего контракта</text>
+  <text x="600" y="615" text-anchor="middle" font-size="18">Домен не импортирует экран и хранилище</text>
+</svg>

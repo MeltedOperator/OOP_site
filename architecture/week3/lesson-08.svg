@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Цепочка проверок и наблюдатели</title>
+  <desc id="desc">Запрос проходит проверку карты, затем баланса. После решения монитор уведомляет экран и счётчик.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#51447e"/></marker></defs>
+  <style>text{font-family:Arial,sans-serif;fill:#25213a}.box{fill:#fbfaff;stroke:#6d5bb5;stroke-width:3}.head{fill:#e9e6f3}.line{stroke:#51447e;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke-dasharray:8 8}</style>
+  <rect class="box" x="50" y="90" width="240" height="150" rx="14"/><rect class="head" x="50" y="90" width="240" height="52" rx="14"/><text x="170" y="125" text-anchor="middle" font-size="22" font-weight="700">RideRequest</text><text x="75" y="180" font-size="19">карта · баланс · тариф</text>
+  <rect class="box" x="350" y="90" width="240" height="150" rx="14"/><rect class="head" x="350" y="90" width="240" height="52" rx="14"/><text x="470" y="125" text-anchor="middle" font-size="22" font-weight="700">ActiveCardCheck</text><text x="375" y="180" font-size="19">активна?</text>
+  <rect class="box" x="650" y="90" width="240" height="150" rx="14"/><rect class="head" x="650" y="90" width="240" height="52" rx="14"/><text x="770" y="125" text-anchor="middle" font-size="22" font-weight="700">BalanceCheck</text><text x="675" y="180" font-size="19">баланс ≥ тариф?</text>
+  <rect class="box" x="950" y="90" width="200" height="150" rx="14"/><rect class="head" x="950" y="90" width="200" height="52" rx="14"/><text x="1050" y="125" text-anchor="middle" font-size="22" font-weight="700">Result</text><text x="973" y="180" font-size="19">одобрено / отказ</text>
+  <path class="line" d="M290 165H335"/><path class="line" d="M590 165H635"/><path class="line" d="M890 165H935"/>
+  <text x="600" y="290" text-anchor="middle" font-size="22" font-weight="700">После решения · Observer</text>
+  <rect class="box" x="390" y="365" width="250" height="130" rx="14"/><rect class="head" x="390" y="365" width="250" height="50" rx="14"/><text x="515" y="398" text-anchor="middle" font-size="22" font-weight="700">RideMonitor</text><text x="418" y="455" font-size="19">издатель события</text>
+  <rect class="box" x="760" y="335" width="280" height="110" rx="14"/><rect class="head" x="760" y="335" width="280" height="48" rx="14"/><text x="900" y="367" text-anchor="middle" font-size="21" font-weight="700">ScreenObserver</text><text x="790" y="420" font-size="18">показывает итог</text>
+  <rect class="box" x="760" y="485" width="280" height="110" rx="14"/><rect class="head" x="760" y="485" width="280" height="48" rx="14"/><text x="900" y="517" text-anchor="middle" font-size="21" font-weight="700">CounterObserver</text><text x="790" y="570" font-size="18">считает исход</text>
+  <path class="line dash" d="M1050 240V295H515V355"/><path class="line" d="M640 415H745"/><path class="line" d="M640 445Q700 445 700 540H745"/>
+  <text x="600" y="640" text-anchor="middle" font-size="20" fill="#51447e">Отказ прекращает Chain · подписчики только получают готовый итог</text>
+</svg>
