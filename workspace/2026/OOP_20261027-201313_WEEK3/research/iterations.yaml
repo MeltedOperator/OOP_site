@@ -1,0 +1,10 @@
+task_id: OOP_20261027-201313_WEEK3
+title: "Практическое применение ООП во внешних API и учебный кейс недели 3"
+min_iterations: 2
+max_iterations: 3
+iterations:
+  - number: 1
+    focus: "На официальных первичных источниках установить, как объектные границы и Adapter/Facade/Decorator помогают интеграции с реальным API; выбрать подходящий публичный sandbox/read-only контекст, который можно безопасно моделировать локально; проверить конкретную учебную пользу обработки ошибок, retry и cache без советов о production-платежах."
+    hypotheses: [H3]
+    status: in_progress
+    res_file: research/iter1/RES.md
