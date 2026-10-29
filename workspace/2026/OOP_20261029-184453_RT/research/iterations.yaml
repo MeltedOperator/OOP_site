@@ -16,6 +16,6 @@ iterations:
   - number: 3
     focus: "На browser-equipped стенде проверить выбранный Pyodide Worker contract: исполняемые snippets и criteria fixtures, необходимые сетевые runtime/package loader requests с запретом сети и произвольных URL installs из student code, offline localhost static-only launcher с локальными assets без удалённого fallback, timeout/output bounds/reset и фактическую browser/OS matrix. Не внедрять production runtime. Если требуемый стенд недоступен или границы не подтверждаются, вернуть конкретный blocker и условия повторной проверки."
     hypotheses: [H2, H3, H5]
-    status: pending
+    status: complete
     res_file: research/iter3/RES.md
 
