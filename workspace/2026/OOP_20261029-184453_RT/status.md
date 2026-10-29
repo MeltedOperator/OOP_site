@@ -10,7 +10,7 @@ coordinator_route: "codex:thread:local:01a183ac-e789-7d81-a69a-00c4032013be"
 upstream_route: owner:roman
 dialogue: tfw-gates-only
 activation: owner-only
-coordination_authority: "HL-OOP_20261029-184453_RT.md @ 055e11a"
+coordination_authority: "HL-OOP_20261029-184453_RT.md @ 055e11ab48f45807a9a72bdb1e9534a8d32fc167"
 reporting: native-gates
 selection_ref: baseline
 created: 20261029-184453
