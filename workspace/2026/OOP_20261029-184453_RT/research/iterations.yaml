@@ -1,10 +1,15 @@
 task_id: OOP_20261029-184453_RT
-title: "Исследование безопасного локального запуска и строгой проверки терминалов"
+title: "Безопасность рантайма, совместимость курса и проверяемость лабораторных"
 min_iterations: 2
 max_iterations: 3
 iterations:
   - number: 1
     focus: "Проверить локальную Docker-схему, browser-to-loopback доступ, ограничения контейнера, критерии лабораторных и варианты строгой проверки"
     hypotheses: [H1, H2, H3, H4]
-    status: pending
+    status: complete
     res_file: research/iter1/RES.md
+  - number: 2
+    focus: "Сравнить Docker-helper с Pyodide Worker на доступном стенде; проверить ограничения helper/worker, совместимость реальных snippets, сетевые и ресурсные границы, и составить карту практических критериев с детерминированными oracle или явным ручным disposition. Изучить локальный static launcher, не считая его разрешённым; зафиксировать тестовую матрицу, не обещать общую совместимость и не внедрять runtime."
+    hypotheses: [H1, H2, H3, H4, H5]
+    status: pending
+    res_file: research/iter2/RES.md
