@@ -11,5 +11,6 @@ iterations:
   - number: 2
     focus: "Сравнить Docker-helper с Pyodide Worker на доступном стенде; проверить ограничения helper/worker, совместимость реальных snippets, сетевые и ресурсные границы, и составить карту практических критериев с детерминированными oracle или явным ручным disposition. Изучить локальный static launcher, не считая его разрешённым; зафиксировать тестовую матрицу, не обещать общую совместимость и не внедрять runtime."
     hypotheses: [H1, H2, H3, H4, H5]
-    status: pending
+    status: complete
     res_file: research/iter2/RES.md
+
