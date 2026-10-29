@@ -13,4 +13,9 @@ iterations:
     hypotheses: [H1, H2, H3, H4, H5]
     status: complete
     res_file: research/iter2/RES.md
+  - number: 3
+    focus: "На browser-equipped стенде проверить выбранный Pyodide Worker contract: исполняемые snippets и criteria fixtures, запрет сети из student code при загрузке только pinned runtime/package origins, offline localhost static-only launcher с локальными assets без удалённого fallback, timeout/output bounds/reset и фактическую browser/OS matrix. Не внедрять production runtime. Если требуемый стенд недоступен или границы не подтверждаются, вернуть конкретный blocker и условия повторной проверки."
+    hypotheses: [H2, H3, H5]
+    status: pending
+    res_file: research/iter3/RES.md
 
