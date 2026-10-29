@@ -61,13 +61,13 @@ The documented `Worker.terminate()` provides a way for the parent to stop a runa
 
 ### C6 — The supplied route blocks the planned empirical conclusions
 
-The sole Coordinator-authorized `http://127.0.0.1:8765/course/index.html` attempt returned 404. No course page was reached. The source files and official docs cannot settle browser/OS support, Worker headers, Pyodide package behavior, fixtures, reset, timeout/output or offline completeness. Runtime validation is **BLOCKED / NOT PASSED**, not a Pyodide failure. Resume Phase A only after the Coordinator provides an allowed browser-test route that actually serves the course plus a browser-capable environment (or approves another compliant test mechanism), and gives a durable decision on the newer network clarification. No new URL/surface was tried.
+The sole Coordinator-authorized `http://127.0.0.1:8765/course/index.html` attempt returned 404. No course page was reached. The source files and official docs cannot settle browser/OS support, Worker headers, Pyodide package behavior, fixtures, reset, timeout/output or offline completeness. Runtime validation is **BLOCKED / NOT PASSED**, not a Pyodide failure. Resume Phase A only after the Coordinator provides a new allowed browser-test route that actually serves the course and a browser-capable environment; the owner has authorized only the single attempt already made, and no other test route is currently available. No new URL/surface was tried.
 
 ## Checkpoint
 
 | Found | Remaining |
 |---|---|
-| Significant conflicts and survivors are enumerated. The parent document's CSP is not automatically the ordinary Worker policy; Worker response headers matter. Core-only is insufficient evidence for offline package closure; arbitrary `micropip` conflicts with the exact package set; UI timeout without termination does not stop code. C2/C3/C4/C5 remain conditional candidates under the current loader-allow/student-deny rule. Owner gate A6 now resolves the policy: the loader may fetch what selected runtime/permitted packages need; student Python and arbitrary URL installs remain offline. | Worker CSP and actual networking; `jsglobals` separation; package closure/offline launch; target browser matrix; snippets/fixtures; timeout/restart/output/reset/resource behavior. The sole allowed route is 404. Phase A runtime validation is BLOCKED / NOT PASSED pending a functioning authorized browser-test route and browser-capable environment. |
+| Significant conflicts and survivors are enumerated. The parent document's CSP is not automatically the ordinary Worker policy; Worker response headers matter. Core-only is insufficient evidence for offline package closure; arbitrary `micropip` conflicts with the exact package set; UI timeout without termination does not stop code. C2/C3/C4/C5 remain conditional candidates under the current loader-allow/student-deny rule. Owner gate A6 now resolves the policy: the loader may fetch what selected runtime/permitted packages need; student Python and arbitrary URL installs remain offline. | Worker CSP and actual networking; `jsglobals` separation; package closure/offline launch; target browser matrix; snippets/fixtures; timeout/restart/output/reset/resource behavior. The sole authorized route is 404 and no alternative is available. Phase A runtime validation is BLOCKED / NOT PASSED pending a newly authorized functioning browser-test route and browser-capable environment. |
 
 **Sufficiency:**
 - [x] External source used? — official Pyodide stable docs and MDN CSP/Worker documentation, checked 2026-10-29.
@@ -75,7 +75,7 @@ The sole Coordinator-authorized `http://127.0.0.1:8765/course/index.html` attemp
 - [x] Pairwise incompatibility checked? — material incompatibilities across the six Gather dimensions are listed and surviving Extract configurations are classified as candidates, not validated results.
 
 Stage complete: YES
-→ Coordinator decision: route an allowed working browser target for the required Phase A tests, or disposition runtime validation as blocked/not passed. Do not infer runtime success.
+→ Coordinator decision: provide a newly authorized working browser-test route/environment, or disposition runtime validation as blocked/not passed. Do not infer runtime success.
 
 ---
 **Research scope:** documentary counter-evidence only plus the one previously authorized HTTP(S) attempt. No runtime, fixture, CSP, network, timeout, package or browser matrix test ran. No production file changed. No additional browser URL/surface was attempted.
