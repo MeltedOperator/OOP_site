@@ -1,0 +1,10 @@
+task_id: OOP_20261029-184453_RT
+title: "Исследование безопасного локального запуска и строгой проверки терминалов"
+min_iterations: 2
+max_iterations: 3
+iterations:
+  - number: 1
+    focus: "Проверить локальную Docker-схему, browser-to-loopback доступ, ограничения контейнера, критерии лабораторных и варианты строгой проверки"
+    hypotheses: [H1, H2, H3, H4]
+    status: pending
+    res_file: research/iter1/RES.md
