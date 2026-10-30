@@ -26,6 +26,7 @@
 - course/app.js и course/README.md подтверждают статическое отображение без выполнения кода. Родительский контракт сохраняет PDF, баллы, прогресс, checklist и completion; эмпирические browser/runtime/security свойства остаются непроверенными.
 - Phase B принят: Candidate c1acf55e81f9ec4927f883034eaba92de2214ebf, RF/EV/REVIEW rev4, verdict APPROVE и KNW на commit a6beff1e267a33dc2bf1ddcc589fc26a5ed97220. Текущий checkout содержит устаревшую проекцию Phase B; authoritative зависимость — этот accepted return.
 - Root TS rev2 принят с селектором 16 VALUE files / 4,000 touched text LOC. Phase B использовал 1,200 по тому же селектору; Phase C располагает остатком до 2,800 от root baseline 23637e22ce1c4242b904b7a8b9f92cfbd81f2b56. Любое расширение требует owner approval до действия.
+- **Rollout для исполнителя:** в текущем `course/data.js` Module 2 (id 2, страницы 4–6) включается по `weekTwoReady`: три теории должны иметь 60 минут и секции, три лабораторные — 60 минут, пять вопросов и checklist; gate не зависит от local preview. Module 3 (id 3, страницы 7–9) включается только при `isLocalPreview` (`file:` или localhost/127.0.0.1/::1) и `weekThreeReady`, который проверяет готовность трёх теорий и наличие у каждой лабораторной 60 минут, пяти вопросов, checklist, runnable-примера и output. В одном Phase C Candidate завершить обе группы, сохранив оба существующих availability gate. После общего Phase C review и owner acceptance Module 2 может следовать своему текущему gate; Module 3 остаётся local-preview-only до отдельного release decision. Промежуточного Module 2 phase/review и публикации Module 3 в этой фазе нет.
 
 ## 3. Target State (To-Be) 🔒 FROZEN
 
@@ -125,7 +126,7 @@ Phase C следует за принятым Phase B. Между модулям�
 |---|---|
 | Accepted Phase B RF/EV/REVIEW rev4 at a6beff1e267a33dc2bf1ddcc589fc26a5ed97220; Candidate c1acf55e81f9ec4927f883034eaba92de2214ebf | ✅ |
 | Root HL @ 16e634d54418705183f6d6587b616cd79d50f806; root TS rev2 @ aa346605fd53ffa6234d0c8a3cbcec324a8eeb6f | ✅ |
-| Exact Phase C TS/denominator owner approval | ⬜ |
+| Exact Phase C TS/denominator owner approval recorded in the phase journal at commit 5c89dfa402f2fc7f4b3d0d6b5cfc2ef97b9bddbd | ✅ |
 | Runtime/browser empirical proof | ⬜ explicitly outside phase |
 | Independent review and owner acceptance | ⬜ after Executor return |
 
@@ -188,6 +189,10 @@ No amendments.
 ### Material handover at this return
 
 Producer: Phase C Coordinator, codex:thread:local:01a18b1b-cf9b-7a50-a203-23392130eb0e; observed epoch 2026-10-30T10:05:33+05:00. Inspected parent HL/TS, accepted Phase B return, current North Star/knowledge/config and course materials. Material: one Phase C over 12 pages; 16 VALUE/4,000 LOC parent denominator with 2,800 remaining after Phase B. Uncertainty: runtime/browser/security unverified; current data contradicts a parent As-Is sentence. Continuation: owner gate for exact HL and TS; handoff only after exact TS approval. Economics binding gap: current source ID/version/range/cutoff unavailable, extraction not attempted, no last-good file; this is not measured zero.
+
+### Handoff continuation — rollout details
+
+Owner approved the exact Phase C HL/TS and parent denominator in the owner-direct confirmation recorded in `journal/20261030-101430__gate_answer__55d4.md`, committed at `5c89dfa402f2fc7f4b3d0d6b5cfc2ef97b9bddbd`. Executor context: complete all six lessons and six labs together in one Candidate; retain the existing independent availability gates in §2. Module 2 follows its current readiness gate after the integrated result is accepted; Module 3 stays local-preview-only until a separate release decision. No interim Module 2 deployment/review and no Module 3 publication are authorized by Phase C. Source inspected: `course/data.js` readiness predicates and root HL A9. Remaining uncertainty: empirical browser/runtime/security proof is outside the phase. Recipient: Phase C Executor at activation; continuation: implement only within the exact approved TS, then return ONB/RF to this phase Coordinator.
 
 ---
 *HL — OOP_20261029-184453_RT/phase-c: Терминалы модулей 2 и 3 — единый пакет | 2026-10-30*
