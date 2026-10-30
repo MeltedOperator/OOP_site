@@ -184,7 +184,9 @@ Runner/browser/security не проверяются этой фазой. Их н
 
 ## 12. Amendment Log 🟢 APPEND-ONLY
 
-No amendments.
+| # | Date | § | Type | Proposer | Approved change | Evidence | Cost / effects | Alternatives | Verdict |
+|---|------|---|------|----------|-----------------|----------|----------------|-------------|---------|
+| A1 | 2026-10-30 | §1/2/3/4/5/7 | `SUPERSEDE` | roman | Supersede the prior local-preview-only Module 3 boundary for this Phase C public Site update. Module 3 is public when the existing readiness predicate passes; publish the existing Modules 1–3 material and PDFs. Preserve the assessment, progress, static-only, no-upload and uncertainty boundaries. | Direct owner messages in the Phase C Coordinator thread: “оставляй модуль три открытым”; “да, одобряю. Выпускай обновление”. Prior authority: `TRACE.md`, 2026-10-21 public release scope, superseded only for Module 3 access/scope by this decision. | Remove the host-only predicate, update visible copy/README, add hosted-origin and incomplete-readiness regressions, package all 18 PDFs and six diagrams, then independently review before production deployment. | Continue local-preview-only as previous Phase C rule. | `✅ APPROVED — roman, 2026-10-30` |
 
 ### Material handover at this return
 

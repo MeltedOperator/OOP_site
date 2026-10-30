@@ -2,7 +2,7 @@
   const app = document.querySelector("#app");
   const notice = document.querySelector("#notice");
   const resetDialog = document.querySelector("#reset-dialog");
-  const { modules, lessons, labs } = window.OopomanCourse;
+  const { modules, lessons, labs, terminalContent } = window.OopomanCourse;
   let pendingResetFocus = null;
 
   function escapeHtml(value) {
@@ -136,7 +136,7 @@
         <div class="hero-copy">
           <p class="eyebrow">КУРС · ОБЪЕКТНО-ОРИЕНТИРОВАННОЕ ПРОГРАММИРОВАНИЕ</p>
           <h1>Понятный маршрут<br><span>в мир ООП.</span></h1>
-          <p class="hero-text">Изучайте теорию, выполняйте лабораторные у себя и проходите взаимную проверку. Недели 1 и 2 открыты; неделя 3 пока закрыта.</p>
+          <p class="hero-text">Изучайте теорию, выполняйте лабораторные у себя и проходите взаимную проверку.</p>
           <a class="button button-primary" href="?week=1&amp;view=module">Начать первую неделю <span aria-hidden="true">↗</span></a>
         </div>
         <div class="hero-card" aria-label="Общий прогресс по модулям">
@@ -191,21 +191,31 @@
     return `<section class="locked-page"><a class="back-link" href="index.html">← К маршруту</a><div class="lock-symbol" aria-hidden="true">⌑</div><p class="eyebrow">МОДУЛЬ 0${module.id}</p><h1>${escapeHtml(module.title)}</h1><p>Эта неделя пока закрыта. Доступ к следующим модулям определяет владелец курса.</p><div class="locked-sources"><span class="source-label">В модуле предусмотрены</span><span>3 лекции · 3 лабораторные</span></div><a class="button button-primary" href="index.html">Вернуться к маршруту</a></section>`;
   }
 
-  function renderBlocks(blocks) {
-    return blocks.map((block) => {
+  function renderBlocks(blocks, lessonId, sectionNumber) {
+    return blocks.map((block, blockIndex) => {
+      const blockKey = `${sectionNumber}-${blockIndex + 1}`;
+      const lessonTerminal = lessonId && terminalContent.lessons[lessonId];
+      const exercise = lessonTerminal?.blockExercises?.[blockKey];
+      const terminalMarkup = exercise
+        ? window.OopomanTerminal.renderTerminal({ kind: "lesson", id: lessonId, exerciseId: `s${sectionNumber}b${blockIndex + 1}`, content: exercise })
+        : "";
       if (block.type === "list") return `<ul>${block.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
-      if (block.type === "code") return `<pre><code>${escapeHtml(block.text)}</code></pre>`;
+      if (block.type === "code") return `<pre><code>${escapeHtml(block.text)}</code></pre>${terminalMarkup}`;
       if (block.type === "callout") return `<aside class="content-callout">${escapeHtml(block.text)}</aside>`;
       if (block.type === "example") {
         const breakdown = block.expected || block.decision || block.oop
           ? `<dl class="example-breakdown"><div><dt>Ожидаемое поведение</dt><dd>${escapeHtml(block.expected || "")}</dd></div><div><dt>Решение в коде</dt><dd>${escapeHtml(block.decision || "")}</dd></div><div><dt>Связь с ООП</dt><dd>${escapeHtml(block.oop || "")}</dd></div></dl>`
+          : "";
+        const javascriptComparison = lessonTerminal?.javascriptComparisons?.[blockKey];
+        const comparisonMarkup = javascriptComparison
+          ? `<aside class="language-comparison"><strong>Сравнение языков</strong><p>${escapeHtml(javascriptComparison.comparison)}</p></aside>${window.OopomanTerminal.renderTerminal({ kind: "lesson", id: lessonId, exerciseId: `js${sectionNumber}b${blockIndex + 1}`, content: javascriptComparison.python })}`
           : "";
         return `<article class="code-example" aria-label="${escapeHtml(block.title)}">
           <header class="code-example-heading"><p class="eyebrow">РАЗОБРАННЫЙ ПРИМЕР</p><h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.goal)}</p></header>
           <pre><code>${escapeHtml(block.code)}</code></pre>
           ${block.output ? `<div class="example-output"><p class="eyebrow">ОЖИДАЕМЫЙ ВЫВОД</p><pre><code>${escapeHtml(block.output)}</code></pre></div>` : ""}
           ${breakdown}
-        </article>`;
+        </article>${comparisonMarkup}${terminalMarkup}`;
       }
       if (block.type === "uml") {
         return `<figure class="uml-diagram"><img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt)}" loading="lazy"><figcaption><strong>${escapeHtml(block.title)}</strong><p>${escapeHtml(block.caption)}</p></figcaption></figure>`;
@@ -241,7 +251,7 @@
     return `
       <article class="content-page" data-module-id="${module.id}">
         <section class="page-intro"><a class="back-link" href="index.html?week=${module.id}&amp;view=module">← К модулю ${module.id}</a><p class="eyebrow">ТЕОРИЯ · МОДУЛЬ ${String(module.id).padStart(2, "0")} · ${String(lesson.id).padStart(2, "0")}</p><h1>${escapeHtml(lesson.title)}</h1><p>${escapeHtml(lesson.subtitle)}</p>${lesson.outcome ? `<aside class="lesson-outcome"><p class="eyebrow">К КОНЦУ УРОКА ВЫ СМОЖЕТЕ</p><p>${escapeHtml(lesson.outcome)}</p></aside>` : ""}<div class="content-meta"><span>${lesson.minutes} минут</span><a class="text-link" href="${escapeHtml(sourceHref(lesson.file))}" target="_blank" rel="noopener">Открыть исходный PDF ↗</a></div></section>
-        <div class="lesson-sections">${lesson.sections.map((section, index) => `<section class="lesson-section"><div class="lesson-section-heading"><span class="lesson-section-number">${String(index + 1).padStart(2, "0")}</span><div><h2>${escapeHtml(section.title)}</h2><span class="section-time">${escapeHtml(section.time)}</span></div></div><p class="section-intro">${escapeHtml(section.intro)}</p><div class="rich-content">${renderBlocks(section.blocks)}</div></section>`).join("")}</div>
+        <div class="lesson-sections">${lesson.sections.map((section, index) => `<section class="lesson-section"><div class="lesson-section-heading"><span class="lesson-section-number">${String(index + 1).padStart(2, "0")}</span><div><h2>${escapeHtml(section.title)}</h2><span class="section-time">${escapeHtml(section.time)}</span></div></div><p class="section-intro">${escapeHtml(section.intro)}</p><div class="rich-content">${renderBlocks(section.blocks, lesson.id, index + 1)}</div></section>`).join("")}</div>
         <section class="takeaway"><p class="eyebrow">ГЛАВНОЕ</p><ul>${lesson.takeaway.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section>
         ${renderExtension(lesson.extension)}
         ${pairedLab ? `<a class="paired-lab-card" href="${escapeHtml(`lab-${String(pairedLab.id).padStart(2, "0")}.html`)}"><span><small>СЛЕДУЮЩИЙ ШАГ</small><strong>${escapeHtml(pairedLab.title)}</strong></span><span aria-hidden="true">→</span></a>` : ""}
@@ -277,11 +287,19 @@
         <section class="page-intro"><a class="back-link" href="index.html?week=${module.id}&amp;view=module">← К модулю ${module.id}</a><p class="eyebrow">ПРАКТИКА · МОДУЛЬ ${String(module.id).padStart(2, "0")} · ЛАБОРАТОРНАЯ ${String(lab.id).padStart(2, "0")}</p><h1>${escapeHtml(lab.title)}</h1><p>${escapeHtml(lab.subtitle)}</p><div class="content-meta"><span>${lab.minutes} минут</span><a class="text-link" href="${escapeHtml(sourceHref(lab.file))}" target="_blank" rel="noopener">Открыть исходный PDF ↗</a></div></section>
         <section class="lab-overview"><div><p class="eyebrow">ЦЕЛЬ</p><p>${escapeHtml(lab.goal)}</p></div><div><p class="eyebrow">КОНТЕКСТ</p><p>${escapeHtml(lab.context)}</p></div></section>
         <div class="lab-columns"><section class="detail-card"><div class="detail-heading"><span class="detail-icon" aria-hidden="true">01</span><div><p class="eyebrow">РЕЗУЛЬТАТ</p><h2>Что подготовить</h2></div></div><ul class="deliverable-list">${lab.deliverables.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section><section class="detail-card"><div class="detail-heading"><span class="detail-icon detail-icon-lime" aria-hidden="true">02</span><div><p class="eyebrow">КРИТЕРИИ</p><h2>Что проверить</h2></div></div><ul class="deliverable-list">${lab.criteria.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section></div>
-        <section class="steps-section"><div class="section-heading"><div><p class="eyebrow">МАРШРУТ · 60 МИНУТ</p><h2>Пошаговая работа</h2></div><span class="section-time">${lab.minutes} минут</span></div><ol class="step-list">${lab.steps.map((step, index) => `<li class="step-card"><div class="step-marker">${String(index + 1).padStart(2, "0")}</div><div><div class="step-title-row"><h3>${escapeHtml(step.title)}</h3><span class="section-time">${escapeHtml(step.time)}</span></div><p>${escapeHtml(step.detail)}</p><p class="step-deliverable"><strong>Результат шага:</strong> ${escapeHtml(step.deliverable)}</p></div></li>`).join("")}</ol></section>
-        ${lab.example ? `<section class="lab-code-model"><div class="section-heading"><div><p class="eyebrow">ПОЛНАЯ ПРОГРАММА</p><h2>Образец работы</h2></div><span class="section-time">Статический пример</span></div><div class="rich-content">${renderBlocks([lab.example, lab.diagram])}</div><p class="static-code-note">Сайт показывает пример как текст и не запускает Python.</p></section>` : ""}
+        <section class="steps-section"><div class="section-heading"><div><p class="eyebrow">МАРШРУТ · 60 МИНУТ</p><h2>Пошаговая работа</h2></div><span class="section-time">${lab.minutes} минут</span></div><ol class="step-list">${lab.steps.map((step, index) => {
+          const stepNumber = index + 1;
+          const stepExercise = terminalContent.labs[lab.id]?.stepExercises?.[stepNumber];
+          const stepTerminal = stepExercise
+            ? window.OopomanTerminal.renderTerminal({ kind: "lab", id: lab.id, exerciseId: `step${stepNumber}`, content: { ...stepExercise, checkable: false, showSolution: false, analog: terminalContent.labs[lab.id].analog } })
+            : "";
+          return `<li class="step-card"><div class="step-marker">${String(stepNumber).padStart(2, "0")}</div><div><div class="step-title-row"><h3>${escapeHtml(step.title)}</h3><span class="section-time">${escapeHtml(step.time)}</span></div><p>${escapeHtml(step.detail)}</p><p class="step-deliverable"><strong>Результат шага:</strong> ${escapeHtml(step.deliverable)}</p>${stepTerminal}</div></li>`;
+        }).join("")}</ol></section>
+        ${terminalContent.labs[lab.id] ? window.OopomanTerminal.renderTerminal({ kind: "lab", id: lab.id, content: terminalContent.labs[lab.id] }) : ""}
+        ${lab.example ? `<section class="lab-code-model"><div class="section-heading"><div><p class="eyebrow">ПОЛНАЯ ПРОГРАММА</p><h2>Запускаемый образец работы</h2></div><span class="section-time">Полный код</span></div>${window.OopomanTerminal.renderTerminal({ kind: "lab", id: lab.id, exerciseId: "full-example", content: { title: lab.example.title, prompt: "Запустите полный пример лабораторной. Редактор содержит тот же код, который иллюстрирует диаграмма.", starter: lab.example.code, showSolution: false, checkable: false, analog: terminalContent.labs[lab.id]?.analog } })}<div class="rich-content">${lab.diagram ? renderBlocks([lab.diagram]) : ""}</div></section>` : ""}
         ${renderExtension(lab.extension)}
         <section class="assessment-grid"><div class="assessment-card"><div class="section-heading"><div><p class="eyebrow">САМОПРОВЕРКА</p><h2>Квиз</h2></div><span class="assessment-rule">20 баллов за правильный ответ</span></div><p class="assessment-intro">Ответьте на все вопросы. Правильный ответ даёт 20 баллов; неправильный — 0.</p>${questions}</div>
-          <div class="assessment-card"><div class="section-heading"><div><p class="eyebrow">ВЗАИМОПРОВЕРКА</p><h2>Чек-лист</h2></div><span class="assessment-rule">20 баллов за отметку</span></div><p class="assessment-intro">Сверьте работу с одногруппником вне сайта. Отмеченная галочка даёт 20 баллов; пустая — 0. Сайт не запускает и не подтверждает выполнение кода.</p><div class="checklist">${checklist}</div></div></section>
+          <div class="assessment-card"><div class="section-heading"><div><p class="eyebrow">ВЗАИМОПРОВЕРКА</p><h2>Чек-лист</h2></div><span class="assessment-rule">20 баллов за отметку</span></div><p class="assessment-intro">Сверьте работу с одногруппником вне сайта. Отмеченная галочка даёт 20 баллов; пустая — 0. ${terminalContent.labs[lab.id] ? "Терминальные проверки не влияют на оценку и не заменяют ручную взаимопроверку." : "Сайт не запускает и не подтверждает выполнение кода."}</p><div class="checklist">${checklist}</div></div></section>
         <section class="completion-panel"><div class="score-card"><div><span class="eyebrow">ТЕКУЩИЙ РЕЗУЛЬТАТ</span><strong><span data-score-earned>${score.earned}</span><small> / <span data-score-maximum>${score.maximum}</span></small></strong></div><div class="score-details"><span>Квиз: ${score.correct}/${lab.questions.length} верных</span><span>Чек-лист: ${score.checks}/${lab.checklist.length} отмечено</span></div><div class="lab-completion-status" data-completion-status>${savedStatus}</div></div><div class="completion-action"><label class="peer-confirm"><input type="checkbox" data-peer-confirm ${state.peerConfirmed ? "checked" : ""}><span>Подтверждаю, что взаимная проверка проведена; пустые пункты оставлены без отметки.</span></label><button class="button button-primary" type="button" data-action="complete-lab" ${completeAllowed ? "" : "disabled"}>Завершить лабораторную</button><p class="completion-hint" data-completion-hint>${state.status === "completed" ? "Ответы, галочки, баллы и статус сохранены в локальном прогрессе." : answered ? "Подтвердите взаимную проверку, чтобы завершить работу." : "Ответьте на весь квиз, затем подтвердите взаимную проверку."}</p></div></section>
         <nav class="content-pagination" aria-label="Навигация по неделе"><a href="lesson-${String(lab.id).padStart(2, "0")}.html">← Теория ${String(lab.id).padStart(2, "0")}</a><a href="index.html?view=progress">Мой прогресс →</a></nav>
       </article>`;
@@ -393,6 +411,7 @@
     else if (match && match[1] === "lab" && isBlockedLab(currentState, match[2])) currentNotice(blockedLabNotice(), "warning");
     if (contentPage) {
       app.innerHTML = renderContentPage(contentPage, currentState.value);
+      window.OopomanTerminal.mount(app);
       return;
     }
     if (route.view === "progress") {

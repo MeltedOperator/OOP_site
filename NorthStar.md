@@ -15,12 +15,12 @@ OOPoman is a small, local-first learning site for second-year students to study 
 
 ## Assessment contract
 
-Each correct quiz answer and each checked ordinary checklist item awards 20 points. A lab's maximum is 20 multiplied by its actual number of quiz questions plus checklist items; quality criteria do not award points. Students answer all five quiz questions and confirm the manual peer-check before marking a lab complete. The browser profile stores answers, checklist marks, score, and completion locally. The site does not execute or grade code; students run code on their own computers.
+Each correct quiz answer and each checked ordinary checklist item awards 20 points. A lab's maximum is 20 multiplied by its actual number of quiz questions plus checklist items; quality criteria do not award points. Students answer all five quiz questions and confirm the manual peer-check before marking a lab complete. The browser profile stores answers, checklist marks, score, and completion locally. Module 1 includes local Python execution in a dedicated Worker with limited practice feedback; terminal actions do not affect points, checklist marks, progress, peer confirmation, or completion. Browser/runtime compatibility, offline completeness, and hostile-code isolation have not been empirically verified.
 
 ## Product boundaries
 
 - Run as a static site in a browser. The owner may publish a public hosted copy for classmates; learners need Internet access to load that copy, while their progress remains local to their browser profile.
-- Do not add a project-owned server, database, registration, or authentication.
+- Do not add a project-owned server, database, registration, or authentication. A static-only localhost launcher may serve the course and approved local runtime assets; it has no upload or code-execution API and does not receive student code.
 - Source PDFs are provided in the root-level `OOP-course/` directory and remain unchanged. The browser course presents its authored lesson and lab content from the existing `course/data.js` model.
 - Keep the interface simple, intuitive, and visually clear, with well-designed controls.
 - Keep the project easy to navigate. Store UML architecture and structure diagrams under `architecture/`.
@@ -34,4 +34,4 @@ The project succeeds when a student can understand the course at a glance, compl
 
 - The three practical exercises' individual points and exact rubrics.
 - The final exam's content and format.
-- The programming language and safe, local execution/checking approach for student code.
+- Empirical browser/runtime behavior, offline completeness, and hostile-code isolation remain unverified.

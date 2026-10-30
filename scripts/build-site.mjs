@@ -1,4 +1,4 @@
-import { cpSync, existsSync, lstatSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { runInNewContext } from "node:vm";
 import { fileURLToPath } from "node:url";
@@ -15,6 +15,25 @@ const browser = { window: { location: { protocol: "http:", hostname: "localhost"
 runInNewContext(readFileSync(path.join(root, "course", "data.js"), "utf8"), browser);
 const course = browser.window.OopomanCourse;
 if (!course) throw new Error("Course data did not load.");
+if (!course.terminalContent) throw new Error("Course terminal content is missing.");
+for (let id = 1; id <= 9; id += 1) {
+  if (!course.terminalContent.lessons[id] || !course.terminalContent.labs[id]) {
+    throw new Error("Lesson/lab " + id + " terminal content is incomplete.");
+  }
+}
+const pyodideRoot = path.join(root, "course", "assets", "pyodide");
+const requiredRuntimeFiles = [
+  "package.json", "pyodide-lock.json", "pyodide.asm.mjs",
+  "pyodide.asm.wasm", "pyodide.mjs", "python_stdlib.zip",
+].sort();
+const runtimeFiles = readdirSync(pyodideRoot).sort();
+if (JSON.stringify(runtimeFiles) !== JSON.stringify(requiredRuntimeFiles)) {
+  throw new Error("Pyodide asset directory must contain exactly the six approved files.");
+}
+const pyodideManifest = JSON.parse(readFileSync(path.join(pyodideRoot, "package.json"), "utf8"));
+if (pyodideManifest.version !== "314.0.7") {
+  throw new Error("Pyodide candidate version must remain pinned to 314.0.7.");
+}
 const availableFiles = new Set(course.modules
   .filter((module) => module.available)
   .flatMap((module) => [...module.lessons, ...module.labs].map((item) => item.file)));
