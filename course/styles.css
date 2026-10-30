@@ -489,3 +489,30 @@ h3 { font-size: 22px; line-height: 1.18; }
   .terminal-grid { grid-template-columns: minmax(0, 1fr); }
   .terminal-editor, .terminal-output { min-height: 14rem; }
 }
+
+.exam-shell { max-width: 960px; }
+.exam-panel { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; box-shadow: var(--shadow); padding: clamp(20px, 4vw, 42px); margin: 32px auto; }
+.exam-panel h1 { margin: 8px 0 14px; font-size: clamp(30px, 5vw, 48px); }
+.exam-panel h2 { margin-top: 28px; }
+.exam-lead { color: var(--muted); font-size: 18px; }
+.exam-rules { border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin: 22px 0; line-height: 1.65; }
+.exam-field { display: grid; gap: 8px; margin: 18px 0; font-weight: 650; }
+.exam-field select,.exam-field textarea { border: 1px solid #aab7ae; border-radius: 10px; padding: 12px; font: inherit; background: white; color: var(--ink); }
+.exam-field textarea { min-height: 240px; resize: vertical; font: 14px/1.5 Consolas, monospace; tab-size: 4; }
+.exam-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+.exam-clock { position: sticky; top: 8px; padding: 10px 14px; background: var(--green); color: white; border-radius: 10px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.exam-question,.exam-task { border: 1px solid var(--line); border-radius: 14px; padding: 16px; margin: 14px 0; }
+.exam-question legend { padding: 0 6px; font-weight: 700; line-height: 1.5; }
+.exam-question label,.exam-rating label { display: block; padding: 7px 4px; line-height: 1.5; cursor: pointer; }
+.exam-question input,.exam-rating input { margin-right: 8px; accent-color: var(--green); }
+.exam-task h3 { display: flex; justify-content: space-between; gap: 12px; }
+.exam-task h3 span { color: var(--muted); white-space: nowrap; }
+.exam-task p { line-height: 1.6; }
+.exam-run-result { margin-top: 14px; line-height: 1.6; }
+.exam-pass { color: #17603d; }
+.exam-fail { color: #963b32; }
+.exam-success { padding: 16px; border-radius: 12px; background: #edf6e7; color: #174b3b; font-weight: 700; line-height: 1.6; }
+.exam-rating { display: flex; flex-wrap: wrap; gap: 10px; border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.exam-rating legend { font-weight: 700; }
+.runtime-status { padding: 12px 14px; background: #f0f4ef; border-radius: 10px; line-height: 1.5; }
+@media (max-width: 640px) { .exam-panel { padding: 18px; margin: 16px auto; border-radius: 14px; } .exam-question,.exam-task { padding: 12px; } .exam-clock { top: 0; } }

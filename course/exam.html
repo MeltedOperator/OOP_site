@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f2eb">
+    <meta name="description" content="Итоговый экзамен курса ООП OOPoman: теория и практические задания.">
+    <title>Экзамен — OOPoman</title>
+    <link rel="icon" type="image/svg+xml" href="assets/mark.svg">
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="exam.js"></script>
+  </head>
+  <body class="exam-page">
+    <a class="skip-link" href="#main">К содержанию</a>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="OOPoman — на главную">
+        <svg class="brand-mark" width="38" height="38" viewBox="0 0 48 48" aria-hidden="true" focusable="false" style="display:block">
+          <rect x="1" y="1" width="46" height="46" rx="15" fill="#174b3b"/>
+          <path d="M15 16h18v5H21v5h10v5H21v7h-6V16Z" fill="#f5f2eb"/>
+          <circle cx="34" cy="34" r="5" fill="#c8e58b"/>
+        </svg>
+        <span>OOP<span class="brand-accent">oman</span></span>
+      </a>
+      <nav class="top-nav" aria-label="Основная навигация">
+        <a href="index.html">Главная</a>
+        <a href="index.html?view=progress">Мой прогресс</a>
+        <a href="exam.html" aria-current="page">Экзамен</a>
+      </nav>
+    </header>
+    <main id="main" class="page-shell exam-shell" tabindex="-1">
+      <div id="exam-app" aria-live="polite">
+        <section class="exam-loading" aria-labelledby="exam-title">
+          <p class="eyebrow">ИТОГОВАЯ РАБОТА · OOPOMAN</p>
+          <h1 id="exam-title">Экзамен курса</h1>
+          <p>Подготавливаем среду для практических заданий…</p>
+          <p id="runtime-status" class="runtime-status" role="status">Загрузка Python 3.14 в отдельном рабочем потоке.</p>
+        </section>
+      </div>
+    </main>
+    <footer class="site-footer">
+      <span>Курс OOPoman</span>
+      <span>Экзамен и результат хранятся в этом профиле браузера</span>
+    </footer>
+  </body>
+</html>
