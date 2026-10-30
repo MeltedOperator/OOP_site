@@ -10,11 +10,11 @@ coordinator_route: "codex:thread:local:01a18b01-85ef-7772-84f6-535c59379865"
 upstream_route: owner:roman
 dialogue: tfw-gates-only
 activation: owner-only
-coordination_authority: "HL-OOP_20261030-091045_EXAM.md @ dfc6c52071d8afc5029f7576af667f001ef24314"
+coordination_authority: "HL-OOP_20261030-091045_EXAM.md @ 64aa8ae5bbc5879469b82152a8dbc44ed93f93a0"
 reporting: native-gates
 selection_ref: baseline
 created: 20261030-093520
-updated: 20261030-103046
+updated: 20261030-103105
 ---
 
 **Task state.** This file is the only authority for this task's live state. Any downstream projection is disposable and never outranks it.
