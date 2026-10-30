@@ -2,7 +2,7 @@
 id: OOP_20261030-091045_EXAM
 title: "Экзамен курса OOPoman"
 goal: "дать студенту возможность сдать экзамен по курсу ООП и получить понятную оценку"
-value: "успешная сдача даёт студенту локальный сертификат о завершении курса"
+value: "успешная сдача даёт студенту понятный локальный результат; сертификат отложен для будущих задач"
 lifecycle: RES
 owner: roman
 authority: HL-OOP_20261030-091045_EXAM.md
@@ -14,7 +14,7 @@ coordination_authority: "HL-OOP_20261030-091045_EXAM.md @ dfc6c52071d8afc5029f75
 reporting: native-gates
 selection_ref: baseline
 created: 20261030-093520
-updated: 20261030-102835
+updated: 20261030-103046
 ---
 
 **Task state.** This file is the only authority for this task's live state. Any downstream projection is disposable and never outranks it.
