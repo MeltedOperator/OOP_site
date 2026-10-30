@@ -1,0 +1,10 @@
+task_id: OOP_20261030-091045_EXAM
+title: "Проверка готовности модулей и терминала для экзамена"
+min_iterations: 1 # Owner-selected task override: conduct exactly one iteration.
+max_iterations: 1
+iterations:
+  - number: 1
+    focus: "Проверить доступность трёх модулей для целевой аудитории и найти достоверные возвращённые артефакты по интерфейсу и готовности существующего RT-терминала для трёх практических задач и согласованном маршруте общих файлов; отсутствующие или незавершённые сведения считать неустановленными."
+    hypotheses: [H1]
+    status: pending
+    res_file: research/iter1/RES.md
