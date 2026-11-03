@@ -95,6 +95,13 @@ Phase B — первый цикл реализации. Он охватывае�
 | Валидация runtime в Phase A | ✅ Явно отложена и не является prerequisite для Phase B |
 | Phase C | ⬜ Следующая фаза зависит от возвращённого RF Phase B и решения Task Coordinator о готовности |
 | Phase D | ⬜ Последующая фаза зависит от Phase C и остаётся вне этой фазы |
+### Coordinator return — 2026-10-30
+
+- **Disposition:** RF Phase B получен и прочитан; исправление AC-1 в RF/EV сохраняет статическую проверку как `VERIFIED`, а эмпирическую browser/runtime/isolation проверку как `DEFERRED`, как задано в одобренном TS. Отдельного фазового знаменателя нет; Candidate остаётся в общем task contract.
+- **Exact return refs:** `RF__phase-b__терминалы_модуля_1.md` и `evidence/EV__phase-b__терминалы_модуля_1.md` на `80bd2369e6c25bddd00d02917711d3577392f632`; authoritative local `status.md` там же — `RF`. Переход `ONB → RF` и его event находятся в `journal/20261029-235635__transition__1626.md @ d03df8990984a165c5b7e8d27d45e62ed90d688e`.
+- **Owner inspection branch:** codex/phase-b-owner-review at C:\Users\tata2\.codex\worktrees\phase-b-owner-review\weboop, detached-free branch pointer at Candidate 6af207b52d36cd674fcc9dbf804a22b637b71a41; this exposes the complete Candidate tree and adds no product commit.
+- **Result:** Candidate `6af207b52d36cd674fcc9dbf804a22b637b71a41`; 16 parent VALUE files, 1,019 additions + 12 deletions = 1,031 touched text LOC, below the immutable 16/4,000 denominator; two binary assets are per-file N/A. Executor reports terminal tests 6/6, storage regression 4/4, syntax checks and build passed. These are Executor evidence; independent review remains open.
+- **Remaining conditions:** Task Coordinator selects independent review and decides phase readiness/successor. No browser/runtime compatibility, offline completeness or isolation proof is claimed. The Executor recorded a pre-extraction economics binding gap; numeric measurement remains unavailable, with no invented zero.
 
 ## 9. Risks 🟢 FREE
 
@@ -104,7 +111,13 @@ Phase B — первый цикл реализации. Он охватывае�
 | Студент принимает результат терминала за оценку или завершение курса | Средняя | Высокий | Визуально отделить результат терминала от баллов, прогресса, взаимопроверки и завершения; сохранить утверждённый disclosure. |
 | PDF на 135 минут воспринимают как разрешение расширить текущий 60-минутный маршрут сайта | Средняя | Средний | Выводить объём страницы из действующей границы `course/data.js`; использовать PDF как источник материала в рамках утверждённого TS. |
 | Общий runtime выглядит проверенным в браузере, несмотря на waiver Phase A | Средняя | Высокий | Явно показывать непроверенный статус в UI и документации; не делать утверждений о подтверждённой изоляции или совместимости. |
+| RF_READY `6f08f10a47a904ef43560c22866ad3ba03c78ab1` вернул RF, пока локальный статус остаётся ONB без перехода ONB → RF; TS AC-1 помечает evidence DEFERRED, но EV считает 0 DEFERRED | Средняя | Средний | Executor должен сохранить собственный truthful ONB → RF переход и выровнять EV/RF disposition с TS (AC-1 evidence остаётся DEFERRED для реальной browser/runtime проверки) до повторного RF_READY; Coordinator проверяет exact commits. |
 
+### Owner finding and correction gate — 2026-10-30
+
+Владелец Roman сообщает после просмотра Candidate `6af207b52d36cd674fcc9dbf804a22b637b71a41`, что страницы лекций выглядят пустыми, а терминалы не видны в лабораторных; он не может принять результат для проверки и просит того же Executor исправить всё найденное. Независимое воспроизведение рендера Coordinator не завершил, поэтому это пока owner-observed finding, а не утверждение Coordinator о подтверждённой причине.
+
+**Next authorized route:** после RF материалный дефект должен быть подтверждён и классифицирован независимым Reviewer в live REVIEW. Если verdict даст rung-1 REVISE в пределах текущего TS, Task Coordinator задаёт bound в REVIEW, затем тот же Executor получает `/tfw-handoff` continuation. До такого REVIEW ruling Executor не переписывает Candidate; модули 2–3 остаются приостановлены до явного подтверждения владельца.
 ## 10. RESEARCH Case 🟢 FREE
 
 ### Blind Spots

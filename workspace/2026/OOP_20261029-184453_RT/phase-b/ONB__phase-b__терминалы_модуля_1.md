@@ -69,6 +69,27 @@ Producer/unit: this Executor. Source/epoch: approved Phase B TS `80b292a7ba85756
 
 *ONB — OOP_20261029-184453_RT / Phase B: Терминалы модуля 1 | 2026-10-29*
 
+## Canonical re-entry — approved TS rev2 (2026-10-30)
+
+- Canonical owner-selected phase transition: `journal/20261030-022757__transition__a1bf.md @ 62fd2395c3e3fd329472915694369902ee4df53d` set the phase to `TS_DRAFT`; exact owner approval is `../journal/20261030-023556__gate_answer__phase-b-ts-rev2.md @ cd3983e2442d0a696b04fdb611165f5c94044228` for TS rev2 `TS__phase-b__терминалы_модуля_1__rev2.md @ 156ee785c7043747ab231d801240d4c68e041afa`.
+- Current Executor dispatch: `journal/20261030-030802__dispatch__phase-b-correct-lineage.md @ 028c4594039a7c90aafe77ac2520f72547d06099`; it authorizes only trace-lineage correction and binds the existing Candidate `c1acf55e81f9ec4927f883034eaba92de2214ebf`.
+- This is a current-dated `TS_DRAFT → ONB` re-entry. Earlier branch transition records remain byte-for-byte preserved as history; they are not used as the current activation chain. The product Candidate predates this trace-only re-entry; no VALUE or ASSURANCE file is changed here.
+- Re-read the existing Candidate's EV/test/build evidence under the exact approved rev2 and confirm that RF/EV identify the same Candidate. Then append the truthful `ONB → RF` transition and return the corrected RF to the Phase Coordinator. No new Candidate, Module 2/3 work, or browser/runtime/isolation claim is authorized.
+
+### Material handover
+
+Producer/unit: same Executor `codex:thread:local:01a188d2-f071-7e82-89c7-6a2813203583`. Source/epoch: canonical `TS_DRAFT` status, owner gate answer, exact approved TS rev2, and correction dispatch above. Inspected: current status carrier, transition `KNW → TS_DRAFT`, review GATE_REQUIRED ruling, and existing Candidate binding. Material: lineage is being re-established from the owner-selected approval cycle without rewriting prior events or product content. Uncertainty: none about the exact approved revision or Candidate identity; empirical browser/runtime, offline-completeness and isolation limits remain deferred. Continuation: same Executor validates the existing EV/RF and returns a current truthful RF/event chain.
+
+## F4 — bounded current-summary metadata correction (2026-10-30)
+
+- Accepted Coordinator ruling: `REVIEW__phase-b__терминалы_модуля_1__rev3.md @ 55e7f4848d3b872c58ba11743154c84f60d06652`; F4 only, rung 1, record-only.
+- Current phase authority/status: RF at `status.md @ 20c284d171c05960f2bee3729efc11db768d5ac8`; exact approved TS rev2 `156ee785c7043747ab231d801240d4c68e041afa`; owner gate `cd3983e2442d0a696b04fdb611165f5c94044228`; Candidate `c1acf55e81f9ec4927f883034eaba92de2214ebf`.
+- The only correction is to current RF/EV summary metadata and labels on superseded accounting/authority snapshots. Preserve earlier evidence and all transition bytes; no VALUE/ASSURANCE, Candidate, TS, selector, denominator, runtime, scoring or progress changes.
+
+### Material handover
+
+Producer/unit: same Executor `codex:thread:local:01a188d2-f071-7e82-89c7-6a2813203583`. Source/epoch: Phase Coordinator dispatch `journal/20261030-033712__dispatch__phase-b-rung1-f4.md @ 104fe401297a759fa538703ed4337ccc2e5d1734`, F4 ruling and status ref above. Material: RF/EV metadata currently names superseded TS rev1; candidate and rev2 evidence are already present. Continuation: correct only the current summary refs, label superseded snapshots, and return RF/EV for F4-only independent verification.
+
 ## Return 2 — owner-approved TS rev2 continuation (2026-10-30)
 
 ### Governing authority and scope
@@ -85,6 +106,20 @@ The same Executor resumes Phase B from RF to ONB under the exact owner-approved 
 ### Material handover at continuation
 
 Producer/unit: Executor `codex:thread:local:01a188d2-f071-7e82-89c7-6a2813203583`. Source/epoch: exact Coordinator continuation and owner gate answer above; governing TS rev2 is fixed at `156ee785c7043747ab231d801240d4c68e041afa`. Inspected: approved revision, current RF/ONB, phase state and prior Candidate. Material: the F1 route correction is present, while rev2 requires explicit content/step coverage and supporting evidence to be assessed. Uncertainty: no browser or isolation claims are added. Continuation: same Executor completes the rev2 acceptance gates and returns RF/EV to the Phase Coordinator.
+
+## Return 3 — TS rev2 implementation completed (2026-10-30)
+
+- Governing authority: approved TS rev2 `156ee785c7043747ab231d801240d4c68e041afa`; exact owner gate answer `cd3983e2442d0a696b04fdb611165f5c94044228`.
+- Final tested Candidate: `c1acf55e81f9ec4927f883034eaba92de2214ebf`. The earlier rung-1 Candidate is superseded for this return.
+- Added one editable/runnable exercise for each of the six lesson Python code blocks. Their executable lines are included in the exercise starters; the authored source comparison remains byte-for-byte. No JavaScript example block exists in the three selected lesson records.
+- Added runnable terminal tasks to every code-writing lab step: lab 1 steps 2–5, lab 2 steps 2–5, lab 3 steps 1–5. Each gives an expected observation and was executed in Pyodide.
+- Replaced text-only lab analogies with separate-domain runnable Python analogs. Failures and runtime errors reveal the analog; a dedicated button runs it. Each lab keeps one explicit full-solution control.
+- Evidence at Candidate: terminal suite 8/8; storage regression 4/4; syntax checks pass; build passes. Exact VALUE selector remains 16 paths; final baseline delta is 1,183 additions + 17 deletions = 1,200 touched text LOC, two binary files N/A. No Module 2/3 work, score/storage changes, new selector paths or runtime assets.
+- Browser behavior, compatibility, offline completeness and isolation remain DEFERRED. No reviewer verdict or owner acceptance is inferred.
+
+### Material handover at this return
+
+Producer/unit: Executor `codex:thread:local:01a188d2-f071-7e82-89c7-6a2813203583`. Source/epoch: exact Coordinator continuation, owner gate answer and approved TS rev2 above. Inspected: six source code blocks, all Module 1 numbered lab steps, terminal route rendering, analogy/solution UI, oracle fixtures, scoring/storage boundary, launcher and build. Material: rev2 coverage is implemented and recorded in EV at final Candidate `c1acf55e81f9ec4927f883034eaba92de2214ebf`. Uncertainty: no browser/runtime compatibility, offline-completeness or isolation evidence was produced. Continuation: Phase Coordinator receives RF/EV for the next authorized review action.
 
 ## Return 1 — accepted REVISE rung 1 (2026-10-30)
 

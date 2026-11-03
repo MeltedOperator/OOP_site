@@ -16,8 +16,16 @@ missing authorized decision. No generated index, original chat or task-archive s
 
 ### OOPoman local course shell
 
-- The browser course shell contains three module routes, availability rules, lesson/lab pages, and a
-  progress/reset interface. Module 2 is available with lessons and labs 4–6; module 3 remains locked.
+- The browser course shell contains three module routes, lesson/lab pages, runnable Python terminals,
+  and a progress/reset interface. Module 3 follows the `weekThreeReady` content-readiness predicate
+  on local and hosted origins. Terminals use Pyodide in a Web Worker; the static localhost launcher
+  serves course/runtime assets and does not receive or execute student code. Terminal feedback does
+  not change quiz/checklist points, saved progress or completion. JavaScript theory examples remain
+  and have adjacent Python comparisons. Candidate `31360a3483f207312e8f9b4c64249ea425500d54`
+  received independent Phase C REVIEW APPROVE `8e1126096d71ce5d605e333212c98d8ecb445857`; the
+  public Site v3 deployment preceded that review under explicit owner authorization. Browser/runtime
+  compatibility, worker isolation/security, offline completeness, performance and hard resource
+  limits remain unverified under AC-9.
   Its week-two lessons provide a 60-minute required core, optional depth, worked OOP examples and
   recap diagrams. The route uses profile-scoped Chrome `localStorage` at `oopoman.progress.v1`; reset
   removes only that key after confirmation. If a lab entry has unsupported data, the storage layer
@@ -32,8 +40,10 @@ missing authorized decision. No generated index, original chat or task-archive s
   `b4115b6f042f9d3fe65b6aa061fd558cb3bd2802` and bounded review commit
   `a9703e4f925957d7162f42e693a1fd1c24e72312`; Coordinator acceptance is recorded at
   `3d37d8cbf0d2f43806ac596750fc46fabe26e79a`.
-- Source PDFs under `OOP-course/` are read-only materials grouped by module. The local shell does not
-  introduce a project server, login, grading, or code execution.
+- Source PDFs under `OOP-course/` are read-only materials grouped by module. The static localhost
+  launcher is not a course backend; the project still has no login, server-side grading or student
+  code upload. Runtime selection and its accepted limits are recorded in
+  [TD-OOP-RT-TERMINAL-RUNTIME](knowledge/records/TD-OOP-RT-TERMINAL-RUNTIME.md).
 - Sources: [Candidate context UML](architecture/context.puml) at Candidate `63d1783617095ffea8e5b4c4b2846b90137b5c65`;
   [RF](workspace/2026/OOP_20261015-164702_WEB/RF__OOP_20261015-164702_WEB.md) at
   `46a4277128d6bccdfda65443511851ac1c737eb7`; independent [REVIEW rev2](workspace/2026/OOP_20261015-164702_WEB/REVIEW__OOP_20261015-164702_WEB__rev2.md)
@@ -42,8 +52,10 @@ missing authorized decision. No generated index, original chat or task-archive s
 
 ### Architecture Decisions
 
-No legacy decisions are present. New qualified technical decisions use independently addressable
-records under `knowledge/records/`; preserve future legacy identities and meaning.
+The accepted Pyodide Worker and static-launcher boundary, together with its unverified runtime and
+isolation properties, is recorded in
+[TD-OOP-RT-TERMINAL-RUNTIME](knowledge/records/TD-OOP-RT-TERMINAL-RUNTIME.md). No legacy decisions
+were superseded. Preserve future legacy identities and meaning.
 
 ## 2. Key Artifacts
 

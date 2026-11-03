@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-30
+
+- **OOP_20261029-184453_RT:** Added runnable Python terminals, lesson comparisons for the preserved
+  JavaScript examples, and guided lab steps with analogous solutions across all three OOPoman
+  modules. Terminals use Pyodide in a Worker and a static-only localhost asset launcher; feedback
+  does not affect course scores, progress or completion. Module 3 is available when its content
+  readiness check passes, and all 18 existing PDFs remain included. Candidate
+  `31360a3483f207312e8f9b4c64249ea425500d54` received independent REVIEW APPROVE
+  `8e1126096d71ce5d605e333212c98d8ecb445857`. The public Site v3 deployment preceded review under
+  explicit owner authorization. Browser/runtime compatibility, isolation, offline completeness,
+  performance and hard resource limits remain unverified (AC-9). This history entry is not a version
+  or release.
+
 ## 2026-10-28
 
 - **OOP_20261027-201313_WEEK3:** Added connected lecture/lab pages 7–9 with Python examples,

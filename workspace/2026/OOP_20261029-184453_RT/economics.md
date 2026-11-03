@@ -25,7 +25,7 @@ not measured here.
 
 | Expected unit | Numeric receipt | Evidence/disposition |
 |---|---|---|
-| Task Coordinator `codex:thread:local:01a183ac-e789-7d81-a69a-00c4032013be` | None | Current Codex rollout ID, source path/version and bounded range are unavailable; extraction not attempted. Observed at `2026-10-30T22:08:59+05:00`. |
+| Task Coordinator `codex:thread:local:01a183ac-e789-7d81-a69a-00c4032013be` | None | Current Codex rollout ID, source path/version and bounded range are unavailable; extraction not attempted. Final close observation at `2026-11-03T16:17:33+05:00`. |
 | Task Researcher `codex:thread:local:01a187f0-5141-7a03-ad0b-99812be36c8f` | None | Final RES records an attributable pre-extraction binding gap; no numeric JSONL, measured zero, failed capture, or last-good measurement. |
 | Phase B Coordinator `codex:thread:local:01a188ab-5190-7ce1-ab81-e572ebbbebc2` | None | Phase B final handover records `native_source_binding_unavailable`; no measured zero is claimed. |
 | Phase B Executor `codex:thread:local:01a188d2-f071-7e82-89c7-6a2813203583` | None | Phase B RF records the pre-extraction binding gap; no numeric JSONL or failed-capture receipt. |
@@ -47,10 +47,11 @@ using the immutable task/phase status and final return artifacts; no source usag
 No public price quote was selected. Without measured tokens, a Standard API-equivalent estimate has
 no supported quantity to value. No currency amount is asserted.
 
-The task record was created at `2026-10-29T18:44:53+05:00`. At the observation checkpoint,
-`2026-10-30T22:08:59+05:00`, the calendar interval was 27 h 24 min 6 s. This is task calendar time,
-not accumulated Coordinator, Executor, Reviewer, or model time; the close timestamp was not yet
-recorded.
+The task record was created at `2026-10-29T18:44:53+05:00`. At the final close observation,
+`2026-11-03T16:17:33+05:00`, the calendar interval was 4 d 21 h 32 min 40 s. This is task calendar
+time, not accumulated Coordinator, Executor, Reviewer, or model time. The bounded post-return
+documentation/qualification and final delivery tail is excluded; no further source-bound usage was
+available, and the exclusion does not mean zero usage.
 
 ## Material observations
 
@@ -66,7 +67,7 @@ not expose that source.
 - Phase C accepted result and final REVIEW rev4: Candidate `31360a3483f207312e8f9b4c64249ea425500d54`, REVIEW `8e1126096d71ce5d605e333212c98d8ecb445857`, phase return commit `a2c351f5da0059e653bd5869515bcf64099e5b53`.
 - Task Researcher `codex:thread:local:01a187f0-5141-7a03-ad0b-99812be36c8f`: the final RES records the same pre-extraction binding gap across the selected research iterations; no numeric usage was returned.
 - Final role return artifacts disclose no numeric files, measured zeros, failed extractions, or usable last-good measurements.
-- Finite delivery/close/cleanup exchanges after the cited role returns are excluded from this report and are not recursively recaptured.
+- Finite delivery/close/cleanup exchanges after the cited role returns, including the Nov 3 documentation and qualification effects, are excluded from this report and are not recursively recaptured.
 
 ## TFW improvements
 

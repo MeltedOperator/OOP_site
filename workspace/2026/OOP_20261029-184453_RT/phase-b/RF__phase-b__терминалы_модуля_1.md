@@ -4,11 +4,13 @@
 > **Author**: Executor
 > **Status**: 🟢 RF — Complete
 > **Parent HL**: [Phase B HL](HL__phase-b__терминалы_модуля_1.md) · `a8666c532fc8e3ab2f0fe2d649ee41058b29119b`
-> **TS**: [Phase B TS](TS__phase-b__терминалы_модуля_1.md) · `80b292a7ba85756efb0f0e4b53a2a51be94f462c`
+> **TS**: [Phase B TS rev2](TS__phase-b__терминалы_модуля_1__rev2.md) · approved `156ee785c7043747ab231d801240d4c68e041afa`; owner gate `cd3983e2442d0a696b04fdb611165f5c94044228`
+> **Current Candidate**: `c1acf55e81f9ec4927f883034eaba92de2214ebf`
+> **Historical authority snapshot (superseded)**: TS rev1 `80b292a7ba85756efb0f0e4b53a2a51be94f462c`; owner gate `e5c57f732005df23ea30378ebc4ce2cd879321e0`; original dispatch `workspace/2026/OOP_20261029-184453_RT/journal/20261029-225208__dispatch__phase-b-executor.md @ aa624d4874638beb0ea7ba3fb76caa7b34f9aecf`; prior phase status `status.md @ 61cdb605e1f4340ab4d4ea32aca856bfd0a6c5e1`.
 > **Producer unit**: `codex:thread:local:01a188d2-f071-7e82-89c7-6a2813203583`
 > **Parent Coordinator**: `codex:thread:local:01a188ab-5190-7ce1-ab81-e572ebbbebc2`
-> **Activation / dispatch source**: owner-approved dispatch `workspace/2026/OOP_20261029-184453_RT/journal/20261029-225208__dispatch__phase-b-executor.md @ aa624d4874638beb0ea7ba3fb76caa7b34f9aecf`; exact owner TS approval `workspace/2026/OOP_20261029-184453_RT/journal/20261029-225017__gate_answer__phase-b-ts.md @ e5c57f732005df23ea30378ebc4ce2cd879321e0`
-> **Coordination authority**: `workspace/2026/OOP_20261029-184453_RT/phase-b/status.md @ 61cdb605e1f4340ab4d4ea32aca856bfd0a6c5e1`
+> **Activation / dispatch source**: exact owner-approved TS rev2 gate `../journal/20261030-023556__gate_answer__phase-b-ts-rev2.md @ cd3983e2442d0a696b04fdb611165f5c94044228`; F4 correction-entry/authorization snapshot `status.md @ 20c284d171c05960f2bee3729efc11db768d5ac8`; F4 correction dispatch `journal/20261030-033712__dispatch__phase-b-rung1-f4.md @ 104fe401297a759fa538703ed4337ccc2e5d1734`
+> **Coordination authority**: current RF epoch `status.md @ 6a0dd0cb03ac63a7f27bd50af5cc6faedfc71e59` · lifecycle RF
 > **Originating proposer**: `{principal: roman, unit: owner:roman}`
 > **Current selection**: phase status `reporting: native-gates`, `selection_ref: baseline`; no owner-transfer selection is recorded
 > **Launch observation**: requested model/effort and effective settings were not exposed by the native task view; execution was delivered in the local Codex worktree. Native coordination capabilities at entry: provision — native; addressed send — native; wait/readback — native; title write/readback — native (current title verified by `list_threads`). Outcome: Candidate tests and build passed. Material rework: corrected the Lab 1 solution line separator and replaced outdated README claims about code execution; no scope change.
@@ -19,7 +21,7 @@
 
 Implemented a local Python practice terminal for the three Module 1 lessons and labs. Learners can edit and run lesson examples, run bounded explicit lab checks, see output and errors, and reveal a worked exercise solution. Lab feedback can show a concept analogy. The terminal runs Pyodide 314.0.7 in a module Worker with six local assets. A static-only loopback launcher and build checks were added. Terminal actions do not change score, checklist, progress or completion. Browser compatibility, offline completeness and hostile-code isolation remain unverified and were expressly excluded from this phase.
 
-### Actual Value-Bearing Accounting
+### Historical snapshot — initial Candidate accounting (superseded)
 
 | Fact | Actual result |
 |---|---|
@@ -129,8 +131,6 @@ No diagrams.
 
 Producer/unit: Executor `codex:thread:local:01a188d2-f071-7e82-89c7-6a2813203583`. Source/epoch: approved Phase B TS and source tree at Candidate `6af207b52d36cd674fcc9dbf804a22b637b71a41`; inspected the Module 1 course integration, terminal/Worker, exact six local Pyodide assets, launcher, build, README, North Star and targeted tests. Material: working terminal and passing local source/runtime tests; no score/progress changes. Uncertainty: no empirical browser, offline-completeness or hostile-code isolation evidence; numeric economics source binding is unavailable before extraction as recorded above. Continuation: Coordinator reads this RF and EV and selects independent review or other authorized act. No strategic/domain context from the owner was supplied beyond the approved task scope; no unresolved product decision is needed for this phase.
 
----
-
 *RF — OOP_20261029-184453_RT / Phase B: Терминалы модуля 1 | 2026-10-29*
 
 ## 10. Continuation 1 — AC-1 evidence disposition (2026-10-30)
@@ -179,3 +179,50 @@ Producer/unit: Executor `codex:thread:local:01a188d2-f071-7e82-89c7-6a2813203583
 ### Material handover at this return
 
 Producer/unit: Executor `codex:thread:local:01a188d2-f071-7e82-89c7-6a2813203583`. Source/epoch: accepted Coordinator ruling F1 rung 1 in `REVIEW__phase-b__терминалы_модуля_1.md @ b6cae465f4b928e845f82e1c645d876b9071ac42`; unchanged approved TS; corrected Candidate `422b4fa59881090bfbfa02b4d78ddde622652c1e`; updated route regression. Inspected scope: six app page routes, optional lab example rendering, score/progress boundary, all terminal oracle fixtures, launcher/build and current EV accounting. Material: all six routes expose terminal markup; the prior lab omission and API method mismatch were fixed. Uncertainty: the Node route harness proves app route output but does not establish real browser layout or runtime behavior. Continuation: Phase Coordinator receives updated RF/EV for affected independent review. No new project Fact Candidate or product decision is proposed.
+
+## 12. Return 3 — approved TS rev2 coverage (2026-10-30)
+
+### Touched sections
+
+- **TS authority:** exact owner-approved Phase B TS rev2 `TS__phase-b__терминалы_модуля_1__rev2.md @ 156ee785c7043747ab231d801240d4c68e041afa`; owner gate answer `20261030-023556__gate_answer__phase-b-ts-rev2.md @ cd3983e2442d0a696b04fdb611165f5c94044228`.
+- **Candidate/accounting:** final tested Candidate is `c1acf55e81f9ec4927f883034eaba92de2214ebf`; baseline remains `23637e22ce1c4242b904b7a8b9f92cfbd81f2b56`; exact selector remains 16 VALUE paths / 4,000 touched text LOC. EV contains full current membership, classification, arithmetic and NUL-safe reproduction.
+- **AC-2:** each of six lesson Python source blocks now renders with its own editable/runnable exercise. Source executable lines are included and baseline preservation remains verified; there are no JavaScript example blocks in lessons 1–3.
+- **AC-3:** every code-writing numbered lab step is paired with an in-card terminal exercise and expected observation: lab 1 steps 2–5, lab 2 steps 2–5, lab 3 steps 1–5. All starters execute in Pyodide.
+- **AC-4/5/6:** fail-closed oracle fixtures still pass; each failure/run error reveals a runnable, commented analogy from another domain; each lab exposes one explicit full solution button. These actions remain separate from score/progress state.
+- **AC-7/8/9:** storage suite 4/4; no storage/scoring/completion changes; disclosure remains explicit; Module 2/3 and PDFs remain untouched.
+- **Verification:** terminal tests 8/8; storage tests 4/4; `node --check` on `app.js`, `data.js` and `terminal.js`; site build passes. Generated `dist/` was absent before build and removed after. Browser/runtime compatibility, offline completeness and isolation remain DEFERRED.
+- **State:** phase is RF after the committed ONB → RF event `journal/20261030-025325__transition__rev2.md`. The Coordinator selects review/next actions; this Executor does not write REVIEW or infer owner acceptance.
+
+### Material handover at this return
+
+Producer/unit: Executor `codex:thread:local:01a188d2-f071-7e82-89c7-6a2813203583`. Source/epoch: exact continuation and owner-approved TS rev2; final Candidate `c1acf55e81f9ec4927f883034eaba92de2214ebf`. Material: six lesson blocks and 13 lab coding steps have runnable route-level exercises; three lab failure analogies execute; scoring/storage boundary remains unchanged. Uncertainty: browser/runtime compatibility, offline completeness and hostile-code isolation are unverified. Continuation: same Phase Coordinator receives this RF and EV for independent review or another authorized step.
+
+## 13. Canonical lineage correction — current TS rev2 return (2026-10-30)
+
+- **Canonical authority:** owner-selected transition `journal/20261030-022757__transition__a1bf.md @ 62fd2395c3e3fd329472915694369902ee4df53d` set `KNW → TS_DRAFT`; direct owner gate answer `../journal/20261030-023556__gate_answer__phase-b-ts-rev2.md @ cd3983e2442d0a696b04fdb611165f5c94044228` approves exact TS rev2 `156ee785c7043747ab231d801240d4c68e041afa`. Same-Executor trace-only dispatch: `journal/20261030-030802__dispatch__phase-b-correct-lineage.md @ 028c4594039a7c90aafe77ac2520f72547d06099`.
+- **Current lifecycle:** canonical `TS_DRAFT → ONB` re-entry is recorded by `journal/20261030-031106__transition__canonical-onb.md @ 95b46931a87bec1efdb28b0f662d8d0fd4542f2a`. The earlier `RF → ONB → RF` events remain untouched as historical branch records and do not represent this current lineage.
+- **Candidate/evidence:** existing Candidate remains `c1acf55e81f9ec4927f883034eaba92de2214ebf`; EV continuation 4 records the exact approval, Candidate equality, unchanged accounting and replayed tests/build. No VALUE or ASSURANCE file changed, and no new Candidate was created.
+- **Verification:** terminal suite 8/8; storage suite 4/4; build passes. Build output was removed after the replay. Browser/runtime compatibility, offline completeness and isolation remain deferred.
+- **Next transition:** the phase is ONB while this RF/EV correction is prepared. A new `ONB → RF` event will bind the corrected return and then the exact `RF_READY` will go to the recorded Phase Coordinator. No independent reviewer verdict or owner acceptance is inferred.
+
+### Material handover
+
+Producer/unit: Executor `codex:thread:local:01a188d2-f071-7e82-89c7-6a2813203583`. Source/epoch: owner-approved TS rev2, canonical status/event, direct owner gate answer, and current correction dispatch. Material: the existing Candidate `c1acf55e81f9ec4927f883034eaba92de2214ebf` and its evidence were revalidated and rebound to the correct approval lineage; no product changes were made. Uncertainty: browser/runtime compatibility, offline completeness and isolation remain unverified. Continuation: Phase Coordinator receives the corrected RF/EV under the current ONB → RF event.
+
+## 14. Current state after canonical lineage repair (2026-10-30)
+
+The current phase status is RF. Its current transition chain is the owner-selected `KNW → TS_DRAFT` event `journal/20261030-022757__transition__a1bf.md @ 62fd2395c3e3fd329472915694369902ee4df53d`, exact owner approval of rev2 `../journal/20261030-023556__gate_answer__phase-b-ts-rev2.md @ cd3983e2442d0a696b04fdb611165f5c94044228`, current Executor re-entry `journal/20261030-031106__transition__canonical-onb.md @ 95b46931a87bec1efdb28b0f662d8d0fd4542f2a`, and return event `journal/20261030-031421__transition__canonical-rf.md`. RF/EV were committed at `7db998e4e42c0d0d10884ff16346331c21f57bc2`; Candidate remains `c1acf55e81f9ec4927f883034eaba92de2214ebf`. The older branch events remain unchanged and are retained as history, not current state. This return reports the corrected trace only; it is not owner acceptance or a new review verdict.
+
+## 15. Return 4 — F4 current-summary metadata correction (2026-10-30)
+
+The live REVIEW rev3 REVIEW__phase-b__терминалы_модуля_1__rev3.md @ 55e7f4848d3b872c58ba11743154c84f60d06652 and Coordinator F4 dispatch journal/20261030-033712__dispatch__phase-b-rung1-f4.md @ 104fe401297a759fa538703ed4337ccc2e5d1734 bound this correction to current RF/EV summary metadata only. The current authority is approved Phase B TS rev2 156ee785c7043747ab231d801240d4c68e041afa with owner gate cd3983e2442d0a696b04fdb611165f5c94044228; current Candidate remains c1acf55e81f9ec4927f883034eaba92de2214ebf. The RF and EV headers now cite those refs and the F4 correction-entry/authorization snapshot status.md @ 20c284d171c05960f2bee3729efc11db768d5ac8. The final RF status epoch is status.md @ 6a0dd0cb03ac63a7f27bd50af5cc6faedfc71e59. Prior rev1 authority references and the earlier Candidate accounting rows remain intact and are explicitly labeled as superseded historical snapshots. The full historical EV accounting row contents were retained.
+
+No product VALUE or ASSURANCE paths, implementation, Candidate, selector, denominator, runtime/network behavior, scoring or progress changed. No product checks were rerun because this correction changes only trace summaries. The phase was reopened under RF → ONB before this correction; the ONB → RF transition event will bind this return. This Executor returns RF/EV for Coordinator-directed F4-only independent verification; no review verdict or owner acceptance is inferred.
+
+## 16. F4 return state (2026-10-30)
+
+The F4 correction cycle is complete. Current phase lifecycle is RF at status.md @ 6a0dd0cb03ac63a7f27bd50af5cc6faedfc71e59; the current ONB → RF event is journal/20261030-034332__transition__f4-rf.md @ 6a0dd0cb03ac63a7f27bd50af5cc6faedfc71e59. The Coordinator receives this RF and its EV for F4-only independent verification. The approved TS rev2, owner gate and Candidate remain as recorded above. This return makes no owner-acceptance or review-verdict claim.
+
+## 17. Final F4 status epoch (2026-10-30)
+
+Per the Coordinator's same-bound F4 status dispatch journal/20261030-034612__dispatch__phase-b-rung1-f4-status.md @ e81cac917bd27995abe92f8af1c75ae4aa0f4709, the RF coordination authority now points to the final current status epoch status.md @ 6a0dd0cb03ac63a7f27bd50af5cc6faedfc71e59. EV's top-level Phase status link points to that same RF epoch. References to status.md @ 20c284d171c05960f2bee3729efc11db768d5ac8 are labeled as the F4 correction-entry/authorization snapshot. TS rev2, owner gate, historical snapshots, prior content and Candidate c1acf55e81f9ec4927f883034eaba92de2214ebf are preserved. No product, VALUE or ASSURANCE content changed. The RF/EV return is ready for the Coordinator's same Reviewer F4-only verification.

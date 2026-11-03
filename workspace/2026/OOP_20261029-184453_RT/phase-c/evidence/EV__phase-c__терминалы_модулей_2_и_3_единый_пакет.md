@@ -175,3 +175,92 @@ course/terminal.test.js is the sole selected ASSURANCE file; it changed in the C
 The Candidate’s direct patch passed git show --check. The earlier Coordinator-disposed cumulative EOF-whitespace observation O2 remains non-material and received no product cleanup in this round.
 
 **Round 2 verdict:** 10/11 VERIFIED, 1 DEFERRED, 0 BLOCKED, 0 N/A. AC-9 remains DEFERRED for the empirical browser/runtime/security properties listed above.
+
+
+## Correction round 3 — approved TS rev2, AC-12–AC-14
+
+These rows apply to final tested Candidate `31360a3483f207312e8f9b4c64249ea425500d54`. The earlier round evidence remains for unchanged criteria; the current full terminal suite was rerun against this Candidate.
+
+| # | AC | Verified | How | Observed | Result |
+|---|---|---|---|---|---|
+| E-R3-pages | AC-1, AC-2, AC-7, AC-8 | The 12 selected pages remain in the combined release; existing lesson source and course boundaries are preserved | `node --test course/terminal.test.js`; actual app route tests and source preservation regression | Lessons 4–9 and labs 4–9 still render. Existing authored snippets remain byte-for-byte; six step editors are distinct per lab and existing score/completion controls remain outside terminal markup. | VERIFIED |
+| E-R3-code | AC-12 | Student-facing lab code that should run is in an editable terminal | Inventory of lab `steps`, `starter`, `solution`, `example.code`, `diagram`, and the rendered lab route for IDs 4–9; terminal suite | Labs 4–6 have the six step editors plus the existing objective terminal. Labs 7–9 also render `lab.example.code` in the `full-example` terminal (eight terminal editors total per route); the read-only code block and static-only note are gone. The six diagrams remain visual assets, not code samples. Full examples and all 36 step starters executed. | VERIFIED |
+| E-R3-analog | AC-13 | Six analogies demonstrate the lab’s structure and respond to changed input | Executed each `terminalContent.labs[id].analog.source` in isolated Pyodide scope; changed the named input and captured stdout; inspected each relationship against its lab | Baseline/modified output pairs and structural mapping follow below. Every output is produced by the code path; no analogy is print-only. | VERIFIED |
+| E-R3-steps | AC-14 | Every lab step 4–9 has one distinct editable terminal attached to that step | Actual lab route render inventory plus isolated Pyodide run of each `stepExercises[1..6].starter`; route assertion checks IDs `step1`–`step6` and unique lab exercise ids | Exactly 36 of 36 step programs executed independently; each emitted its observation or passed its embedded assertions. | VERIFIED |
+| E-R3-suite | AC-3–AC-8 | Existing terminal, oracle, route, assessment and readiness behavior remains compatible | `node --check course/data.js`; `node --check course/app.js`; `node --check course/terminal.test.js`; `node --test course/terminal.test.js`; `git show --check --oneline 31360a3483f207312e8f9b4c64249ea425500d54` | 11/11 terminal tests pass, including positive/negative fixed lab oracles, all 36 step starters, full Module 3 examples, analogy mutations, existing authored-code preservation, local/hosted readiness, and assessment-safe markup. Candidate whitespace check passes. | VERIFIED |
+| E-R3-package | AC-11 | Ready Module 3 remains available and build output contains the source material | `node scripts/build-site.mjs` from isolated temp source mirror; filesystem inventory; `GET /course/` against `createStaticServer` on ephemeral loopback port | Build reports 18 source PDFs and six UML diagrams; inventory is 18 PDFs and six SVGs. `GET /course/` returns 200, `text/html; charset=utf-8`, with OOPoman landing content. Existing local/hosted ready and incomplete-readiness regressions pass. | VERIFIED |
+| E-R3-claims | AC-9 | Product claims stay within observed proof | Review of Candidate UI/docs and the commands above | Browser compatibility, security/isolation, offline completeness, performance and hard resource limits remain unverified. | DEFERRED — no deployed browser or empirical runtime assessment was performed |
+| E-accounting-R3 | AC-10 | Exact selector and immutable denominator remain valid | Approved rev2 NUL-safe Git diff commands from root baseline and accepted Phase B Candidate to final Candidate; raw bytes and SHA-256 below | Exactly 16 VALUE paths; baseline-relative 1,464 additions + 25 deletions = 1,489 touched text LOC; direct Phase B Candidate diff 298 + 25 = 323. Two binary assets are per-file LOC N/A. | VERIFIED |
+
+### AC-12 lab-code inventory
+
+| Lab | Student-facing runnable content | Terminal mapping |
+|---|---|---|
+| 4 | Six instructional steps and the existing lab exercise; no separate full code sample or diagram code | `step1`–`step6` plus the lab-level terminal |
+| 5 | Six instructional steps and the existing lab exercise; no separate full code sample or diagram code | `step1`–`step6` plus the lab-level terminal |
+| 6 | Six instructional steps and the existing lab exercise; no separate full code sample or diagram code | `step1`–`step6` plus the lab-level terminal |
+| 7 | Six steps, existing lab exercise, and full `lab.example.code`; UML diagram remains visual | `step1`–`step6`, lab-level terminal, and `full-example` seeded with the exact full-example source |
+| 8 | Six steps, existing lab exercise, and full `lab.example.code`; UML diagram remains visual | `step1`–`step6`, lab-level terminal, and `full-example` seeded with the exact full-example source |
+| 9 | Six steps, existing lab exercise, and full `lab.example.code`; UML diagram remains visual | `step1`–`step6`, lab-level terminal, and `full-example` seeded with the exact full-example source |
+
+The existing `lab.example.code` strings were not rewritten: the app now seeds the editable terminal from those strings, so source preservation and runnable presentation coexist.
+
+### AC-13 analogy-to-lab mapping and observed mutations
+
+| Lab | Analogy structure and learning point | Baseline → changed-input observation |
+|---|---|---|
+| 4 | Cafe order flow passes through separately injected kitchen and journal roles; mirrors TransitTerminal’s separated reader/fare/payment/ledger/display collaborators and open payment strategy. | `Кухня получила Обед` → `Кухня получила Ужин` |
+| 5 | MuseumPass and PaidPass share only `is_valid`; the free pass has no `charge`; mirrors the least-capability pass contract, free-pass substitutability and ISP. | `Вход разрешён Вход разрешён` → `Вход разрешён Отказ` |
+| 6 | RepairOffice creates a WorkOrder through a factory method; WorkOrderBuilder validates required number and person; mirrors ticket factory plus report builder invariants. | `Наряд WO-1 готов` → `Наряд WO-2 готов` |
+| 7 | KilogramAdapter translates input units before calling a scale with a grams-only contract; mirrors PaymentAdapter translating tenant-facing money to gateway units. | `150000 г` → `200000 г` |
+| 8 | Booking checks run in order and stop at the first failure; Screen and Counter observe the completed decision; mirrors two-check Chain then two-observer publication. | `Экран: разрешено` → `Экран: отказ: бронь` |
+| 9 | RepairRequest is domain data; SubmitRequest depends on a repository port; MemoryRequestRepository stores it; mirrors Shift/FinishShift/ShiftRepository. | `Заявка сохранена: BUS-17` → `Заявка сохранена: BUS-22` |
+
+The structural relevance assessment above is Executor source review and evidence for the independent Reviewer; automated execution alone does not establish teaching quality.
+
+### AC-14 complete 36-step map and observed results
+
+| Lab | Step terminal → execution result |
+|---|---|
+| 4 | 1 `Разделите роли` → `Чтение → тариф → запись → экран`; 2 `Откройте оплату для расширения` → `Две стратегии используют один контракт`; 3 `Изолируйте расчёт тарифа` → `Тариф: 900`; 4 `Внедрите зависимости` → `Порядок компонентов сохранён`; 5 `Добавьте третью стратегию` → QR and Bluetooth dictionaries returned; 6 `Сверьте поведение` → approval and rejection assertions passed. |
+| 5 | 1 `Разделите возможности проездного` → free pass valid, no charge method; 2 `Сохраняйте взаимозаменяемость` → free/paid/balance assertions passed; 3 `Зарегистрируйте зависимости` → singleton/transient lifetimes differ; 4 `Обработайте отсутствующую регистрацию` → missing key raises `KeyError`; 5 `Подключите зависимости к сценарию` → injected dependencies work; 6 `Сверьте подмену реализации` → ordinary/free fares differ. |
+| 6 | 1 `Согласуйте контракт продукта` → paper and QR products share interface; 2 `Перенесите создание в фабричный метод` → office selects product; 3 `Выделите обязательные части отчёта` → route/driver/revenue report constructed; 4 `Реализуйте пошаговый Builder` → `Отчёт: 32 D-1 145000`; 5 `Защитите инварианты сборки` → invalid report rejected and valid report accepted; 6 `Скомбинируйте фабрику и Builder` → QR ticket and report both produced. |
+| 7 | 1 `Согласуйте несовпадающие интерфейсы` → `150 тенге → 15000 тиын`; 2 `Добавьте Adapter` → approved response with `15000` tiyn; 3 `Преобразуйте ответ шлюза` → `True LOCAL-7`; 4 `Разделите одобрение и отказ` → threshold assertions passed; 5 `Не повторяйте неопределённый запрос` → timeout stopped after one call; 6 `Проверьте адаптер целиком` → local approved result with `12-LOCAL`. |
+| 8 | 1 `Опишите запрос и решение` → `KZ-12 готово`; 2 `Соедините проверки цепочкой` → first rejection stops later check; 3 `Сформируйте итог до уведомления` → two listeners receive result; 4 `Добавьте независимые наблюдатели` → screen and counter updated; 5 `Разделите ответственность Chain и Observer` → both receive balance rejection; 6 `Проверьте сценарии поездки` → three scenario assertions passed. |
+| 9 | 1 `Оставьте домен предметным` → BUS-17 with two stops and no repository; 2 `Определите внутренний порт` → one contract with two storage implementations; 3 `Создайте use case` → shift saved through injected port; 4 `Подключите внешнюю деталь` → memory adapter saves domain shift; 5 `Проверьте направление зависимостей` → replacement adapters each receive save call; 6 `Сверьте результат закрытия` → `Автобус BUS-17: смена закрыта, остановок 2`. |
+
+Every result was observed by running the step starter in a fresh Python globals dictionary under the pinned local Pyodide runtime. Full per-step output is in the task temp `observations.log` until cleanup.
+
+### AC-10 exact accounting — round 3
+
+| Fact | Round 3 result |
+|---|---|
+| TS approval / authority | Approved TS rev2 `dd4587ee6cad203959938318b0c9b22ed0ded623`; owner gate `journal/20261030-160120__gate_answer__ea8c.md @ d79bc69cd789df962646810a4e0967584c303544`; direct dispatch `journal/20261030-160356__dispatch__executor-labfix-a8ff.md @ 7687101e2330489bd2a7761cb9c678b8e619f928`. |
+| Baseline / Candidate | `23637e22ce1c4242b904b7a8b9f92cfbd81f2b56` / `31360a3483f207312e8f9b4c64249ea425500d54` |
+| Selector | Unchanged approved 10 explicit paths plus exactly six `course/assets/pyodide/` files; 16 logical VALUE paths. No membership deviation. |
+| Arithmetic | Baseline→Candidate 1,464 + 25 = 1,489 touched text LOC across 16 VALUE paths. Accepted Phase B Candidate `c1acf55e81f9ec4927f883034eaba92de2214ebf`→Candidate 298 + 25 = 323 touched LOC. Two binary assets (`pyodide.asm.wasm`, `python_stdlib.zip`) are per-file LOC N/A; four other runtime assets are text and counted. |
+| Phase attribution / triggers | Accepted Phase B use is 1,200. The root-baseline count is 1,489; direct Phase B delta is 323 because successive numstat totals overlap and are not additive. Direct Phase C 323 ≤ 2,800 and cumulative 1,489 ≤ 4,000. Prompt triggers 16/50 VALUE files and 1,489/5,000 LOC are not crossed. |
+| Membership deviations | None. All selector members are listed below; `course/terminal.test.js` is the sole ASSURANCE path and is excluded from VALUE accounting. |
+| Authority and timing | Immutable denominator 16 VALUE files / 4,000 touched text LOC, multiplier ×2; approval and rev2 authorization preceded implementation. No selector increase, denominator ratchet, split or late authority. |
+| Reproduction / raw outputs | Exact TS commands: `git diff --name-status --find-renames=50% -z` and `git diff --numstat --find-renames=50% -z`, selector above, root baseline and final Candidate; repeated from accepted Phase B Candidate. NUL-safe bytes captured by Node `spawnSync` with `encoding:null` and preserved in system temp. SHA-256: `baseline-to-candidate-names.nul` `8DDF1585EDBB842A70950572FD9E49E9A77812523D75B5F996246034FF3C9A00`; `baseline-to-candidate-numstat.nul` `7B7C0FE449FFED18624B08DC850778D45948C93F692BF290A2B68025F0A73CCC`; `phaseb-to-candidate-names.nul` `F43D5B67AB9D76E9FD750775D06FDD046A9073F675E4D9A95B0A10BE9E9FF77D`; `phaseb-to-candidate-numstat.nul` `9F9E9F79D78F77EABABC2E97C270391856315591CC7C656ECF04C921816953E3`. Files are under `%TEMP%\tfw\OOP_20261029-184453_RT\phase-c-public-module3-r3\` and will be removed before role return. |
+
+| Path | Action | Class | Semantic reason |
+|---|---|---|---|
+| `NorthStar.md` | M | VALUE | Inherited narrow course clarification. |
+| `course/README.md` | M | VALUE | Course page coverage and terminal capability documentation. |
+| `course/app.js` | M | VALUE | Renders step and full-example terminal editors on lab routes. |
+| `course/assets/pyodide/package.json` | A | VALUE | Runtime package metadata. |
+| `course/assets/pyodide/pyodide-lock.json` | A | VALUE | Runtime lock metadata. |
+| `course/assets/pyodide/pyodide.asm.mjs` | A | VALUE | Runtime loader. |
+| `course/assets/pyodide/pyodide.asm.wasm` | A | VALUE | Binary runtime; LOC N/A. |
+| `course/assets/pyodide/pyodide.mjs` | A | VALUE | Runtime loader. |
+| `course/assets/pyodide/python_stdlib.zip` | A | VALUE | Binary standard library; LOC N/A. |
+| `course/data.js` | M | VALUE | Six labs’ step exercises and structurally relevant analogies. |
+| `course/index.html` | M | VALUE | Shared course shell wiring. |
+| `course/pyodide-worker.js` | A | VALUE | Local terminal execution worker. |
+| `course/styles.css` | M | VALUE | Shared responsive terminal surface. |
+| `course/terminal.js` | A | VALUE | Terminal rendering and deterministic exercise oracles. |
+| `scripts/build-site.mjs` | M | VALUE | Builds accepted pages/assets and source materials. |
+| `scripts/serve-course.mjs` | A | VALUE | Static-only course preview server. |
+
+**Round 3 verdict:** 13/14 VERIFIED, 1 DEFERRED, 0 BLOCKED, 0 N/A. AC-9 remains DEFERRED for the unmeasured empirical properties listed above.

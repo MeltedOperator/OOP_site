@@ -311,3 +311,121 @@ No diagrams.
 ### Material handover at this return — round 2
 
 Producer/unit: Phase C Executor codex:thread:local:01a18b46-828d-70c2-96eb-b68ed8688d41; parent Coordinator codex:thread:local:01a18b1b-cf9b-7a50-a203-23392130eb0e. Source/epoch: owner-approved TS rev1 a9695d828ca903f8fc04b75695a49277a310e3b1; owner gate and authority epoch 20a6efc2e3aebef47bf42f799dfa56a3b71980a3; Coordinator TS_DRAFT transition journal/20261030-124937__transition__be72.md and direct dispatch journal/20261030-125157__dispatch__c4a8.md; final Candidate 80fc58033ea5e4db04f931c337e6f77fd15ae275. Inspected scope: complete task/phase routing, owner amendment, approved TS/selector, previous APPROVE and current code/tests/build/PDF/diagram sources. Material: public Module 3 access now follows the full readiness check; all local/hosted routes and the incomplete fixture pass; build and URL proof pass; accounting stays within the approved ceiling. Uncertainty: no deployed browser/runtime/security verification and no publication. Economics binding gap: observed 2026-10-30T13:01:23+05:00; exact rollout session_meta.id, source path/version, range start and finite cutoff remain unavailable; extraction was not attempted; no JSONL, measured zero or failed-capture receipt; last-good numeric file none; native_source_binding_unavailable. Continuation: return this RF to the existing Phase Coordinator with RF_READY; the Coordinator selects independent review and any later authorized act.
+
+
+## Correction round 3 — approved TS rev2, AC-12–AC-14
+
+### 1. What Was Done — round 3
+
+Implemented rev2’s three corrections. Labs 4–9 now have a distinct editable terminal on each of six steps. Labs 7–9 full code samples render from their existing source strings inside runnable terminals. All six analogies now model the corresponding pattern roles and data/control flow, and each changes its output when a meaningful input changes. No assessment, progress, checklist, peer-check, completion, PDF or readiness logic was changed.
+
+Final tested Candidate: `31360a3483f207312e8f9b4c64249ea425500d54`. It is the descendant of final Phase C implementation and assurance work. The prior implementation commit `b01647de166c7e433245281275c33362aeb96569` was superseded before RF because the final human mapping check found that Lab 6’s analogy explanation named Factory Method while its source only demonstrated Builder. The corrected analog includes a `RepairOffice` factory method and validated `WorkOrderBuilder`; the complete suite and isolated build were rerun at the final Candidate.
+
+#### Actual Value-Bearing Accounting — round 3
+
+| Fact | Actual result |
+|---|---|
+| TS approval ref | Approved Phase C TS rev2 `dd4587ee6cad203959938318b0c9b22ed0ded623`; owner gate `journal/20261030-160120__gate_answer__ea8c.md @ d79bc69cd789df962646810a4e0967584c303544`; direct dispatch `journal/20261030-160356__dispatch__executor-labfix-a8ff.md @ 7687101e2330489bd2a7761cb9c678b8e619f928`. |
+| Baseline / Candidate | `23637e22ce1c4242b904b7a8b9f92cfbd81f2b56` / `31360a3483f207312e8f9b4c64249ea425500d54` |
+| VALUE membership | Exactly 16 logical paths, the unchanged approved selector; membership and semantic reasons are listed below. `course/terminal.test.js` is ASSURANCE and excluded. |
+| Arithmetic | Root baseline→Candidate 1,464 additions + 25 deletions = 1,489 touched text LOC. Accepted Phase B Candidate `c1acf55e81f9ec4927f883034eaba92de2214ebf`→Candidate 298 + 25 = 323. Two binary assets are per-file LOC N/A; four runtime assets are text and counted. |
+| Membership deviations | None. No new VALUE path or runtime asset. |
+| Trigger disposition | Phase C direct 323 ≤ 2,800; cumulative 1,489 ≤ 4,000. Prompt triggers 16/50 VALUE files and 1,489/5,000 LOC are not crossed. Sequential numstat totals overlap and are not additive. |
+| Authority and timing | Owner-approved immutable denominator 16 VALUE files / 4,000 touched text LOC, ×2; TS rev2 and dispatch preceded implementation. No ratchet, split or late authority. |
+| Reproduction | Exact TS NUL-safe `git diff --name-status --find-renames=50% -z` and `git diff --numstat --find-renames=50% -z`, with approved selector, root baseline and Candidate; also compared accepted Phase B Candidate. Raw NUL files and SHA-256 are preserved in system temp until cleanup; exact hashes are in round-3 EV. |
+
+| Path | Action | Class | Semantic reason |
+|---|---|---|---|
+| `NorthStar.md` | M | VALUE | Inherited narrow course clarification. |
+| `course/README.md` | M | VALUE | Documents current course terminal coverage and limits. |
+| `course/app.js` | M | VALUE | Renders per-step and full-example terminals. |
+| `course/assets/pyodide/package.json` | A | VALUE | Runtime package metadata. |
+| `course/assets/pyodide/pyodide-lock.json` | A | VALUE | Runtime lock metadata. |
+| `course/assets/pyodide/pyodide.asm.mjs` | A | VALUE | Runtime loader. |
+| `course/assets/pyodide/pyodide.asm.wasm` | A | VALUE | Binary runtime; LOC N/A. |
+| `course/assets/pyodide/pyodide.mjs` | A | VALUE | Runtime loader. |
+| `course/assets/pyodide/python_stdlib.zip` | A | VALUE | Binary standard library; LOC N/A. |
+| `course/data.js` | M | VALUE | Lab 4–9 step exercises and analogous executable programs. |
+| `course/index.html` | M | VALUE | Shared course shell wiring. |
+| `course/pyodide-worker.js` | A | VALUE | Local terminal execution worker. |
+| `course/styles.css` | M | VALUE | Responsive terminal interface. |
+| `course/terminal.js` | A | VALUE | Terminal rendering and fixed objective oracles. |
+| `scripts/build-site.mjs` | M | VALUE | Builds course pages and approved learning assets. |
+| `scripts/serve-course.mjs` | A | VALUE | Static-only course server. |
+
+#### New Files — round 3
+
+None.
+
+#### Modified Files — round 3
+
+| File | Changes |
+|---|---|
+| `course/app.js` | Each lab step mounts its own editor; full Module 3 example code mounts as `full-example` terminal. |
+| `course/data.js` | Adds 36 independent step programs and six runnable, input-driven analogies. |
+| `course/README.md` | Replaces the obsolete static-example description with the per-step and full-example terminal coverage. |
+| `course/terminal.test.js` | Verifies all 36 exercises, analogy changes, full example execution, route editor identities and existing boundaries. |
+
+### 2. Key Decisions — round 3
+
+1. Kept the existing lab-level starter, solution and fixed objective oracle, and gave each step a separate terminal identity; this preserves assessment behavior while meeting the 36-terminal interaction contract.
+2. Passed the existing full example strings directly as editor starters so the source text remains unchanged and is runnable in the same local Worker.
+3. Made analogies structurally similar but domain-distinct: collaborators and strategy (4), least-capability pass contract (5), factory plus builder (6), unit adapter (7), check chain then observers (8), and domain/use case/repository port (9).
+4. Left architecture quality, rationale and teaching quality for independent human review; terminal output checks establish execution and changed-input behavior only.
+5. Kept all temporary build, test, observation and raw accounting files outside the repository and remove them before role return.
+
+### 3. Acceptance Criteria — round 3
+
+- [x] AC-1, AC-2, AC-7, AC-8: Existing 12-page combined scope, authored lesson source preservation, accepted interface and assessment boundaries remain covered by the passing route/source regressions.
+- [x] AC-3–AC-6: Existing deterministic objective checks, fictional local-only Lab 7, two-check/two-observer Lab 8, and in-memory Shift repository Lab 9 pass the current suite; human criteria remain manual.
+- [x] AC-9: Unsupported browser, security/isolation, offline completeness, performance and hard-limit properties remain explicitly unverified.
+- [x] AC-10: Exact selector and immutable denominator pass; final counts and raw output hashes are recorded above and in EV.
+- [x] AC-11: Ready local/hosted route tests pass; incomplete-readiness regression remains closed; isolated build contains all 18 PDFs and six diagrams; built `/course/` route returns HTTP 200.
+- [x] AC-12: Labs 4–6 code is available in each step terminal and lab terminal. Existing full code in Labs 7–9 is editable and runnable from the original source string; no code-only static substitute remains.
+- [x] AC-13: All six analogies execute meaningful pattern structures, and all six produce changed output after the mapped input is modified. The implementation-to-analogy rationale is recorded in EV for independent review.
+- [x] AC-14: Six distinct step terminals are attached to each of Labs 4–9; 36/36 start programs execute independently. Score, progress, checklist, peer-check and completion behavior remains unchanged.
+
+### 4. Verification — round 3
+
+- Lint (`config.build.lint`): N/A; no configured lint command applies.
+- Syntax: `node --check course/data.js`, `node --check course/app.js`, `node --check course/terminal.test.js` — passed.
+- Tests (`config.build.test`): `node --test course/terminal.test.js` — 11/11 passed at final Candidate, including all six legacy positive/negative oracles, 36 step programs, three full Module 3 code samples, baseline and changed-input analogues, ready/incomplete route gates, preservation and terminal markup checks.
+- Build: `node scripts/build-site.mjs` from an isolated temporary source mirror — passed; 18 PDFs, six UML SVGs. Project `dist/` was not written.
+- Built route: `GET /course/` through `createStaticServer` on an ephemeral loopback port — 200, `text/html; charset=utf-8`, landing content present.
+- Candidate patch: `git show --check --oneline 31360a3483f207312e8f9b4c64249ea425500d54` — passed.
+- Accounting: exact selector has 16 members; 1,489 cumulative touched text LOC and 323 direct Phase B delta; two binary runtime members are N/A per file.
+
+### 5. Evidence — round 3
+
+See [round-3 EV evidence](evidence/EV__phase-c__терминалы_модулей_2_и_3_единый_пакет.md). Current verdict: **13/14 VERIFIED, 1 DEFERRED, 0 BLOCKED, 0 N/A**. AC-9 is the sole DEFERRED criterion.
+
+The active managed worktree is `C:\Users\tata2\.codex\worktrees\phase-c-public-module3\weboop`; retain it through independent review/landing. It is owned by the Executor. No other worktree, helper, child task, or long-running process was created for this round. Candidate `31360a3483f207312e8f9b4c64249ea425500d54` remains reachable. Task temp is `%TEMP%\tfw\OOP_20261029-184453_RT\phase-c-public-module3-r3\`; raw logs/accounting/build mirror are scheduled for removal before this return. The project `dist/` was not touched.
+
+### 6. Observations — round 3
+
+No observations.
+
+### 7. Fact Candidates — round 3
+
+No fact candidates.
+
+### 8. Strategic Insights (Execution) — round 3
+
+No strategic insights.
+
+### 9. Diagrams — round 3
+
+No diagrams.
+
+#### Material handover at this return — round 3
+
+- **Producer/unit:** Executor, `codex:thread:local:01a18b46-828d-70c2-96eb-b68ed8688d41`.
+- **Source/epoch:** Approved TS rev2 `dd4587ee6cad203959938318b0c9b22ed0ded623`; implementation Candidate `31360a3483f207312e8f9b4c64249ea425500d54`.
+- **Inspected scope:** Labs 4–9 step source, all full example code, analogy source and related lab designs, route renders, terminal/oracle behavior, assessment boundaries, exact approved selector, build package and local HTTP route.
+- **Material:** One final Phase C Candidate, 36 runnable step terminals, six runnable analogues, route/build/test observations and exact immutable accounting. Independent review remains the next authorized act; no additional owner decision is required inside the approved scope.
+- **Uncertainty:** Browser compatibility, worker isolation/security, offline completeness, performance and hard resource limits remain unverified. The task-bound economics source/range binding was unavailable before extraction. The observed surface was Codex local task rollout; `session_meta.id`, source path/version, range start and finite cutoff were not exposed. No extraction was attempted, no JSONL was produced, and there is no measured zero or capture-failure receipt; last-good measurement is none. This is the pre-extraction binding gap `native_source_binding_unavailable`, observed at `2026-10-30T16:13:09+05:00` during this activation.
+- **Continuation:** Phase status transitions from ONB to RF with the final Candidate and this RF/EV; `RF_READY` returns to the current `coordinator_route`. Coordinator reads the records, arranges independent review and manages safe cleanup/landing. This Executor wrote no REVIEW and dispatched no Reviewer.
+
+---
+
+*RF — OOP_20261029-184453_RT / Phase C: Терминалы модулей 2 и 3 — единый пакет | 2026-10-30*
