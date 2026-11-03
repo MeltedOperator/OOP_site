@@ -2,6 +2,7 @@ task_id: OOP_20261103-190652_DESIGN
 title: "Исследование дизайна интерфейса OOPoman"
 min_iterations: 2
 max_iterations: 3
+selected_mode: focused
 iterations:
   - number: 1
     focus: "Проверить поддержку локальной подсветки JS/Python, соразмерность редактора и достоверное чтение сохранённых результатов курса/экзамена для прогресса и сертификата."
