@@ -1,0 +1,10 @@
+task_id: OOP_20261103-190652_DESIGN
+title: "Исследование дизайна интерфейса OOPoman"
+min_iterations: 2
+max_iterations: 3
+iterations:
+  - number: 1
+    focus: "Проверить поддержку локальной подсветки JS/Python, соразмерность редактора и достоверное чтение сохранённых результатов курса/экзамена для прогресса и сертификата."
+    hypotheses: [H1, H2, H3]
+    status: pending
+    res_file: research/iter1/RES.md
