@@ -105,3 +105,9 @@ After recording Roman's explicit acceptance and continuation request, `PHASE_REA
 ### Owner reiterates task-level continuation request — 2026-10-30
 
 Roman reiterated: “он не может отправить обратно. Ладно, продолжай модуль два и три”. Module 1 acceptance is already explicit above. Phase B remains the completed KNW child; cross-phase planning and activation are owned by the Task Coordinator under the root task's PHASES status. This is a task-level continuation request, not authority for this Phase B Coordinator to enter sibling phases. The Task Coordinator should start the remaining authorized phases in their declared dependency order; no further Module 1 acceptance question is needed.
+
+## 8. Task Coordinator documentation dispositions — 2026-11-03
+
+- **tfw-docs: Applied.** At task integration commit `f749d0c4e86f7a32c961136974789f1b72f660b0`, updated `KNOWLEDGE.md` Architecture Map, added `knowledge/records/TD-OOP-RT-TERMINAL-RUNTIME.md`, and added the task history entry to `CHANGELOG.md`. Sources: approved task HL A3–A10, Phase B/C approved TS, this exact Candidate and the final Phase B/C REVIEWs. The documentation records implementation boundaries and retains AC-9 as unverified.
+- **tfw-knowledge: N/A.** This REVIEW has no Fact Candidates. The owner's acceptance and scope decisions remain preserved in the existing task gate answers and phase returns; no separate enduring human-knowledge publication is owed.
+- **Applicability:** documentation-only effects; no Candidate, code, score, progress, completion behavior or Site deployment changed. The Phase C REVIEW remains applicable to Candidate `31360a3483f207312e8f9b4c64249ea425500d54`.

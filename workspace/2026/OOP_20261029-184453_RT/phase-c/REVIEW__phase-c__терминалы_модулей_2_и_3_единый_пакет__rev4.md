@@ -91,3 +91,9 @@ Producer: Phase C Executor `codex:thread:local:01a18b46-828d-70c2-96eb-b68ed8688
 ---
 
 *REVIEW — OOP_20261029-184453_RT / Phase C | 2026-10-30*
+
+## 8. Task Coordinator documentation dispositions — 2026-11-03
+
+- **tfw-docs: Applied.** At task integration commit `f749d0c4e86f7a32c961136974789f1b72f660b0`, updated `KNOWLEDGE.md` Architecture Map, added `knowledge/records/TD-OOP-RT-TERMINAL-RUNTIME.md`, and added the task history entry to `CHANGELOG.md`. Sources: approved task HL A3–A10, Phase B/C approved TS, this exact Candidate and the final Phase B/C REVIEWs. The documentation records implementation boundaries and retains AC-9 as unverified.
+- **tfw-knowledge: N/A.** This REVIEW has no Fact Candidates. The owner's acceptance and scope decisions remain preserved in the existing task gate answers and phase returns; no separate enduring human-knowledge publication is owed.
+- **Applicability:** documentation-only effects; no Candidate, code, score, progress, completion behavior or Site deployment changed. The Phase C REVIEW remains applicable to Candidate `31360a3483f207312e8f9b4c64249ea425500d54`.
