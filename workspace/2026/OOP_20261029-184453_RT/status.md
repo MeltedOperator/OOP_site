@@ -3,7 +3,8 @@ id: OOP_20261029-184453_RT
 title: "Рабочие терминалы"
 goal: "Добавить исполняемые учебные терминалы к теориям и лабораторным всех трёх модулей OOPoman"
 value: "Студенты получают безопасный запуск, строгую практическую обратную связь и учебные аналоги при ошибках"
-lifecycle: KNW
+lifecycle: DONE
+outcome: "Owner-accepted integrated terminal Candidate is reviewed, landed, documented and recorded; residual managed worktrees are retained with named cleanup owners and actions in economics.md."
 owner: roman
 authority: HL-OOP_20261029-184453_RT.md
 coordinator_route: "codex:thread:local:01a183ac-e789-7d81-a69a-00c4032013be"
@@ -14,7 +15,7 @@ coordination_authority: "HL-OOP_20261029-184453_RT.md @ a900184c2749a6fa563ffbe3
 reporting: native-gates
 selection_ref: baseline
 created: 20261029-184453
-updated: 20261103-161926
+updated: 20261103-185748
 ---
 
 **Task state.** This file is the only authority for this task's live state. Any downstream projection is disposable and never outranks it.

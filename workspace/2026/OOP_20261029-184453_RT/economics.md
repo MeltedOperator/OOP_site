@@ -25,7 +25,7 @@ not measured here.
 
 | Expected unit | Numeric receipt | Evidence/disposition |
 |---|---|---|
-| Task Coordinator `codex:thread:local:01a183ac-e789-7d81-a69a-00c4032013be` | None | Current Codex rollout ID, source path/version and bounded range are unavailable; extraction not attempted. Final close observation at `2026-11-03T16:17:33+05:00`. |
+| Task Coordinator `codex:thread:local:01a183ac-e789-7d81-a69a-00c4032013be` | None | Current Codex rollout ID, source path/version and bounded range are unavailable; extraction not attempted. Final close observation at `2026-11-03T18:57:48+05:00`. |
 | Task Researcher `codex:thread:local:01a187f0-5141-7a03-ad0b-99812be36c8f` | None | Final RES records an attributable pre-extraction binding gap; no numeric JSONL, measured zero, failed capture, or last-good measurement. |
 | Phase B Coordinator `codex:thread:local:01a188ab-5190-7ce1-ab81-e572ebbbebc2` | None | Phase B final handover records `native_source_binding_unavailable`; no measured zero is claimed. |
 | Phase B Executor `codex:thread:local:01a188d2-f071-7e82-89c7-6a2813203583` | None | Phase B RF records the pre-extraction binding gap; no numeric JSONL or failed-capture receipt. |
@@ -48,7 +48,7 @@ No public price quote was selected. Without measured tokens, a Standard API-equi
 no supported quantity to value. No currency amount is asserted.
 
 The task record was created at `2026-10-29T18:44:53+05:00`. At the final close observation,
-`2026-11-03T16:17:33+05:00`, the calendar interval was 4 d 21 h 32 min 40 s. This is task calendar
+`2026-11-03T18:57:48+05:00`, the calendar interval was 5 d 0 h 12 min 55 s. This is task calendar
 time, not accumulated Coordinator, Executor, Reviewer, or model time. The bounded post-return
 documentation/qualification and final delivery tail is excluded; no further source-bound usage was
 available, and the exclusion does not mean zero usage.
@@ -68,6 +68,12 @@ not expose that source.
 - Task Researcher `codex:thread:local:01a187f0-5141-7a03-ad0b-99812be36c8f`: the final RES records the same pre-extraction binding gap across the selected research iterations; no numeric usage was returned.
 - Final role return artifacts disclose no numeric files, measured zeros, failed extractions, or usable last-good measurements.
 - Finite delivery/close/cleanup exchanges after the cited role returns, including the Nov 3 documentation and qualification effects, are excluded from this report and are not recursively recaptured.
+
+## Final resource disposition
+
+- Phase C cleanup returned `phase-c/journal/20261103-185253__cleanup__phase-c-worktrees.md` at `85d1c8a8a0643ff2ad93908283d838b703679d39`: two Phase C Executor worktrees were archived. The primary Executor checkout `C:\Users\tata2\.codex\worktrees\phase-c-public-module3\weboop` remains because Codex rejected archiving a primary checkout from the Phase Coordinator's chat. It is recoverable and contains the accepted Candidate lineage; the Phase C Executor must archive it from its own chat after switching its primary checkout, if that control becomes available.
+- Phase B cleanup was dispatched and followed by the one allowed status request. The Coordinator returned only the Phase B status at `a6beff1e267a33dc2bf1ddcc589fc26a5ed97220`, with no cleanup event. The accepted Executor worktree `C:\Users\tata2\.codex\worktrees\phase-b-exec\weboop` remains on the local worktree inventory. The Phase B Coordinator/Executor must use the supported Codex archive control from the owning chat after confirming its Candidate and review sources remain recoverable.
+- The task Coordinator has no attached worktree and therefore no supported archive control for either retained checkout. Both are explicitly retained and recoverable; this close does not claim their deletion or archive.
 
 ## TFW improvements
 
