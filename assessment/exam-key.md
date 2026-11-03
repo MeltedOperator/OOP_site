@@ -33,186 +33,59 @@
 
 ## Практические задачи и рубрики
 
-### Лёгкая · Route и инварианты — 4 балла
-
-Источник: ``OOP-course/02_Лабораторные/Лабораторная_01_Моделирование_домена_Avtobys_Защита_инвариантов.pdf``, с. 2, блок 1. Решение должно иметь `Route(route_number, base_fare, stops)`, отклонять ошибку через `ValueError`, сохранять порядок остановок. Пример корректного решения:
+### Маршрут — 4 балла
+Источник: `OOP-course/02_Лабораторные/Лабораторная_01_Моделирование_домена_Avtobys_Защита_инвариантов.pdf`, с. 2, блок 1. Решение:
 
 ```python
 from decimal import Decimal
-
 class Route:
-    def __init__(self, route_number: str, base_fare: Decimal, stops: list[str]):
-        if not route_number.strip():
-            raise ValueError("route_number must not be empty")
-        if not isinstance(base_fare, Decimal) or base_fare <= 0:
-            raise ValueError("base_fare must be a positive Decimal")
-        if len(stops) < 2:
-            raise ValueError("at least two stops are required")
-        if any(left == right for left, right in zip(stops, stops[1:])):
-            raise ValueError("adjacent stop names must differ")
-        self.route_number = route_number
-        self.base_fare = base_fare
-        self.stops = list(stops)
+    def __init__(self, route_number, base_fare, stops):
+        if not route_number.strip() or base_fare <= 0 or len(stops) < 2 or any(a == b for a,b in zip(stops, stops[1:])): raise ValueError()
+        self.route_number, self.base_fare, self.stops = route_number, base_fare, list(stops)
 ```
 
-| Проверка | Балл | Вход | Ожидаемый результат |
-|---|---:|---|---|
-| Пустой/пробельный номер | 1 | `Route('   ', Decimal('100'), ['A','B'])` | `ValueError` |
-| Нулевая и отрицательная цена | 1 | `Decimal('0')`, `Decimal('-1')` | Для обеих — `ValueError` |
-| Минимум две остановки с порядком | 1 | `['A']`; затем `['A','B']` | Первая ошибка; во второй `stops == ['A','B']` |
-| Только соседние повторы запрещены | 1 | `['A','A']`; затем `['A','B','A']` | Первая ошибка; вторая допустима и порядок сохранён |
+Рубрика (по 1 баллу): 1) пустой/пробельный номер → `ValueError`; 2) Decimal 0 и −1 → оба `ValueError`; 3) одна остановка → отказ, `A,B` → приняты в исходном порядке; 4) `A,A` → отказ, `A,B,A` → принято с сохранением порядка. Source: Lab 1, PDF p. 2, block 1.
 
-### Средняя · DI-контейнер — 6 баллов
-
-Источник: ``OOP-course/02_Лабораторные/Лабораторная_05_Практикум_Midterm_DI_Container_LSP_ISP.pdf``, с. 2–3, блок 3. Фикстуры worker: `_ExamRepository`; `_ExamService(repository)` сохраняет `repository`; `_ExamController(service)` сохраняет `service`. `build_container()` регистрирует singleton `_ExamRepository`, transient `_ExamService` и transient `_ExamController`; каждая transient-фабрика получает контейнер одним параметром и вызывает `resolve` для зависимостей. Пример допустимой реализации:
+### Транспортная карта — 6 баллов
+Источник: `OOP-course/02_Лабораторные/Лабораторная_01_Моделирование_домена_Avtobys_Защита_инвариантов.pdf`, с. 3, блок 2. `pay` возвращает `True` при оплате и `False` при отказе. Пример:
 
 ```python
-class Container:
-    def __init__(self): self._providers = {}
-    def register_singleton(self, interface, implementation_or_instance):
-        instance = implementation_or_instance() if isinstance(implementation_or_instance, type) else implementation_or_instance
-        self._providers[interface] = ("singleton", instance)
-    def register_transient(self, interface, factory_func):
-        self._providers[interface] = ("transient", factory_func)
-    def resolve(self, interface):
-        kind, provider = self._providers[interface]
-        return provider if kind == "singleton" else provider(self)
-
-def build_container():
-    c = Container()
-    c.register_singleton(_ExamRepository, _ExamRepository)
-    c.register_transient(_ExamService, lambda c: _ExamService(c.resolve(_ExamRepository)))
-    c.register_transient(_ExamController, lambda c: _ExamController(c.resolve(_ExamService)))
-    return c
+class TransitCard:
+    def __init__(self, balance, blocked=False): self.balance, self.blocked = balance, blocked
+    def pay(self, fare):
+        if self.blocked or fare <= 0 or self.balance < fare: return False
+        self.balance -= fare
+        return True
 ```
 
-| Проверка | Балл | Фикстура/ожидаемое |
-|---|---:|---|
-| Singleton registration/type | 1 | `resolve(_ExamRepository)` — `_ExamRepository` |
-| Singleton identity | 1 | Два resolve — тот же объект (`is`) |
-| Transient registration/type | 1 | `resolve(_ExamService)` — `_ExamService` |
-| Transient identity | 1 | Два resolve — разные объекты (`is not`) |
-| Service injection | 1 | `service.repository is repo` из singleton resolve |
-| Bootstrap graph | 1 | controller → service → тот же singleton repo |
+Рубрика (по 1 баллу): 1) default balance/blocked; 2) sufficient payment succeeds; 3) exact deduction; 4) insufficient funds refuse without change; 5) blocked refuses without change; 6) fare 0/−1 refuse without change. Фикстуры: balance 100/fare 40, balance 20/fare 40, blocked True, fare 0/−1. Source: Lab 1, PDF p. 3, block 2.
 
-### Продвинутая · Chain и pipeline — 10 баллов
-
-Источник: ``OOP-course/02_Лабораторные/Лабораторная_08_Цепочка_обязанностей_и_Наблюдатели_мониторинга.pdf``, с. 2–3, блоки 1 и 3. Узлы и trace: `stop_list`, `cooldown`, `balance`, `execution`. Вход запроса: `blocked`, `seconds_since_last`, `balance`, `fare`. Отказы: `blacklisted`, `cooldown`, `insufficient_balance`; успех — `accepted`, списание `fare` из баланса. При отказе последующие узлы не запускаются.
-
-Пример полного решения с trace без дублирования узлов:
+### Цепочка проверки оплаты — 10 баллов
+Источник: `OOP-course/02_Лабораторные/Лабораторная_08_Цепочка_обязанностей_и_Наблюдатели_мониторинга.pdf`, с. 2, блок 1. Запрос содержит `blocked`, `balance`, `fare`; каждый handler добавляет своё имя в `trace`. Решение:
 
 ```python
 class ValidationHandler:
     def __init__(self, next_handler=None): self._next_handler = next_handler
     def set_next(self, handler): self._next_handler = handler; return handler
-    def forward(self, request, trace):
-        return self._next_handler.handle(request, trace) if self._next_handler else {"status": "accepted"}
-
+    def forward(self, request, trace): return self._next_handler.handle(request, trace) if self._next_handler else {"status":"accepted"}
 class StopListHandler(ValidationHandler):
-    def handle(self, request, trace):
-        trace.append("stop_list")
-        if request.get("blocked"): return {"status": "refused", "reason": "blacklisted"}
-        return self.forward(request, trace)
-
-class CooldownHandler(ValidationHandler):
-    def handle(self, request, trace):
-        trace.append("cooldown")
-        if request.get("seconds_since_last", 0) < 60: return {"status": "refused", "reason": "cooldown"}
-        return self.forward(request, trace)
-
+    def handle(self, r, t):
+        t.append("stop_list")
+        return {"status":"refused","reason":"blacklisted"} if r["blocked"] else self.forward(r,t)
 class BalanceHandler(ValidationHandler):
-    def handle(self, request, trace):
-        trace.append("balance")
-        if request.get("balance", 0) < request.get("fare", 0): return {"status": "refused", "reason": "insufficient_balance"}
-        return self.forward(request, trace)
-
+    def handle(self, r, t):
+        t.append("balance")
+        return {"status":"refused","reason":"insufficient_balance"} if r["balance"] < r["fare"] else self.forward(r,t)
 class ExecutionHandler(ValidationHandler):
-    def handle(self, request, trace):
-        trace.append("execution")
-        request["balance"] -= request["fare"]
-        return {"status": "accepted"}
-
-def build_chain():
-    return StopListHandler(CooldownHandler(BalanceHandler(ExecutionHandler())))
-
-class ValidationPipeline:
-    def __init__(self, chain, events): self._chain, self._events = chain, events
-    def run(self, request):
-        trace = []
-        result = self._chain.handle(request, trace)
-        result["trace"] = trace
-        self._events.append({"event": "validation_finished", "status": result["status"]})
-        return result
-
-def build_pipeline(events):
-    return ValidationPipeline(build_chain(), events)
+    def handle(self, r, t):
+        t.append("execution"); r["balance"] -= r["fare"]; return {"status":"accepted"}
+def build_chain(): return StopListHandler(BalanceHandler(ExecutionHandler()))
 ```
-| Проверка | Балл | Фикстура и ожидаемый результат |
-|---|---:|---|
-| StopListHandler | 1 | `blocked=True` → refused / `blacklisted` |
-| CooldownHandler | 1 | `seconds_since_last=30` → refused / `cooldown` |
-| BalanceHandler | 1 | `balance=20`, `fare=40` → refused / `insufficient_balance` |
-| ExecutionHandler | 1 | `balance=100`, `fare=40` → accepted, balance 60 |
-| Порядок и продолжение | 1 | Успешный trace: четыре узла в указанном порядке |
-| Short-circuit | 1 | Cooldown отказ: trace содержит только `stop_list`, `cooldown` |
-| Вызов цепочки | 1 | `build_pipeline(events).run` возвращает trace цепочки |
-| Статус | 1 | Pipeline возвращает accepted и refused в соответствующих случаях |
-| Телеметрия успеха | 1 | Одно событие `{'event':'validation_finished','status':'accepted'}` |
-| Телеметрия отказа | 1 | Одно событие с `status='refused'` |
 
-Каждый критерий равен одному баллу. Непрошедшая обязательная проверка делает задачу невыполненной, даже если часть её баллов набрана; синтаксическая/средовая ошибка не подтверждает ни одного критерия.
+Рубрика (по 1 баллу): 1) blocked → `blacklisted`; 2) blocked → `refused`; 3) trace only `stop_list`; 4) balance 20/fare 40 → `insufficient_balance`; 5) refusal preserves 20; 6) balance 100/fare 40 → `accepted`; 7) balance becomes 60; 8) success trace `stop_list → balance → execution`; 9) root is StopListHandler; 10) links are StopListHandler → BalanceHandler → ExecutionHandler. Source: Lab 8, PDF p. 2, block 1.
 
+Каждый балл атомарен; задача завершена, только если пройдены все её проверки. Source outcomes сужены согласно TS rev3; cooldown, Observer, telemetry и pipeline в задании отсутствуют.
 ## Итоговая оценка
 
 Теория: 20 вопросов × 1 балл. Практика: 4 + 6 + 10 баллов. Итого максимум 40; проходной порог 30 включительно. Рейтинг курса 1–5 доступен только после сдачи. Сертификат не создаётся. Состояние ограничено ключом `oopoman.exam.v1`; идентичность, ответы, попытки и результаты не отправляются на сервер.
-
-## Полное решение продвинутой задачи
-
-```python
-class ValidationHandler:
-    def __init__(self, next_handler=None): self._next_handler = next_handler
-    def set_next(self, handler): self._next_handler = handler; return handler
-    def forward(self, request, trace):
-        return self._next_handler.handle(request, trace) if self._next_handler else {"status": "accepted"}
-
-class StopListHandler(ValidationHandler):
-    def handle(self, request, trace):
-        trace.append("stop_list")
-        if request.get("blocked"): return {"status": "refused", "reason": "blacklisted"}
-        return self.forward(request, trace)
-
-class CooldownHandler(ValidationHandler):
-    def handle(self, request, trace):
-        trace.append("cooldown")
-        if request.get("seconds_since_last", 0) < 60: return {"status": "refused", "reason": "cooldown"}
-        return self.forward(request, trace)
-
-class BalanceHandler(ValidationHandler):
-    def handle(self, request, trace):
-        trace.append("balance")
-        if request.get("balance", 0) < request.get("fare", 0): return {"status": "refused", "reason": "insufficient_balance"}
-        return self.forward(request, trace)
-
-class ExecutionHandler(ValidationHandler):
-    def handle(self, request, trace):
-        trace.append("execution")
-        request["balance"] -= request["fare"]
-        return {"status": "accepted"}
-
-def build_chain():
-    return StopListHandler(CooldownHandler(BalanceHandler(ExecutionHandler())))
-
-class ValidationPipeline:
-    def __init__(self, chain, events): self._chain, self._events = chain, events
-    def run(self, request):
-        trace = []
-        result = self._chain.handle(request, trace)
-        result["trace"] = trace
-        self._events.append({"event": "validation_finished", "status": result["status"]})
-        return result
-
-def build_pipeline(events):
-    return ValidationPipeline(build_chain(), events)
-```
-
 
