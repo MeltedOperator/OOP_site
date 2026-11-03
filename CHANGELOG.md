@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-04
+
+- **OOP_20261030-091045_EXAM:** Integrated the accepted local exam Candidate `efee20a11f9a440fa9452ff08d770417cfef45ea` into `main` as commits `eb2d5b1` and `3ef171b`; independent REVIEW rev3 APPROVE `5a26a10c7bc5b1082d02431a25884376d46432b6`. This records local branch integration only. Published Site version 5 equivalence remains unknown, the representative 60-minute student-fit run remains unmeasured, and no deployment is claimed.
+
 ## 2026-10-30
 
 - **OOP_20261029-184453_RT:** Added runnable Python terminals, lesson comparisons for the preserved
