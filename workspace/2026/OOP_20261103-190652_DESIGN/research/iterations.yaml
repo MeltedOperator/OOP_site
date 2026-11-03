@@ -17,5 +17,5 @@ iterations:
   - number: 3
     focus: "Без изменений продукта отобразить небольшой представительный образец JavaScript/Python подсветки: явные языковые метки, метод constructor, строки/f-string, формулу и expected output как plain text; проверить визуальную различимость токен-категорий с нецветовым cue и fallback. Зафиксировать ограничения: образец не заменяет тест на полном курсе; H2/H3 остаются зависимыми от принятого и авторизованного EXAM, economics gap сохраняется."
     hypotheses: [H1]
-    status: pending
+    status: in_progress
     res_file: research/iter3/RES.md
