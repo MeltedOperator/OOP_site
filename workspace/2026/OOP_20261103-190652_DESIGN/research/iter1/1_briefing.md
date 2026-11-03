@@ -52,7 +52,7 @@
 
 ## User Direction
 
-The owner selected `focused` for iteration 1. The approved HL requires baseline JS/Python highlighting; a full editor and live diagnosis remain conditional on evidence. The owner approved the local course context and the joint certificate condition. No additional user decision is needed to begin Gather.
+The owner selected `focused` for iteration 1. The approved HL requires baseline JS/Python highlighting; a full editor and live diagnosis remain conditional on evidence. The owner approved the local course context and joint certificate condition, then explicitly authorized Gather and directed the Researcher to check the built-in economics helper and Codex rollout recipe before concluding whether source binding was available. That check and its result are recorded in `2_gather.md`.
 
 ## Existing knowledge applied
 
@@ -66,11 +66,11 @@ The owner selected `focused` for iteration 1. The approved HL requires baseline 
 ## Trace: pre-extraction economics binding gap
 
 - **Producer:** Researcher `codex:thread:local:01a1a1d7-e37d-78a2-9df0-0d924a659578`, observed on the current activation/resumption.
-- **Known binding:** project `weboop`; task `OOP_20261103-190652_DESIGN`; role `Researcher`; owner `roman`; parent Coordinator `codex:thread:local:01a1a1a2-cf43-7872-bfb3-c0c2e16409c4`; task timezone `Asia/Qyzylorda`; dispatch source above.
-- **Unavailable required binding:** this task exposes no native identifier or path for this Researcher unit's own Codex rollout/source stream and no exact numeric range start. The exact source version/path, range start, and derived end therefore cannot be bound from the current provider tools.
+- **Known binding:** project `weboop`; task `OOP_20261103-190652_DESIGN`; role `Researcher`; owner `roman`; parent Coordinator `codex:thread:local:01a1a1a2-cf43-7872-bfb3-c0c2e16409c4`; task timezone `Asia/Qyzylorda`; dispatch source above. At the later Gather check, `CODEX_SESSION_ID` and `CODEX_THREAD_ID` both resolved to this worker address; these are not assumed to equal the rollout's `session_meta.id`.
+- **Unavailable required binding:** the built-in helper exists and accepts `codex.rollout`, but requires the exact source path, `session_meta.id`, source version, and range start. The current task exposes no worker rollout JSONL path or separately observed `session_meta.id`, and no exact numeric range start. No capture was attempted.
 - **Extraction attempted:** `false`.
 - **Last-good returned numeric file/hash:** none.
-- **Disposition:** no numeric JSONL, invented source ID, range, or measured zero is emitted. Preserve this gap as TRACE; numeric coverage remains unmeasured.
+- **Disposition:** no numeric JSONL, invented source ID, range, or measured zero is emitted. No external utility was downloaded because the selected collector is present and the unavailable binding is the native source locator. Preserve this gap as TRACE; numeric coverage remains unmeasured.
 
 ---
 Stage complete: YES
