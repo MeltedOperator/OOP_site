@@ -485,7 +485,7 @@
   resetDialog.addEventListener("close", () => {
     if (resetDialog.returnValue === "confirm") {
       const reset = window.OopomanStorage.resetProgress();
-      currentNotice(reset ? "Прогресс OOPoman сброшен." : "Не удалось сбросить прогресс в этом профиле.", reset ? "success" : "warning");
+      currentNotice(reset ? "Прогресс и экзамен OOPoman сброшены." : "Не удалось сбросить прогресс и экзамен в этом профиле.", reset ? "success" : "warning");
       render();
     }
     const focusTarget = pendingResetFocus?.isConnected

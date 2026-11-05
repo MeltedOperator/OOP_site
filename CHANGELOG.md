@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-05
+
+- **OOPoman Sites v6:** Published to the existing public Site at `https://oopoman-course.zetex401.chatgpt.site`. Source commit `8044e7f033ecd04603c17e59b576020315e85685`; archive `sha256:a0662592a905a74752cc8191865b342ba6d609ab02e1154c0034238750e26570` (64 files); build `node scripts/build-site.mjs` passed; deployment `appgdep_6aecbbbacd488191bbcb139bf2ce3ab0` succeeded. Exam questions were rephrased, the advanced checker now reports criterion-level failures when student code raises an exception, and resetting progress clears the local exam state. Roman waived the representative 60-minute fit run for v6; fit remains unmeasured and is not claimed as verified.
+
 ## 2026-11-04
 
 - **OOP_20261030-091045_EXAM:** Integrated the accepted local exam Candidate `efee20a11f9a440fa9452ff08d770417cfef45ea` into `main` as commits `eb2d5b1` and `3ef171b`; independent REVIEW rev3 APPROVE `5a26a10c7bc5b1082d02431a25884376d46432b6`. This records local branch integration only. Published Site version 5 equivalence remains unknown, the representative 60-minute student-fit run remains unmeasured, and no deployment is claimed.

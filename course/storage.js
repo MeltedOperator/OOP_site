@@ -156,6 +156,7 @@
   function resetProgress() {
     try {
       window.localStorage.removeItem(PROGRESS_KEY);
+      window.localStorage.removeItem("oopoman.exam.v1");
       return true;
     } catch {
       return false;
