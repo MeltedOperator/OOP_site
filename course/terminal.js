@@ -229,6 +229,7 @@
       ok: result.ok === true,
       stdout: limitOutput(result.stdout),
       error: result.ok === true ? "" : limitOutput(result.error || "Выполнение не завершилось."),
+      lineNumber: Number.isInteger(result.lineNumber) && result.lineNumber > 0 ? result.lineNumber : null,
     };
   }
 
@@ -264,6 +265,7 @@
     const isLab = kind === "lab";
     const canCheck = isLab && !isJavaScript && content.checkable !== false;
     const showSolution = isLab && content.showSolution !== false && content.solution;
+    const lineNumbers = Array.from({ length: Math.max(1, String(content.starter || "").split("\n").length) }, (_, index) => `<span>${index + 1}</span>`).join("");
     const feedbackButton = canCheck
       ? '<button class="button button-quiet" type="button" data-terminal-action="check">Проверить ясные критерии</button>'
       : "";
@@ -277,8 +279,9 @@
       '<div class="terminal-heading"><div><p class="eyebrow">' + (isLab ? "ПРАКТИКА · МОДУЛЬ " + String(Math.ceil(id / 3)).padStart(2, "0") : "ЗАПУСКАЕМЫЙ ПРИМЕР") + '</p><h2>' + escapeHtml(content.title) + '</h2></div><span class="terminal-runtime">' + (isJavaScript ? "JavaScript · Worker" : "Python · Pyodide 314.0.7") + '</span></div>' +
       '<p class="terminal-prompt">' + escapeHtml(content.prompt) + '</p>' +
       '<label class="terminal-editor-label" for="' + escapeHtml(editorId) + '">Редактор ' + (isJavaScript ? "JavaScript" : "Python") + '</label>' +
-      '<div class="terminal-grid"><textarea id="' + escapeHtml(editorId) + '" class="terminal-editor" data-terminal-editor rows="14" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Редактор ' + (isJavaScript ? "JavaScript" : "Python") + '">' + escapeHtml(content.starter) + '</textarea>' +
-      '<div class="terminal-result"><p class="terminal-editor-label">Вывод и диагностика</p><pre class="terminal-output" data-terminal-output aria-live="polite">Код ещё не запускался.</pre></div></div>' +
+      '<div class="terminal-grid"><div class="terminal-editor-wrap"><div class="terminal-line-numbers" data-terminal-line-numbers aria-hidden="true">' + lineNumbers + '</div><textarea id="' + escapeHtml(editorId) + '" class="terminal-editor" data-terminal-editor rows="14" wrap="off" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Редактор ' + (isJavaScript ? "JavaScript" : "Python") + '">' + escapeHtml(content.starter) + '</textarea></div>' +
+      '<div class="terminal-result"><p class="terminal-editor-label">Вывод и диагностика</p><pre class="terminal-output" data-terminal-output aria-live="polite">Код ещё не запускался.</pre><p class="terminal-error-location" data-terminal-error-location hidden></p></div></div>' +
+      '<p class="terminal-editor-help">Подсказка: номера строк слева; ошибка выделит строку. Tab вставляет 4 пробела, Shift+Tab убирает отступ.</p>' +
       '<div class="terminal-actions"><button class="button button-primary" type="button" data-terminal-action="run">Запустить код</button>' + feedbackButton + '</div>' +
       '<p class="terminal-status" data-terminal-status role="status" aria-live="polite">Среда загружается при первом запуске.</p>' +
       '<ul class="terminal-feedback" data-terminal-feedback aria-live="polite"></ul>' +
@@ -318,11 +321,85 @@
     scope.querySelectorAll("[data-terminal]:not([data-terminal-mounted])").forEach((terminal) => {
       terminal.dataset.terminalMounted = "true";
       const editor = terminal.querySelector("[data-terminal-editor]");
+      const lineNumbers = terminal.querySelector("[data-terminal-line-numbers]");
       const output = terminal.querySelector("[data-terminal-output]");
+      const errorLocation = terminal.querySelector("[data-terminal-error-location]");
       const status = terminal.querySelector("[data-terminal-status]");
       const feedback = terminal.querySelector("[data-terminal-feedback]");
       const analog = terminal.querySelector("[data-terminal-analog]");
       const buttons = Array.from(terminal.querySelectorAll("[data-terminal-action]"));
+      function updateLineNumbers(errorLine = null) {
+        const count = Math.max(1, editor.value.split("\n").length);
+        lineNumbers.style.height = `${editor.offsetHeight}px`;
+        lineNumbers.style.width = `${String(count).length + 1.2}ch`;
+        lineNumbers.replaceChildren();
+        for (let number = 1; number <= count; number += 1) {
+          const line = document.createElement("span");
+          line.textContent = String(number);
+          if (number === errorLine) line.classList.add("is-error");
+          lineNumbers.append(line);
+        }
+        lineNumbers.scrollTop = editor.scrollTop;
+        if (errorLine) {
+          errorLocation.textContent = `Ошибка в строке ${errorLine}. Номер строки отмечен в редакторе.`;
+          errorLocation.hidden = false;
+        } else {
+          errorLocation.textContent = "";
+          errorLocation.hidden = true;
+        }
+      }
+      editor.addEventListener("input", () => updateLineNumbers());
+      editor.addEventListener("scroll", () => { lineNumbers.scrollTop = editor.scrollTop; });
+      if (typeof ResizeObserver !== "undefined") {
+        new ResizeObserver(() => {
+          lineNumbers.style.height = `${editor.offsetHeight}px`;
+          lineNumbers.scrollTop = editor.scrollTop;
+        }).observe(editor);
+      }
+      updateLineNumbers();
+      editor.addEventListener("keydown", (event) => {
+        if (event.key !== "Tab") return;
+        event.preventDefault();
+        const source = editor.value;
+        const start = editor.selectionStart;
+        const end = editor.selectionEnd;
+        const lineStart = source.lastIndexOf("\n", Math.max(0, start - 1)) + 1;
+        const selectedEnd = end > start && source[end - 1] === "\n" ? end - 1 : end;
+        const lineEndIndex = source.indexOf("\n", selectedEnd);
+        const lineEnd = lineEndIndex === -1 ? source.length : lineEndIndex;
+
+        if (event.shiftKey) {
+          const lines = source.slice(lineStart, lineEnd).split("\n");
+          let removedBeforeStart = 0;
+          let removedInSelection = 0;
+          let offset = 0;
+          for (let index = 0; index < lines.length; index += 1) {
+            const indent = lines[index].match(/^(?: {1,4}|\t)/)?.[0] || "";
+            lines[index] = lines[index].slice(indent.length);
+            if (lineStart + offset < start) removedBeforeStart += Math.min(indent.length, start - (lineStart + offset));
+            if (lineStart + offset < end) removedInSelection += indent.length;
+            offset += (source.slice(lineStart, lineEnd).split("\n")[index] || "").length + 1;
+          }
+          const replacement = lines.join("\n");
+          editor.setRangeText(replacement, lineStart, lineEnd, "select");
+          editor.setSelectionRange(Math.max(lineStart, start - removedBeforeStart), Math.max(lineStart, end - removedInSelection));
+          updateLineNumbers();
+          return;
+        }
+
+        if (start !== end) {
+          const lines = source.slice(lineStart, lineEnd).split("\n");
+          const replacement = lines.map((line) => "    " + line).join("\n");
+          const added = lines.length * 4;
+          editor.setRangeText(replacement, lineStart, lineEnd, "select");
+          editor.setSelectionRange(start + 4, end + added);
+          updateLineNumbers();
+          return;
+        }
+
+        editor.setRangeText("    ", start, end, "end");
+        updateLineNumbers();
+      });
       let worker = null;
       let workerReady = false;
       let requestNumber = 0;
@@ -431,6 +508,7 @@
             });
           });
           const normalized = normalizeExecutionResult(response);
+          updateLineNumbers(normalized.ok ? null : normalized.lineNumber);
           output.textContent = normalized.stdout || normalized.error || "(нет вывода)";
           if (!normalized.ok) {
             status.textContent = "Выполнение завершилось ошибкой; успех не засчитан.";
@@ -441,6 +519,7 @@
           if (action === "check") showCriteria(response.criteria);
           else status.textContent = "Код завершился без ошибки. Это не оценка лабораторной.";
         } catch (error) {
+          updateLineNumbers();
           output.textContent = error instanceof Error ? error.message : "Не удалось запустить Worker.";
           status.textContent = "Результат неизвестен и не засчитан.";
           if (action === "check") showCriteria([{ id: "execution", passed: false, detail: output.textContent }]);

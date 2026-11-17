@@ -77,11 +77,15 @@ self.addEventListener("message", async (event) => {
       });
       return;
     }
+    const detail = error instanceof Error ? error.message : String(error);
+    const traceback = error instanceof Error ? error.stack + "\n" + detail : detail;
+    const frames = Array.from(traceback.matchAll(/File ["']<exec>["'], line (\d+)/g));
     self.postMessage({
       id: message.id,
       ok: false,
       stdout: clamp(capturedOutput),
-      error: clamp(error instanceof Error ? error.message : String(error)),
+      error: clamp(detail),
+      lineNumber: frames.length ? Number(frames[frames.length - 1][1]) : null,
     });
   }
 });

@@ -265,6 +265,17 @@
       if (block.type === "code") {
         const language = block.language === "python" ? "python" : "plain";
         const visual = `<figure class="static-code-block"><figcaption>${language === "python" ? "Python" : "Формула и текст"}</figcaption><pre><code class="language-${language}">${highlightCode(block.text, language)}</code></pre></figure>`;
+        if (language === "python") {
+          const runnable = window.OopomanTerminal.renderTerminal({
+            kind: "lesson", id: lessonId, exerciseId: `example-s${sectionNumber}b${blockIndex + 1}`,
+            content: { title: `Запустить фрагмент кода`, prompt: "Редактор содержит тот же код, что и в наглядном представлении.", starter: block.text, showSolution: false, checkable: false },
+          });
+          const views = renderCodeSwitch(`lesson-${lessonId}-s${sectionNumber}-b${blockIndex + 1}`, [
+            { key: "visual", label: "Наглядный код", markup: visual },
+            { key: "run", label: "Исполняемый", markup: runnable },
+          ]);
+          return `${views}${terminalMarkup}`;
+        }
         return terminalMarkup
           ? renderCodeSwitch(`lesson-${lessonId}-s${sectionNumber}-b${blockIndex + 1}`, [
             { key: "visual", label: "Наглядный код", markup: visual },
@@ -296,15 +307,24 @@
             kind: "lesson", id: lessonId, exerciseId: `py${sectionNumber}b${blockIndex + 1}`,
             content: javascriptComparison.python,
           });
-          const languages = renderCodeSwitch(`lesson-${lessonId}-languages-s${sectionNumber}-b${blockIndex + 1}`, [
-            { key: "javascript", label: "JavaScript", markup: javascriptTerminal },
-            { key: "python", label: "Python", markup: pythonTerminal },
-          ], "Выбор языка для запуска");
-          const runnable = `<aside class="language-comparison"><strong>Один принцип — два языка</strong><p>${escapeHtml(javascriptComparison.comparison)}</p></aside>${languages}`;
-          return renderCodeSwitch(`lesson-${lessonId}-s${sectionNumber}-b${blockIndex + 1}`, [
+          const runnable = javascriptTerminal;
+          const views = renderCodeSwitch(`lesson-${lessonId}-s${sectionNumber}-b${blockIndex + 1}`, [
             { key: "visual", label: "Наглядный код", markup: visual },
             { key: "run", label: "Исполняемый", markup: runnable },
           ]);
+          const comparison = `<aside class="language-comparison"><strong>Тот же принцип на Python</strong><p>${escapeHtml(javascriptComparison.comparison)}</p></aside>${pythonTerminal}`;
+          return `${views}${comparison}${terminalMarkup}`;
+        }
+        if (sourceLanguage === "python") {
+          const runnable = window.OopomanTerminal.renderTerminal({
+            kind: "lesson", id: lessonId, exerciseId: `example-s${sectionNumber}b${blockIndex + 1}`,
+            content: { title: block.title, prompt: "Редактор содержит тот же код, что и в наглядном представлении.", starter: block.code, showSolution: false, checkable: false },
+          });
+          const views = renderCodeSwitch(`lesson-${lessonId}-s${sectionNumber}-b${blockIndex + 1}`, [
+            { key: "visual", label: "Наглядный код", markup: visual },
+            { key: "run", label: "Исполняемый", markup: runnable },
+          ]);
+          return `${views}${terminalMarkup}`;
         }
         return terminalMarkup
           ? renderCodeSwitch(`lesson-${lessonId}-s${sectionNumber}-b${blockIndex + 1}`, [

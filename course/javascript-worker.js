@@ -10,6 +10,11 @@ function clamp(text) {
     : value;
 }
 
+function sourceLine(stack) {
+  const match = String(stack || "").match(/oopoman-terminal\.js:(\d+):\d+/);
+  return match ? Math.max(1, Number(match[1]) - 1) : null;
+}
+
 function format(value) {
   if (typeof value === "string") return value;
   if (value instanceof Error) return value.name + ": " + value.message;
@@ -68,7 +73,7 @@ self.addEventListener("message", async (event) => {
     if (/\bimport\s*(?:\(|[A-Za-z*{])/.test(message.source)) {
       throw new Error("Импорт модулей недоступен в учебном JavaScript-терминале.");
     }
-    const run = new AsyncFunction("console", '"use strict";\n' + message.source);
+    const run = new AsyncFunction("console", '"use strict";\n' + message.source + "\n//# sourceURL=oopoman-terminal.js");
     await run(capturedConsole);
     self.postMessage({ id: message.id, ok: true, stdout: clamp(capturedOutput) });
   } catch (error) {
@@ -77,6 +82,7 @@ self.addEventListener("message", async (event) => {
       ok: false,
       stdout: clamp(capturedOutput),
       error: clamp(error instanceof Error ? error.name + ": " + error.message : String(error)),
+      lineNumber: sourceLine(error instanceof Error ? error.stack : ""),
     });
   }
 });

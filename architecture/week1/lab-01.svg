@@ -1,13 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
   <title id="title">Проверка инвариантов карты</title>
   <desc id="desc">Оплата последовательно проверяет блокировку и баланс. Только допустимая операция уменьшает баланс.</desc>
   <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#174b3b"/></marker></defs>
   <style>text{font-family:Arial,sans-serif;fill:#19382d}.box{fill:#fffefa;stroke:#47745e;stroke-width:3}.decision{fill:#f2f5e8;stroke:#789b58;stroke-width:3}.line{stroke:#174b3b;stroke-width:3;fill:none;marker-end:url(#arrow)}</style>
+  <text x="600" y="70" text-anchor="middle" font-size="29" font-weight="700">Состояние меняется только после всех проверок</text>
   <rect class="box" x="50" y="205" width="205" height="110" rx="18"/><text x="152" y="250" text-anchor="middle" font-size="24" font-weight="700">charge_fare</text><text x="152" y="286" text-anchor="middle" font-size="19">amount</text>
   <path class="line" d="M255 260H330"/><polygon class="decision" points="440,180 550,260 440,340 330,260"/><text x="440" y="252" text-anchor="middle" font-size="21" font-weight="700">Карта</text><text x="440" y="282" text-anchor="middle" font-size="19">заблокирована?</text>
   <path class="line" d="M550 260H620"/><polygon class="decision" points="735,180 850,260 735,340 620,260"/><text x="735" y="252" text-anchor="middle" font-size="21" font-weight="700">Баланс</text><text x="735" y="282" text-anchor="middle" font-size="19">достаточен?</text>
   <path class="line" d="M850 260H930"/><rect class="box" x="930" y="205" width="220" height="110" rx="18"/><text x="1040" y="250" text-anchor="middle" font-size="23" font-weight="700">Списать сумму</text><text x="1040" y="286" text-anchor="middle" font-size="19">уменьшить баланс</text>
-  <path class="line" d="M440 340V440H550"/><rect class="box" x="550" y="395" width="250" height="82" rx="16"/><text x="675" y="445" text-anchor="middle" font-size="21">Отказ: карта заблокирована</text>
-  <path class="line" d="M735 340V500H900"/><rect class="box" x="900" y="460" width="250" height="70" rx="16"/><text x="1025" y="503" text-anchor="middle" font-size="21">Отказ: недостаточно средств</text>
-  <text x="600" y="80" text-anchor="middle" font-size="29" font-weight="700">Состояние меняется только после всех проверок</text>
+  <text x="280" y="367" text-anchor="middle" font-size="18">да</text><path class="line" d="M440 340V435H250V470"/><text x="770" y="367" text-anchor="middle" font-size="18">нет</text><path class="line" d="M735 340V435H950V470"/>
+  <text x="572" y="245" text-anchor="middle" font-size="18">нет</text>
+  <rect class="box" x="70" y="470" width="360" height="88" rx="16"/><text x="250" y="505" text-anchor="middle" font-size="19" font-weight="700">Отказ: карта заблокирована</text><text x="250" y="535" text-anchor="middle" font-size="18">баланс не меняется</text>
+  <rect class="box" x="770" y="470" width="360" height="88" rx="16"/><text x="950" y="505" text-anchor="middle" font-size="19" font-weight="700">Отказ: недостаточно средств</text><text x="950" y="535" text-anchor="middle" font-size="18">баланс не меняется</text>
 </svg>
