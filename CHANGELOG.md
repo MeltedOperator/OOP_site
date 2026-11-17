@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-06
+
+- **OOP_20261103-190652_DESIGN:** Applied the approved interface update to the existing OOPoman Site. Site v7 is live at `https://oopoman-course.zetex401.chatgpt.site` (deployment `appgdep_6aecbbbacd488191bbcb139bf2ce3ab0`, source `ea2f9dce734dbabef23ef80c092d9ae1eaadc44b`). Independent REVIEW approved Candidate `425621ac04691a74becda5387d5dff26faa7286f`; the Site overlay retained the newer v6 exam source. Task history only; not a release or tag.
+
 ## 2026-11-05
 
 - **OOPoman Sites v6:** Published to the existing public Site at `https://oopoman-course.zetex401.chatgpt.site`. Source commit `8044e7f033ecd04603c17e59b576020315e85685`; archive `sha256:a0662592a905a74752cc8191865b342ba6d609ab02e1154c0034238750e26570` (64 files); build `node scripts/build-site.mjs` passed; deployment `appgdep_6aecbbbacd488191bbcb139bf2ce3ab0` succeeded. Exam questions were rephrased, the advanced checker now reports criterion-level failures when student code raises an exception, and resetting progress clears the local exam state. Roman waived the representative 60-minute fit run for v6; fit remains unmeasured and is not claimed as verified.

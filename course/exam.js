@@ -1,6 +1,6 @@
 const STORAGE_KEY = "oopoman.exam.v1";
 const ATTEMPT_MS = 60 * 60 * 1000;
-const ALLOWED_NAMES = ["Мухитов Арсений", "Куандыков Жасулан", "Саржан Аубакиров"];
+const ALLOWED_NAMES = ["Мухитов Арсений", "Куандыков Жасулан", "Санжар Аубакиров"];
 const app = document.getElementById("exam-app");
 
 const QUESTIONS = [

@@ -15,6 +15,25 @@
     })[character]);
   }
 
+  function highlightCode(source, language) {
+    if (language !== "javascript" && language !== "python") return escapeHtml(source);
+    const keywords = language === "python"
+      ? new Set(["and", "as", "async", "await", "break", "class", "continue", "def", "del", "elif", "else", "except", "False", "finally", "for", "from", "if", "import", "in", "is", "lambda", "None", "not", "or", "pass", "raise", "return", "True", "try", "while", "with", "yield"])
+      : new Set(["async", "await", "break", "case", "catch", "class", "const", "continue", "debugger", "default", "delete", "do", "else", "export", "extends", "false", "finally", "for", "from", "function", "if", "import", "in", "instanceof", "let", "new", "null", "of", "return", "static", "super", "switch", "this", "throw", "true", "try", "typeof", "var", "void", "while", "yield"]);
+    const pattern = /(#[^\n]*|\/\/[^\n]*|'''[\s\S]*?'''|"""[\s\S]*?"""|`(?:\\.|[^`])*`|'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|\b\d+(?:\.\d+)?\b|\b[A-Za-z_$][\w$]*\b|[^\s]|\s+)/g;
+    return source.replace(pattern, (token) => {
+      if (!token.trim()) return token;
+      let kind = "punctuation";
+      if (/^(#|\/\/)/.test(token)) kind = "comment";
+      else if (/^(?:'''|"""|['"`])/.test(token)) kind = "string";
+      else if (/^\d/.test(token)) kind = "number";
+      else if (token === "constructor") kind = "method";
+      else if (keywords.has(token)) kind = "keyword";
+      else if (/^[A-Za-z_$]/.test(token)) kind = "name";
+      return `<span class="syntax-${kind}">${escapeHtml(token)}</span>`;
+    });
+  }
+
   function query() {
     const params = new URLSearchParams(window.location.search);
     const week = Number(params.get("week") || 0);
@@ -64,8 +83,38 @@
     return module.labs.filter((lab) => stateFor(progress, lab.id).status === "completed").length;
   }
 
-  function startedCount(progress) {
-    return Object.values(progress.labs).filter((lab) => lab.status === "started" || lab.status === "completed").length;
+  function totalCompletedLabs(progress) {
+    return modules.filter((module) => module.available).reduce((total, module) => total + completedCount(progress, module), 0);
+  }
+
+  function examSnapshot() {
+    const names = ["Мухитов Арсений", "Куандыков Жасулан", "Санжар Аубакиров"];
+    try {
+      const raw = window.localStorage.getItem("oopoman.exam.v1");
+      if (!raw) return null;
+      const state = JSON.parse(raw);
+      const result = state?.result;
+      if (state?.schemaVersion !== 1 || state?.phase !== "submitted" || !names.includes(result?.name) ||
+          !Number.isInteger(result?.score) || result.score < 0 || result.score > 40 || typeof result.passed !== "boolean" ||
+          result.passed !== (result.score >= 30)) return null;
+      return { name: result.name, score: result.score, passed: result.passed };
+    } catch {
+      return null;
+    }
+  }
+
+  function certificatePanel(progress, className = "certificate-panel") {
+    const allModulesComplete = modules.length === 3 && modules.every((module) =>
+      module.available && completedCount(progress, module) === module.labs.length);
+    const result = examSnapshot();
+    const fileByName = {
+      "Мухитов Арсений": "certificate_arseniy.jpg",
+      "Куандыков Жасулан": "certificate_jasulan.jpg",
+      "Санжар Аубакиров": "certificate_sanjar.jpg",
+    };
+    const ready = allModulesComplete && result?.passed && fileByName[result.name];
+    const examText = result?.passed ? `Экзамен сдан: ${result.score}/40.` : result ? `Экзамен не сдан: ${result.score}/40.` : "Нет подтверждённого результата экзамена.";
+    return `<section class="${className}" aria-labelledby="certificate-title"><div><p class="eyebrow">СЛЕДУЮЩИЙ ШАГ</p><h2 id="certificate-title">Сертификат курса</h2><p>Сертификат доступен после завершения всех трёх модулей и успешной сдачи экзамена. ${allModulesComplete ? "Все модули завершены." : "Завершите все лабораторные во всех трёх доступных модулях."} ${escapeHtml(examText)}</p></div>${ready ? `<a class="button button-primary" href="../OOP-course/certificates/${fileByName[result.name]}" download>Скачать сертификат · ${escapeHtml(result.name)}</a>` : `<span class="certificate-locked" aria-live="polite">${allModulesComplete && result?.passed ? "Сертификат для этого имени не найден." : "Скачивание пока недоступно"}</span>`}</section>`;
   }
 
   function moduleScore(progress, module) {
@@ -129,32 +178,36 @@
 
   function renderHome(progress) {
     const doneModules = modules.filter((module) => module.available && completedCount(progress, module) === module.labs.length).length;
-    const started = startedCount(progress);
+    const completed = totalCompletedLabs(progress);
+    const exam = examSnapshot();
     const percent = Math.round((doneModules / modules.length) * 100);
     return `
       <section class="hero">
         <div class="hero-copy">
           <p class="eyebrow">КУРС · ОБЪЕКТНО-ОРИЕНТИРОВАННОЕ ПРОГРАММИРОВАНИЕ</p>
           <h1>Понятный маршрут<br><span>в мир ООП.</span></h1>
-          <p class="hero-text">Изучайте теорию, выполняйте лабораторные у себя и проходите взаимную проверку.</p>
+          <p class="hero-text">Изучайте теорию, выполняйте лабораторные у себя и проходите взаимную проверку.</p><p class="course-owner">Сайт Романа Иванова</p>
           <a class="button button-primary" href="?week=1&amp;view=module">Начать первую неделю <span aria-hidden="true">↗</span></a>
         </div>
         <div class="hero-card" aria-label="Общий прогресс по модулям">
           <div class="hero-card-label">МОДУЛИ ЗАВЕРШЕНЫ</div>
           <div class="hero-count"><strong>${doneModules}</strong><span>/ ${modules.length}</span></div>
-          <div class="progress-track"><span style="width: ${percent}%"></span></div>
-          <p>Лабораторных с прогрессом: ${started}/9</p>
+          <div class="progress-label"><span>Прогресс модулей</span><strong>${percent}%</strong></div>
+          <div class="progress-track" role="progressbar" aria-label="Завершено модулей" aria-valuemin="0" aria-valuemax="${modules.length}" aria-valuenow="${doneModules}" aria-valuetext="${doneModules} из ${modules.length} модулей завершено"><span style="width: ${percent}%"></span></div>
+          <p>Завершено лабораторных: ${completed}/9</p><p class="exam-summary">Экзамен: ${exam ? `${exam.score}/40 · ${exam.passed ? "сдан" : "не сдан"}` : "нет результата"}</p>
           <span class="hero-spark" aria-hidden="true">✳</span>
         </div>
       </section>
       <section class="section-heading"><div><p class="eyebrow">ВАШ ПЛАН</p><h2>Три недели курса</h2></div><a class="text-link" href="?view=progress">Мой прогресс <span aria-hidden="true">→</span></a></section>
       <section class="module-grid" aria-label="Модули курса">${modules.map((module) => moduleCard(module, progress)).join("")}</section>
+      ${certificatePanel(progress)}
       <section class="empty-note"><span class="empty-note-icon" aria-hidden="true">✦</span><div><strong>Учитесь в своём темпе</strong><p>Код запускается на вашем компьютере. Сайт хранит только ваши ответы, отметки, баллы и завершённость в этом профиле браузера.</p></div></section>`;
   }
 
   function renderProgress(progress) {
     const doneModules = modules.filter((module) => module.available && completedCount(progress, module) === module.labs.length).length;
-    const visited = startedCount(progress);
+    const completed = totalCompletedLabs(progress);
+    const exam = examSnapshot();
     const moduleRows = modules.map((module) => {
       const done = completedCount(progress, module);
       const maximum = moduleMaximum(module);
@@ -168,9 +221,10 @@
     }).join("");
     return `
       <section class="page-intro"><a class="back-link" href="index.html">← К маршруту</a><p class="eyebrow">ЛИЧНЫЕ ОТМЕТКИ</p><h1>Ваш прогресс</h1><p>Баллы и завершённость показываются отдельно для каждой доступной лабораторной.</p></section>
-      <section class="progress-summary"><div><span class="eyebrow">МОДУЛИ ЗАВЕРШЕНЫ</span><strong>${doneModules} <small>/ ${modules.length}</small></strong></div><div><span class="eyebrow">ЛАБОРАТОРНЫХ С ПРОГРЕССОМ</span><strong>${visited} <small>/ 9</small></strong></div><div class="summary-note">Прогресс хранится локально в ключе OOPoman этого профиля браузера. Код сайта не запускает и peer-проверку не подтверждает.</div></section>
+      <section class="progress-summary"><div><span class="eyebrow">МОДУЛИ ЗАВЕРШЕНЫ</span><strong>${doneModules} <small>/ ${modules.length}</small></strong></div><div><span class="eyebrow">ЛАБОРАТОРНЫХ ЗАВЕРШЕНО</span><strong>${completed} <small>/ 9</small></strong></div><div class="exam-summary-value"><span class="eyebrow">РЕЗУЛЬТАТ ЭКЗАМЕНА</span><strong>${exam ? exam.score : "—"} <small>/ 40</small></strong><span class="exam-summary-status">${exam ? (exam.passed ? "Экзамен сдан" : "Экзамен не сдан") : "Нет результата"}</span></div><div class="summary-note">Прогресс хранится локально в ключе OOPoman этого профиля браузера. Код сайта не запускает и peer-проверку не подтверждает.</div></section>
       <div class="reset-row"><div><strong>Передать профиль другому студенту?</strong><p>Сброс удалит только отметки OOPoman в этом профиле браузера.</p></div><button class="button button-danger-outline" type="button" data-action="open-reset" aria-haspopup="dialog" aria-controls="reset-dialog">Сбросить прогресс</button></div>
-      <section class="progress-modules" aria-label="Прогресс по модулям">${moduleRows}</section>`;
+      <section class="progress-modules" aria-label="Прогресс по модулям">${moduleRows}</section>
+      ${certificatePanel(progress, "certificate-panel progress-certificate")}`;
   }
 
   function renderModule(module, progress) {
@@ -200,9 +254,14 @@
         ? window.OopomanTerminal.renderTerminal({ kind: "lesson", id: lessonId, exerciseId: `s${sectionNumber}b${blockIndex + 1}`, content: exercise })
         : "";
       if (block.type === "list") return `<ul>${block.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
-      if (block.type === "code") return `<pre><code>${escapeHtml(block.text)}</code></pre>${terminalMarkup}`;
-      if (block.type === "callout") return `<aside class="content-callout">${escapeHtml(block.text)}</aside>`;
+      if (block.type === "code") {
+        const language = block.language === "python" ? "python" : "plain";
+        return `<figure class="static-code-block"><figcaption>${language === "python" ? "Python" : "Формула и текст"}</figcaption><pre><code class="language-${language}">${highlightCode(block.text, language)}</code></pre></figure>${terminalMarkup}`;
+      }
+      if (block.type === "callout") return `<aside class="content-callout"><span class="hint-mark" aria-hidden="true">💡</span><span><strong>Подсказка.</strong> ${escapeHtml(block.text)}</span></aside>`;
       if (block.type === "example") {
+        const sourceLanguage = block.language === "javascript" || block.language === "python" ? block.language : "plain";
+        const languageLabel = sourceLanguage === "plain" ? "Текст" : sourceLanguage === "python" ? "Python" : "JavaScript";
         const breakdown = block.expected || block.decision || block.oop
           ? `<dl class="example-breakdown"><div><dt>Ожидаемое поведение</dt><dd>${escapeHtml(block.expected || "")}</dd></div><div><dt>Решение в коде</dt><dd>${escapeHtml(block.decision || "")}</dd></div><div><dt>Связь с ООП</dt><dd>${escapeHtml(block.oop || "")}</dd></div></dl>`
           : "";
@@ -212,7 +271,7 @@
           : "";
         return `<article class="code-example" aria-label="${escapeHtml(block.title)}">
           <header class="code-example-heading"><p class="eyebrow">РАЗОБРАННЫЙ ПРИМЕР</p><h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.goal)}</p></header>
-          <pre><code>${escapeHtml(block.code)}</code></pre>
+          <figure class="static-code-block"><figcaption>${languageLabel}</figcaption><pre><code class="language-${sourceLanguage}">${highlightCode(block.code, sourceLanguage)}</code></pre></figure>
           ${block.output ? `<div class="example-output"><p class="eyebrow">ОЖИДАЕМЫЙ ВЫВОД</p><pre><code>${escapeHtml(block.output)}</code></pre></div>` : ""}
           ${breakdown}
         </article>${comparisonMarkup}${terminalMarkup}`;
@@ -300,7 +359,7 @@
         ${renderExtension(lab.extension)}
         <section class="assessment-grid"><div class="assessment-card"><div class="section-heading"><div><p class="eyebrow">САМОПРОВЕРКА</p><h2>Квиз</h2></div><span class="assessment-rule">20 баллов за правильный ответ</span></div><p class="assessment-intro">Ответьте на все вопросы. Правильный ответ даёт 20 баллов; неправильный — 0.</p>${questions}</div>
           <div class="assessment-card"><div class="section-heading"><div><p class="eyebrow">ВЗАИМОПРОВЕРКА</p><h2>Чек-лист</h2></div><span class="assessment-rule">20 баллов за отметку</span></div><p class="assessment-intro">Сверьте работу с одногруппником вне сайта. Отмеченная галочка даёт 20 баллов; пустая — 0. ${terminalContent.labs[lab.id] ? "Терминальные проверки не влияют на оценку и не заменяют ручную взаимопроверку." : "Сайт не запускает и не подтверждает выполнение кода."}</p><div class="checklist">${checklist}</div></div></section>
-        <section class="completion-panel"><div class="score-card"><div><span class="eyebrow">ТЕКУЩИЙ РЕЗУЛЬТАТ</span><strong><span data-score-earned>${score.earned}</span><small> / <span data-score-maximum>${score.maximum}</span></small></strong></div><div class="score-details"><span>Квиз: ${score.correct}/${lab.questions.length} верных</span><span>Чек-лист: ${score.checks}/${lab.checklist.length} отмечено</span></div><div class="lab-completion-status" data-completion-status>${savedStatus}</div></div><div class="completion-action"><label class="peer-confirm"><input type="checkbox" data-peer-confirm ${state.peerConfirmed ? "checked" : ""}><span>Подтверждаю, что взаимная проверка проведена; пустые пункты оставлены без отметки.</span></label><button class="button button-primary" type="button" data-action="complete-lab" ${completeAllowed ? "" : "disabled"}>Завершить лабораторную</button><p class="completion-hint" data-completion-hint>${state.status === "completed" ? "Ответы, галочки, баллы и статус сохранены в локальном прогрессе." : answered ? "Подтвердите взаимную проверку, чтобы завершить работу." : "Ответьте на весь квиз, затем подтвердите взаимную проверку."}</p></div></section>
+        <section class="completion-panel"><div class="score-card"><div><span class="eyebrow">ТЕКУЩИЙ РЕЗУЛЬТАТ</span><strong><span data-score-earned>${score.earned}</span><small> / <span data-score-maximum>${score.maximum}</span></small></strong></div><div class="score-details"><span>Квиз: ${score.correct}/${lab.questions.length} верных</span><span>Чек-лист: ${score.checks}/${lab.checklist.length} отмечено</span></div><div class="lab-completion-status" data-completion-status>${savedStatus}</div></div><div class="completion-action"><label class="peer-confirm"><input type="checkbox" data-peer-confirm ${state.peerConfirmed ? "checked" : ""}><span>Подтверждаю, что взаимная проверка проведена; пустые пункты оставлены без отметки.</span></label><button class="button button-primary" type="button" data-action="complete-lab" ${completeAllowed ? "" : "disabled"}>Завершить лабораторную</button><p class="completion-hint" data-completion-hint><span class="hint-mark" aria-hidden="true">💡</span> <strong>Подсказка.</strong> ${state.status === "completed" ? "Ответы, галочки, баллы и статус сохранены в локальном прогрессе." : answered ? "Подтвердите взаимную проверку, чтобы завершить работу." : "Ответьте на весь квиз, затем подтвердите взаимную проверку."}</p></div></section>
         <nav class="content-pagination" aria-label="Навигация по неделе"><a href="lesson-${String(lab.id).padStart(2, "0")}.html">← Теория ${String(lab.id).padStart(2, "0")}</a><a href="index.html?view=progress">Мой прогресс →</a></nav>
       </article>`;
   }
@@ -362,7 +421,10 @@
     if (correctText) correctText.textContent = `Квиз: ${score.correct}/${lab.questions.length} верных`;
     if (checksText) checksText.textContent = `Чек-лист: ${score.checks}/${lab.checklist.length} отмечено`;
     if (button) button.disabled = !allAnswered || !peerConfirmed;
-    if (hint && !completed) hint.textContent = allAnswered ? (peerConfirmed ? "Можно завершить лабораторную." : "Подтвердите взаимную проверку, чтобы завершить работу.") : "Ответьте на весь квиз, затем подтвердите взаимную проверку.";
+    if (hint && !completed) {
+      const message = allAnswered ? (peerConfirmed ? "Можно завершить лабораторную." : "Подтвердите взаимную проверку, чтобы завершить работу.") : "Ответьте на весь квиз, затем подтвердите взаимную проверку.";
+      hint.innerHTML = `<span class="hint-mark" aria-hidden="true">💡</span> <strong>Подсказка.</strong> ${message}`;
+    }
     if (status && !completed) status.textContent = "Не завершена";
   }
 
@@ -428,6 +490,14 @@
       return;
     }
     app.innerHTML = renderHome(currentState.value);
+  }
+
+  const backToTop = document.querySelector("[data-action='back-to-top']");
+  if (backToTop) {
+    const updateBackToTop = () => { backToTop.hidden = window.scrollY < 600; };
+    window.addEventListener("scroll", updateBackToTop, { passive: true });
+    updateBackToTop();
+    backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" }));
   }
 
   app.addEventListener("change", (event) => {
