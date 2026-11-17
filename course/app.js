@@ -245,6 +245,14 @@
     return `<section class="locked-page"><a class="back-link" href="index.html">← К маршруту</a><div class="lock-symbol" aria-hidden="true">⌑</div><p class="eyebrow">МОДУЛЬ 0${module.id}</p><h1>${escapeHtml(module.title)}</h1><p>Эта неделя пока закрыта. Доступ к следующим модулям определяет владелец курса.</p><div class="locked-sources"><span class="source-label">В модуле предусмотрены</span><span>3 лекции · 3 лабораторные</span></div><a class="button button-primary" href="index.html">Вернуться к маршруту</a></section>`;
   }
 
+  function renderCodeSwitch(id, panels, label) {
+    const safeId = String(id).replace(/[^a-z0-9_-]/gi, "-");
+    return `<section class="code-switch" data-code-switch>
+      <div class="code-switch-controls" role="group" aria-label="${escapeHtml(label || "Выбор представления кода")}">${panels.map((panel, index) => `<button class="code-switch-button" type="button" data-code-switch-target="${escapeHtml(panel.key)}" aria-pressed="${index === 0}">${escapeHtml(panel.label)}</button>`).join("")}</div>
+      ${panels.map((panel, index) => `<div class="code-switch-panel" data-code-switch-panel="${escapeHtml(panel.key)}" id="${safeId}-${escapeHtml(panel.key)}" ${index === 0 ? "" : "hidden"}>${panel.markup}</div>`).join("")}
+    </section>`;
+  }
+
   function renderBlocks(blocks, lessonId, sectionNumber) {
     return blocks.map((block, blockIndex) => {
       const blockKey = `${sectionNumber}-${blockIndex + 1}`;
@@ -256,7 +264,13 @@
       if (block.type === "list") return `<ul>${block.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
       if (block.type === "code") {
         const language = block.language === "python" ? "python" : "plain";
-        return `<figure class="static-code-block"><figcaption>${language === "python" ? "Python" : "Формула и текст"}</figcaption><pre><code class="language-${language}">${highlightCode(block.text, language)}</code></pre></figure>${terminalMarkup}`;
+        const visual = `<figure class="static-code-block"><figcaption>${language === "python" ? "Python" : "Формула и текст"}</figcaption><pre><code class="language-${language}">${highlightCode(block.text, language)}</code></pre></figure>`;
+        return terminalMarkup
+          ? renderCodeSwitch(`lesson-${lessonId}-s${sectionNumber}-b${blockIndex + 1}`, [
+            { key: "visual", label: "Наглядный код", markup: visual },
+            { key: "run", label: "Исполняемый", markup: terminalMarkup },
+          ])
+          : visual;
       }
       if (block.type === "callout") return `<aside class="content-callout"><span class="hint-mark" aria-hidden="true">💡</span><span><strong>Подсказка.</strong> ${escapeHtml(block.text)}</span></aside>`;
       if (block.type === "example") {
@@ -266,15 +280,38 @@
           ? `<dl class="example-breakdown"><div><dt>Ожидаемое поведение</dt><dd>${escapeHtml(block.expected || "")}</dd></div><div><dt>Решение в коде</dt><dd>${escapeHtml(block.decision || "")}</dd></div><div><dt>Связь с ООП</dt><dd>${escapeHtml(block.oop || "")}</dd></div></dl>`
           : "";
         const javascriptComparison = lessonTerminal?.javascriptComparisons?.[blockKey];
-        const comparisonMarkup = javascriptComparison
-          ? `<aside class="language-comparison"><strong>Сравнение языков</strong><p>${escapeHtml(javascriptComparison.comparison)}</p></aside>${window.OopomanTerminal.renderTerminal({ kind: "lesson", id: lessonId, exerciseId: `js${sectionNumber}b${blockIndex + 1}`, content: javascriptComparison.python })}`
-          : "";
-        return `<article class="code-example" aria-label="${escapeHtml(block.title)}">
+        const visual = `<article class="code-example" aria-label="${escapeHtml(block.title)}">
           <header class="code-example-heading"><p class="eyebrow">РАЗОБРАННЫЙ ПРИМЕР</p><h3>${escapeHtml(block.title)}</h3><p>${escapeHtml(block.goal)}</p></header>
           <figure class="static-code-block"><figcaption>${languageLabel}</figcaption><pre><code class="language-${sourceLanguage}">${highlightCode(block.code, sourceLanguage)}</code></pre></figure>
           ${block.output ? `<div class="example-output"><p class="eyebrow">ОЖИДАЕМЫЙ ВЫВОД</p><pre><code>${escapeHtml(block.output)}</code></pre></div>` : ""}
           ${breakdown}
-        </article>${comparisonMarkup}${terminalMarkup}`;
+        </article>`;
+        if (sourceLanguage === "javascript" && javascriptComparison) {
+          const javascriptTerminal = window.OopomanTerminal.renderTerminal({
+            kind: "lesson", id: lessonId, exerciseId: `js${sectionNumber}b${blockIndex + 1}`,
+            language: "javascript",
+            content: { title: block.title, prompt: block.goal, starter: block.code },
+          });
+          const pythonTerminal = window.OopomanTerminal.renderTerminal({
+            kind: "lesson", id: lessonId, exerciseId: `py${sectionNumber}b${blockIndex + 1}`,
+            content: javascriptComparison.python,
+          });
+          const languages = renderCodeSwitch(`lesson-${lessonId}-languages-s${sectionNumber}-b${blockIndex + 1}`, [
+            { key: "javascript", label: "JavaScript", markup: javascriptTerminal },
+            { key: "python", label: "Python", markup: pythonTerminal },
+          ], "Выбор языка для запуска");
+          const runnable = `<aside class="language-comparison"><strong>Один принцип — два языка</strong><p>${escapeHtml(javascriptComparison.comparison)}</p></aside>${languages}`;
+          return renderCodeSwitch(`lesson-${lessonId}-s${sectionNumber}-b${blockIndex + 1}`, [
+            { key: "visual", label: "Наглядный код", markup: visual },
+            { key: "run", label: "Исполняемый", markup: runnable },
+          ]);
+        }
+        return terminalMarkup
+          ? renderCodeSwitch(`lesson-${lessonId}-s${sectionNumber}-b${blockIndex + 1}`, [
+            { key: "visual", label: "Наглядный код", markup: visual },
+            { key: "run", label: "Исполняемый", markup: terminalMarkup },
+          ])
+          : `${visual}${terminalMarkup}`;
       }
       if (block.type === "uml") {
         return `<figure class="uml-diagram"><img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt)}" loading="lazy"><figcaption><strong>${escapeHtml(block.title)}</strong><p>${escapeHtml(block.caption)}</p></figcaption></figure>`;
@@ -341,10 +378,18 @@
     }).join("");
     const checklist = lab.checklist.map((item, index) => `<label class="checklist-item"><input type="checkbox" data-checklist="c${index + 1}" ${state.checklist?.[`c${index + 1}`] === true ? "checked" : ""}><span>${escapeHtml(item)}</span><strong>20 баллов</strong></label>`).join("");
     const savedStatus = state.status === "completed" ? "Завершена" : "Не завершена";
+    const labDiagramMarkup = lab.diagram ? `<section class="lab-diagram">${renderBlocks([lab.diagram])}</section>` : "";
+    const fullExampleMarkup = lab.example
+      ? `<section class="lab-code-model"><div class="section-heading"><div><p class="eyebrow">ПОЛНАЯ ПРОГРАММА</p><h2>Запускаемый образец работы</h2></div><span class="section-time">Полный код</span></div>${renderCodeSwitch(`lab-${lab.id}-full-example`, [
+        { key: "visual", label: "Наглядный код", markup: `<figure class="static-code-block"><figcaption>Python</figcaption><pre><code class="language-python">${highlightCode(lab.example.code, "python")}</code></pre></figure>` },
+        { key: "run", label: "Исполняемый", markup: window.OopomanTerminal.renderTerminal({ kind: "lab", id: lab.id, exerciseId: "full-example", content: { title: lab.example.title, prompt: "Запустите полный пример лабораторной. Редактор содержит тот же код, который иллюстрирует схема.", starter: lab.example.code, showSolution: false, checkable: false, analog: terminalContent.labs[lab.id]?.analog } }) },
+      ])}</section>`
+      : "";
     return `
       <article class="content-page lab-page" data-module-id="${module.id}" data-lab-id="${lab.id}">
         <section class="page-intro"><a class="back-link" href="index.html?week=${module.id}&amp;view=module">← К модулю ${module.id}</a><p class="eyebrow">ПРАКТИКА · МОДУЛЬ ${String(module.id).padStart(2, "0")} · ЛАБОРАТОРНАЯ ${String(lab.id).padStart(2, "0")}</p><h1>${escapeHtml(lab.title)}</h1><p>${escapeHtml(lab.subtitle)}</p><div class="content-meta"><span>${lab.minutes} минут</span><a class="text-link" href="${escapeHtml(sourceHref(lab.file))}" target="_blank" rel="noopener">Открыть исходный PDF ↗</a></div></section>
         <section class="lab-overview"><div><p class="eyebrow">ЦЕЛЬ</p><p>${escapeHtml(lab.goal)}</p></div><div><p class="eyebrow">КОНТЕКСТ</p><p>${escapeHtml(lab.context)}</p></div></section>
+        ${labDiagramMarkup}
         <div class="lab-columns"><section class="detail-card"><div class="detail-heading"><span class="detail-icon" aria-hidden="true">01</span><div><p class="eyebrow">РЕЗУЛЬТАТ</p><h2>Что подготовить</h2></div></div><ul class="deliverable-list">${lab.deliverables.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section><section class="detail-card"><div class="detail-heading"><span class="detail-icon detail-icon-lime" aria-hidden="true">02</span><div><p class="eyebrow">КРИТЕРИИ</p><h2>Что проверить</h2></div></div><ul class="deliverable-list">${lab.criteria.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></section></div>
         <section class="steps-section"><div class="section-heading"><div><p class="eyebrow">МАРШРУТ · 60 МИНУТ</p><h2>Пошаговая работа</h2></div><span class="section-time">${lab.minutes} минут</span></div><ol class="step-list">${lab.steps.map((step, index) => {
           const stepNumber = index + 1;
@@ -355,7 +400,7 @@
           return `<li class="step-card"><div class="step-marker">${String(stepNumber).padStart(2, "0")}</div><div><div class="step-title-row"><h3>${escapeHtml(step.title)}</h3><span class="section-time">${escapeHtml(step.time)}</span></div><p>${escapeHtml(step.detail)}</p><p class="step-deliverable"><strong>Результат шага:</strong> ${escapeHtml(step.deliverable)}</p>${stepTerminal}</div></li>`;
         }).join("")}</ol></section>
         ${terminalContent.labs[lab.id] ? window.OopomanTerminal.renderTerminal({ kind: "lab", id: lab.id, content: terminalContent.labs[lab.id] }) : ""}
-        ${lab.example ? `<section class="lab-code-model"><div class="section-heading"><div><p class="eyebrow">ПОЛНАЯ ПРОГРАММА</p><h2>Запускаемый образец работы</h2></div><span class="section-time">Полный код</span></div>${window.OopomanTerminal.renderTerminal({ kind: "lab", id: lab.id, exerciseId: "full-example", content: { title: lab.example.title, prompt: "Запустите полный пример лабораторной. Редактор содержит тот же код, который иллюстрирует диаграмма.", starter: lab.example.code, showSolution: false, checkable: false, analog: terminalContent.labs[lab.id]?.analog } })}<div class="rich-content">${lab.diagram ? renderBlocks([lab.diagram]) : ""}</div></section>` : ""}
+        ${fullExampleMarkup}
         ${renderExtension(lab.extension)}
         <section class="assessment-grid"><div class="assessment-card"><div class="section-heading"><div><p class="eyebrow">САМОПРОВЕРКА</p><h2>Квиз</h2></div><span class="assessment-rule">20 баллов за правильный ответ</span></div><p class="assessment-intro">Ответьте на все вопросы. Правильный ответ даёт 20 баллов; неправильный — 0.</p>${questions}</div>
           <div class="assessment-card"><div class="section-heading"><div><p class="eyebrow">ВЗАИМОПРОВЕРКА</p><h2>Чек-лист</h2></div><span class="assessment-rule">20 баллов за отметку</span></div><p class="assessment-intro">Сверьте работу с одногруппником вне сайта. Отмеченная галочка даёт 20 баллов; пустая — 0. ${terminalContent.labs[lab.id] ? "Терминальные проверки не влияют на оценку и не заменяют ручную взаимопроверку." : "Сайт не запускает и не подтверждает выполнение кода."}</p><div class="checklist">${checklist}</div></div></section>

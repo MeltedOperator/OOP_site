@@ -38,6 +38,11 @@ const availableFiles = new Set(course.modules
   .filter((module) => module.available)
   .flatMap((module) => [...module.lessons, ...module.labs].map((item) => item.file)));
 const materialsRoot = path.resolve(root, "OOP-course");
+const certificateFiles = [
+  "certificate_arseniy.jpg",
+  "certificate_jasulan.jpg",
+  "certificate_sanjar.jpg",
+];
 for (const relativeFile of availableFiles) {
   const segments = relativeFile.split("/");
   const source = path.resolve(materialsRoot, ...segments);
@@ -46,6 +51,17 @@ for (const relativeFile of availableFiles) {
   }
   if (!existsSync(source)) throw new Error(`Missing course material: ${relativeFile}`);
   const destination = path.join(output, "OOP-course", ...segments);
+  mkdirSync(path.dirname(destination), { recursive: true });
+  cpSync(source, destination);
+}
+
+const certificatesRoot = path.resolve(materialsRoot, "certificates");
+for (const filename of certificateFiles) {
+  const source = path.resolve(certificatesRoot, filename);
+  if (!source.startsWith(`${certificatesRoot}${path.sep}`) || !existsSync(source) || !lstatSync(source).isFile()) {
+    throw new Error(`Missing course certificate: ${filename}`);
+  }
+  const destination = path.join(output, "OOP-course", "certificates", filename);
   mkdirSync(path.dirname(destination), { recursive: true });
   cpSync(source, destination);
 }
@@ -65,16 +81,19 @@ writeFileSync(path.join(output, "index.html"), `<!doctype html>
 </html>
 `);
 
-const umlSource = path.join(root, "architecture", "week3");
-const umlOutput = path.join(output, "architecture", "week3");
-mkdirSync(umlOutput, { recursive: true });
-for (const name of [
-  "lesson-07.svg", "lesson-08.svg", "lesson-09.svg",
-  "lab-07.svg", "lab-08.svg", "lab-09.svg",
-]) {
-  const source = path.join(umlSource, name);
-  if (!existsSync(source) || !lstatSync(source).isFile()) throw new Error(`Missing UML asset: ${name}`);
-  cpSync(source, path.join(umlOutput, name));
+const diagramFiles = [
+  { week: "week1", names: ["lesson-01.svg", "lesson-02.svg", "lesson-03.svg", "lab-01.svg", "lab-02.svg", "lab-03.svg"] },
+  { week: "week3", names: ["lesson-07.svg", "lesson-08.svg", "lesson-09.svg", "lab-07.svg", "lab-08.svg", "lab-09.svg"] },
+];
+for (const group of diagramFiles) {
+  const sourceDirectory = path.join(root, "architecture", group.week);
+  const outputDirectory = path.join(output, "architecture", group.week);
+  mkdirSync(outputDirectory, { recursive: true });
+  for (const name of group.names) {
+    const source = path.join(sourceDirectory, name);
+    if (!existsSync(source) || !lstatSync(source).isFile()) throw new Error(`Missing UML asset: ${name}`);
+    cpSync(source, path.join(outputDirectory, name));
+  }
 }
 
-console.log(`Prepared ${availableFiles.size} source PDFs, six UML diagrams and the course site in dist/.`);
+console.log(`Prepared ${availableFiles.size} source PDFs, ${certificateFiles.length} certificates, twelve UML diagrams and the course site in dist/.`);

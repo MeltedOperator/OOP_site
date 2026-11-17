@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Класс объединяет состояние и поведение</title>
+  <desc id="desc">Карта хранит баланс и признак блокировки. Операция оплаты проверяет инварианты и меняет баланс только при успехе.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#174b3b"/></marker></defs>
+  <style>text{font-family:Arial,sans-serif;fill:#19382d}.box{fill:#fffefa;stroke:#47745e;stroke-width:3}.head{fill:#e6f0df}.line{stroke:#174b3b;stroke-width:3;fill:none;marker-end:url(#arrow)}.note{fill:#f2f5e8;stroke:#b7ca9e;stroke-width:2}</style>
+  <rect class="box" x="65" y="130" width="340" height="330" rx="18"/><rect class="head" x="65" y="130" width="340" height="68" rx="18"/>
+  <text x="235" y="173" text-anchor="middle" font-size="30" font-weight="700">TransitCard</text><text x="100" y="250" font-size="23">Состояние</text><text x="120" y="292" font-size="21">balance: Decimal</text><text x="120" y="329" font-size="21">blocked: bool</text><text x="100" y="390" font-size="23">Поведение</text><text x="120" y="430" font-size="21">charge_fare(amount)</text>
+  <rect class="box" x="505" y="130" width="285" height="180" rx="18"/><rect class="head" x="505" y="130" width="285" height="62" rx="18"/><text x="647" y="170" text-anchor="middle" font-size="25" font-weight="700">PaymentService</text><text x="535" y="240" font-size="21">просит карту</text><text x="535" y="277" font-size="20">выполнить оплату</text>
+  <rect class="box" x="855" y="130" width="285" height="180" rx="18"/><rect class="head" x="855" y="130" width="285" height="62" rx="18"/><text x="997" y="170" text-anchor="middle" font-size="25" font-weight="700">Fare</text><text x="885" y="240" font-size="21">amount: Decimal</text><text x="885" y="277" font-size="20">предметная сумма</text>
+  <path class="line" d="M790 220H840"/><path class="line" d="M997 310V390H430"/>
+  <rect class="note" x="505" y="390" width="635" height="110" rx="16"/><text x="822" y="434" text-anchor="middle" font-size="24" font-weight="700">Сначала проверяем — затем меняем состояние</text><text x="822" y="473" text-anchor="middle" font-size="20">Отказ оставляет баланс неизменным</text>
+  <text x="600" y="565" text-anchor="middle" font-size="20" fill="#47745e">Инвариант защищён внутри объекта карты</text>
+</svg>

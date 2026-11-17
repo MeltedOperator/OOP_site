@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Полиморфизм через контракт оплаты</title>
+  <desc id="desc">Процессор зависит от общего контракта PaymentMethod. Карта и QR реализуют его по-разному.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#174b3b"/></marker></defs>
+  <style>text{font-family:Arial,sans-serif;fill:#19382d}.box{fill:#fffefa;stroke:#47745e;stroke-width:3}.head{fill:#e6f0df}.line{stroke:#174b3b;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke-dasharray:9 8}</style>
+  <rect class="box" x="395" y="80" width="410" height="160" rx="18"/><rect class="head" x="395" y="80" width="410" height="62" rx="18"/><text x="600" y="122" text-anchor="middle" font-size="28" font-weight="700">PaymentMethod · Protocol</text><text x="600" y="190" text-anchor="middle" font-size="21">execute(amount) → result</text>
+  <rect class="box" x="90" y="370" width="300" height="155" rx="18"/><rect class="head" x="90" y="370" width="300" height="58" rx="18"/><text x="240" y="410" text-anchor="middle" font-size="26" font-weight="700">CardPayment</text><text x="240" y="478" text-anchor="middle" font-size="20">«реализует» execute</text>
+  <rect class="box" x="810" y="370" width="300" height="155" rx="18"/><rect class="head" x="810" y="370" width="300" height="58" rx="18"/><text x="960" y="410" text-anchor="middle" font-size="26" font-weight="700">QrPayment</text><text x="960" y="478" text-anchor="middle" font-size="20">«реализует» execute</text>
+  <path class="line dash" d="M240 370L455 250"/><path class="line dash" d="M960 370L745 250"/>
+  <rect class="box" x="430" y="340" width="340" height="150" rx="18"/><rect class="head" x="430" y="340" width="340" height="58" rx="18"/><text x="600" y="380" text-anchor="middle" font-size="26" font-weight="700">PaymentProcessor</text><text x="600" y="450" text-anchor="middle" font-size="20">method.execute(amount)</text>
+  <path class="line" d="M430 420H400"/><path class="line" d="M770 420H800"/>
+  <text x="600" y="580" text-anchor="middle" font-size="20" fill="#47745e">Клиент вызывает один метод; реализация выбирается объектом</text>
+</svg>

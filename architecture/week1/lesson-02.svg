@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">Композиция вместо комбинаторного наследования</title>
+  <desc id="desc">FareCalculator объединяет отдельные тарифные политики и рассчитывает цену поездки.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#174b3b"/></marker></defs>
+  <style>text{font-family:Arial,sans-serif;fill:#19382d}.box{fill:#fffefa;stroke:#47745e;stroke-width:3}.head{fill:#e6f0df}.line{stroke:#174b3b;stroke-width:3;fill:none;marker-end:url(#arrow)}.dash{stroke-dasharray:9 8}</style>
+  <rect class="box" x="420" y="90" width="360" height="190" rx="18"/><rect class="head" x="420" y="90" width="360" height="65" rx="18"/><text x="600" y="134" text-anchor="middle" font-size="29" font-weight="700">FareCalculator</text><text x="460" y="205" font-size="21">calculate(trip)</text><text x="460" y="244" font-size="20">собирает итоговую цену</text>
+  <rect class="box" x="50" y="390" width="245" height="135" rx="18"/><rect class="head" x="50" y="390" width="245" height="55" rx="18"/><text x="172" y="428" text-anchor="middle" font-size="23" font-weight="700">ZonePolicy</text><text x="172" y="486" text-anchor="middle" font-size="20">× 1.30</text>
+  <rect class="box" x="345" y="390" width="245" height="135" rx="18"/><rect class="head" x="345" y="390" width="245" height="55" rx="18"/><text x="467" y="428" text-anchor="middle" font-size="23" font-weight="700">TimePolicy</text><text x="467" y="486" text-anchor="middle" font-size="20">× 1.20</text>
+  <rect class="box" x="640" y="390" width="245" height="135" rx="18"/><rect class="head" x="640" y="390" width="245" height="55" rx="18"/><text x="762" y="428" text-anchor="middle" font-size="23" font-weight="700">DiscountPolicy</text><text x="762" y="486" text-anchor="middle" font-size="20">× 0.50</text>
+  <rect class="box" x="935" y="390" width="215" height="135" rx="18"/><rect class="head" x="935" y="390" width="215" height="55" rx="18"/><text x="1042" y="428" text-anchor="middle" font-size="22" font-weight="700">BaseRate</text><text x="1042" y="486" text-anchor="middle" font-size="20">100 KZT</text>
+  <path class="line dash" d="M490 390L520 290"/><path class="line dash" d="M560 390L580 290"/><path class="line dash" d="M740 390L680 290"/><path class="line dash" d="M970 390L730 280"/>
+  <text x="600" y="585" text-anchor="middle" font-size="20" fill="#47745e">Меняем одну политику, не создавая подкласс для каждой комбинации</text>
+</svg>

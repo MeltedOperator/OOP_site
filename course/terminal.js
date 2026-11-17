@@ -2,6 +2,7 @@
   const MAX_SOURCE_LENGTH = 12000;
   const MAX_OUTPUT_LENGTH = 12000;
   const TIMEOUT_MS = 8000;
+  const STARTUP_TIMEOUT_MS = 120000;
 
   const LAB_ORACLES = {
     1: [
@@ -256,10 +257,12 @@
     const kind = options.kind;
     const id = options.id;
     const content = options.content;
+    const language = options.language || content.language || "python";
+    const isJavaScript = language === "javascript";
     const exerciseId = options.exerciseId || "main";
     const editorId = "terminal-editor-" + kind + "-" + id + "-" + exerciseId;
     const isLab = kind === "lab";
-    const canCheck = isLab && content.checkable !== false;
+    const canCheck = isLab && !isJavaScript && content.checkable !== false;
     const showSolution = isLab && content.showSolution !== false && content.solution;
     const feedbackButton = canCheck
       ? '<button class="button button-quiet" type="button" data-terminal-action="check">Проверить ясные критерии</button>'
@@ -270,11 +273,11 @@
     const analog = isLab && content.analog && typeof content.analog === "object"
       ? '<aside class="terminal-analog" data-terminal-analog hidden><strong>Вернитесь к понятию · ' + escapeHtml(content.analog.title) + '</strong><p>' + escapeHtml(content.analog.explanation) + '</p><pre><code>' + escapeHtml(content.analog.source) + '</code></pre><button class="button button-quiet" type="button" data-terminal-action="analog">Запустить аналог</button></aside>'
       : (isLab ? '<aside class="terminal-analog" data-terminal-analog hidden><strong>Вернитесь к понятию</strong><p>' + escapeHtml(content.analog || "") + '</p></aside>' : "");
-    return '<section class="practice-terminal" data-terminal data-terminal-kind="' + escapeHtml(kind) + '" data-terminal-id="' + id + '" data-terminal-exercise="' + escapeHtml(exerciseId) + '">' +
-      '<div class="terminal-heading"><div><p class="eyebrow">' + (isLab ? "ПРАКТИКА · МОДУЛЬ " + String(Math.ceil(id / 3)).padStart(2, "0") : "ЗАПУСКАЕМЫЙ ПРИМЕР") + '</p><h2>' + escapeHtml(content.title) + '</h2></div><span class="terminal-runtime">Python · Pyodide 314.0.7</span></div>' +
+    return '<section class="practice-terminal' + (isJavaScript ? ' is-javascript' : '') + '" data-terminal data-terminal-language="' + escapeHtml(language) + '" data-terminal-kind="' + escapeHtml(kind) + '" data-terminal-id="' + id + '" data-terminal-exercise="' + escapeHtml(exerciseId) + '">' +
+      '<div class="terminal-heading"><div><p class="eyebrow">' + (isLab ? "ПРАКТИКА · МОДУЛЬ " + String(Math.ceil(id / 3)).padStart(2, "0") : "ЗАПУСКАЕМЫЙ ПРИМЕР") + '</p><h2>' + escapeHtml(content.title) + '</h2></div><span class="terminal-runtime">' + (isJavaScript ? "JavaScript · Worker" : "Python · Pyodide 314.0.7") + '</span></div>' +
       '<p class="terminal-prompt">' + escapeHtml(content.prompt) + '</p>' +
-      '<label class="terminal-editor-label" for="' + escapeHtml(editorId) + '">Редактор Python</label>' +
-      '<div class="terminal-grid"><textarea id="' + escapeHtml(editorId) + '" class="terminal-editor" data-terminal-editor rows="14" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Редактор Python">' + escapeHtml(content.starter) + '</textarea>' +
+      '<label class="terminal-editor-label" for="' + escapeHtml(editorId) + '">Редактор ' + (isJavaScript ? "JavaScript" : "Python") + '</label>' +
+      '<div class="terminal-grid"><textarea id="' + escapeHtml(editorId) + '" class="terminal-editor" data-terminal-editor rows="14" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Редактор ' + (isJavaScript ? "JavaScript" : "Python") + '">' + escapeHtml(content.starter) + '</textarea>' +
       '<div class="terminal-result"><p class="terminal-editor-label">Вывод и диагностика</p><pre class="terminal-output" data-terminal-output aria-live="polite">Код ещё не запускался.</pre></div></div>' +
       '<div class="terminal-actions"><button class="button button-primary" type="button" data-terminal-action="run">Запустить код</button>' + feedbackButton + '</div>' +
       '<p class="terminal-status" data-terminal-status role="status" aria-live="polite">Среда загружается при первом запуске.</p>' +
@@ -286,6 +289,25 @@
 
   function mount(root) {
     const scope = root || document;
+    scope.querySelectorAll("[data-code-switch]:not([data-code-switch-mounted])").forEach((switcher) => {
+      switcher.dataset.codeSwitchMounted = "true";
+      switcher.addEventListener("click", (event) => {
+        const target = event.target instanceof Element ? event.target : null;
+        const control = target && target.closest("[data-code-switch-target]");
+        if (!control || control.closest("[data-code-switch]") !== switcher) return;
+        const selected = control.dataset.codeSwitchTarget;
+        switcher.querySelectorAll("[data-code-switch-target]").forEach((button) => {
+          if (button.closest("[data-code-switch]") === switcher) {
+            button.setAttribute("aria-pressed", String(button === control));
+          }
+        });
+        switcher.querySelectorAll("[data-code-switch-panel]").forEach((panel) => {
+          if (panel.closest("[data-code-switch]") === switcher) {
+            panel.hidden = panel.dataset.codeSwitchPanel !== selected;
+          }
+        });
+      });
+    });
     if (typeof Worker === "undefined") {
       scope.querySelectorAll("[data-terminal]").forEach((terminal) => {
         terminal.querySelector("[data-terminal-status]").textContent = "В этой среде нет поддержки Worker. Код не запускался.";
@@ -302,12 +324,14 @@
       const analog = terminal.querySelector("[data-terminal-analog]");
       const buttons = Array.from(terminal.querySelectorAll("[data-terminal-action]"));
       let worker = null;
+      let workerReady = false;
       let requestNumber = 0;
       const pending = new Map();
 
       function stopWorker(message) {
         if (worker) worker.terminate();
         worker = null;
+        workerReady = false;
         for (const entry of pending.entries()) {
           const id = entry[0];
           const request = entry[1];
@@ -319,8 +343,24 @@
 
       function ensureWorker() {
         if (worker) return worker;
-        worker = new Worker(new URL("pyodide-worker.js", document.baseURI), { type: "module" });
+        const workerFile = terminal.dataset.terminalLanguage === "javascript" ? "javascript-worker.js" : "pyodide-worker.js";
+        worker = new Worker(new URL(workerFile, document.baseURI), { type: "module" });
         worker.addEventListener("message", (event) => {
+          if (event.data && event.data.type === "ready") {
+            workerReady = true;
+            for (const request of pending.values()) {
+              clearTimeout(request.timer);
+              request.timer = setTimeout(() => {
+                stopWorker("Код выполнялся дольше 8 секунд. Проверка не засчитана.");
+              }, TIMEOUT_MS);
+            }
+            status.textContent = (terminal.dataset.terminalLanguage === "javascript" ? "JavaScript" : "Python") + " готов, выполняем код…";
+            return;
+          }
+          if (event.data && event.data.type === "load-error") {
+            stopWorker("Не удалось загрузить Python: " + event.data.message);
+            return;
+          }
           const request = pending.get(event.data && event.data.id);
           if (!request) return;
           pending.delete(event.data.id);
@@ -371,13 +411,17 @@
         clearFeedback();
         if (action === "analog" && analog) analog.hidden = false;
         output.textContent = "";
-        status.textContent = action === "check" ? "Запускаем код и ясные проверки…" : "Запускаем код…";
+        status.textContent = workerReady
+          ? (action === "check" ? "Запускаем код и ясные проверки…" : "Запускаем код…")
+          : "Запускаем среду " + (terminal.dataset.terminalLanguage === "javascript" ? "JavaScript" : "Python") + "…";
         try {
           const id = ++requestNumber;
           const response = await new Promise((resolve, reject) => {
             const timer = setTimeout(() => {
-              stopWorker("Превышено время выполнения. Проверка не засчитана.");
-            }, TIMEOUT_MS);
+              stopWorker(workerReady
+                ? "Код выполнялся дольше 8 секунд. Проверка не засчитана."
+                : "Загрузка Python превысила 120 секунд. Проверьте подключение и повторите запуск.");
+            }, workerReady ? TIMEOUT_MS : STARTUP_TIMEOUT_MS);
             pending.set(id, { resolve, reject, timer });
             ensureWorker().postMessage({
               id,

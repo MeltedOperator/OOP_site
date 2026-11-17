@@ -5,6 +5,7 @@ const MAX_SOURCE_LENGTH = 12000;
 const MAX_OUTPUT_LENGTH = 12000;
 let runtimePromise;
 let capturedOutput = "";
+let readySent = false;
 
 const LAB_ORACLES = globalThis.OopomanTerminal.labOracles;
 
@@ -40,6 +41,10 @@ async function getRuntime() {
 
 async function execute(message) {
   const runtime = await getRuntime();
+  if (!readySent) {
+    readySent = true;
+    self.postMessage({ type: "ready", version: "314.0.7" });
+  }
   if (typeof message.source !== "string" || message.source.length > MAX_SOURCE_LENGTH) {
     throw new Error("Код отсутствует или превышает допустимый размер.");
   }
@@ -65,6 +70,13 @@ self.addEventListener("message", async (event) => {
     const result = await execute(message);
     self.postMessage({ id: message.id, ok: true, stdout: result.stdout, criteria: result.criteria });
   } catch (error) {
+    if (!readySent) {
+      self.postMessage({
+        type: "load-error",
+        message: clamp(error instanceof Error ? error.message : String(error)),
+      });
+      return;
+    }
     self.postMessage({
       id: message.id,
       ok: false,

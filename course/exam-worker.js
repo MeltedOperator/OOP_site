@@ -1,6 +1,6 @@
-import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v314.0.7/full/pyodide.mjs";
+import { loadPyodide } from "./assets/pyodide/pyodide.mjs";
 
-const INDEX_URL = "https://cdn.jsdelivr.net/pyodide/v314.0.7/full/";
+const INDEX_URL = new URL("./assets/pyodide/", import.meta.url).href;
 const pyodidePromise = loadPyodide({ indexURL: INDEX_URL });
 
 const suites = {

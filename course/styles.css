@@ -446,6 +446,22 @@ body::after { right: -125px; bottom: 10vh; width: 300px; height: 300px; border-c
 .content-page[data-module-id="3"] .lesson-section-heading > div,
 .content-page[data-module-id="3"] .rich-content { min-width: 0; }
 .content-page[data-module-id="3"] .rich-content { grid-template-columns: minmax(0, 1fr); }
+.content-page[data-module-id="1"] .uml-diagram,
+.content-page[data-module-id="1"] .lab-diagram { margin: 20px 0; padding: 20px; border: 1px solid #b8cbbd; border-radius: 12px; background: #f4f7f1; }
+.content-page[data-module-id="1"] .uml-diagram img { display: block; width: 100%; height: auto; }
+.content-page[data-module-id="1"] .uml-diagram figcaption { margin-top: 12px; line-height: 1.6; }
+.content-page[data-module-id="1"] .uml-diagram figcaption p { margin: 5px 0 0; }
+.code-switch { min-width: 0; margin: 16px 0 22px; }
+.code-switch-controls { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.code-switch-button { border: 1px solid #aebeb2; border-radius: 999px; padding: 9px 15px; background: #fff; color: #244b38; font: inherit; font-weight: 700; cursor: pointer; }
+.code-switch-button[aria-pressed="true"] { border-color: #174b3b; background: #174b3b; color: #fff; }
+.code-switch-button:focus-visible { outline: 3px solid #9ac56d; outline-offset: 2px; }
+.code-switch-panel { min-width: 0; }
+.code-switch-panel[hidden] { display: none !important; }
+.code-switch-panel > .practice-terminal:first-child { margin-top: 0; }
+.code-switch-panel .language-comparison { margin: 0 0 12px; }
+.practice-terminal.is-javascript { border-color: #c9c3e2; }
+.practice-terminal.is-javascript .terminal-editor { background: #28243a; }
 @media (max-width: 760px) {
   .content-page[data-module-id="2"] .example-breakdown { grid-template-columns: 1fr; }
   .content-page[data-module-id="2"] .oop-diagram-compare { grid-template-columns: 1fr; }
@@ -454,6 +470,10 @@ body::after { right: -125px; bottom: 10vh; width: 300px; height: 300px; border-c
   .content-page[data-module-id="3"] .uml-diagram,
   .content-page[data-module-id="3"] .lab-code-model { padding: 14px; }
   .content-page[data-module-id="3"] .uml-diagram img { min-width: 0; }
+  .content-page[data-module-id="1"] .uml-diagram,
+  .content-page[data-module-id="1"] .lab-diagram { padding: 14px; }
+  .code-switch-controls { gap: 6px; }
+  .code-switch-button { flex: 1 1 auto; }
 }
 .content-page[data-module-id="2"] .lesson-sections { grid-template-columns: minmax(0, 1fr); }
 .content-page[data-module-id="2"] .lesson-section,
@@ -533,6 +553,9 @@ body::after { right: -125px; bottom: 10vh; width: 300px; height: 300px; border-c
 .terminal-solution summary { cursor: pointer; font-weight: 700; }
 .terminal-solution pre { max-height: 28rem; }
 .terminal-disclosure { margin: 1rem 0 0; color: #5a6c63; font-size: .82rem; }
+
+.content-page[data-module-id="3"] .code-switch-panel > .code-example { margin-top: 0; }
+.content-page[data-module-id="3"] .code-switch-panel > .practice-terminal { margin-top: 0; }
 
 @media (max-width: 760px) {
   .terminal-heading { align-items: flex-start; flex-direction: column; }
